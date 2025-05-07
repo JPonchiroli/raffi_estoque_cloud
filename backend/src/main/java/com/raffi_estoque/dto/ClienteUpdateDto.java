@@ -6,7 +6,7 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
-public class EventUpdateDto {
+public class ClienteUpdateDto {
 
     @NotBlank
     @Size(min = 3, max = 50)
@@ -14,9 +14,9 @@ public class EventUpdateDto {
     @FutureOrPresent
     private LocalDateTime dateTime;
 
-    public EventUpdateDto(){}
+    public ClienteUpdateDto(){}
 
-    public EventUpdateDto(String eventName, LocalDateTime dateTime) {
+    public ClienteUpdateDto(String eventName, LocalDateTime dateTime) {
         this.eventName = eventName;
         this.dateTime = dateTime;
     }

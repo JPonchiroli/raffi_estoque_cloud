@@ -1,42 +1,20 @@
-package com.raffi_estoque.entities;
+package com.raffi_estoque.dto;
 
-import jakarta.persistence.*;
+public class ClienteResponseDto {
 
-@Entity
-@Table(name = "tb_cliente")
-public class Cliente {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codCliente; // Primary Key
-
-    @Column(name = "nomeCliente")
     private String nomeCliente;
-
-    @Column
-    private String cep;
-
-    @Column
+    private Integer cep;
     private String rua;
-
-    @Column
     private Integer numeroRua;
-
-    @Column
     private String bairro;
-
-    @Column
     private String cidade;
-
-    @Column
     private String uf;
-
-    @Column
     private String complemento;
 
-    public Cliente(){}
+    public ClienteResponseDto() {}
 
-    public Cliente(Integer codCliente, String nomeCliente, String cep, String rua, Integer numeroRua, String bairro, String cidade, String uf, String complemento) {
+    public ClienteResponseDto(Integer codCliente, String nomeCliente, Integer cep, String rua, Integer numeroRua, String bairro, String cidade, String uf, String complemento) {
         this.codCliente = codCliente;
         this.nomeCliente = nomeCliente;
         this.cep = cep;
@@ -47,9 +25,6 @@ public class Cliente {
         this.uf = uf;
         this.complemento = complemento;
     }
-
-    // Getters and Setters
-
 
     public Integer getCodCliente() {
         return codCliente;
@@ -67,11 +42,11 @@ public class Cliente {
         this.nomeCliente = nomeCliente;
     }
 
-    public String getCep() {
+    public Integer getCep() {
         return cep;
     }
 
-    public void setCep(String cep) {
+    public void setCep(Integer cep) {
         this.cep = cep;
     }
 

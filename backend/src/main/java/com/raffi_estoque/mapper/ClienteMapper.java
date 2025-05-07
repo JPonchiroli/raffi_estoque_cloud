@@ -1,9 +1,8 @@
 package com.raffi_estoque.mapper;
 
-import com.raffi_estoque.dto.EventResponseDto;
-import com.raffi_estoque.dto.EventCreateDto;
-import com.raffi_estoque.dto.EventUpdateDto;
+import com.raffi_estoque.dto.ClienteCreateDto;
 
+import com.raffi_estoque.dto.ClienteResponseDto;
 import com.raffi_estoque.entities.Cliente;
 import org.springframework.stereotype.Component;
 import org.mapstruct.factory.Mappers;
@@ -14,18 +13,11 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 @Component()
 public interface ClienteMapper {
-    /*
     ClienteMapper INSTANCE = Mappers.getMapper(ClienteMapper.class);
 
-    ClienteResponseDto toEventResponseDto(Cliente event);
+    ClienteResponseDto toClienteResponseDto(Cliente cliente);
 
-    Cliente toEvent(EventCreateDto eventCreateDto);
+    Cliente toCliente(ClienteCreateDto clienteCreateDto);
 
-    List<EventResponseDto> toListResponseDto(List<Event> event);
-
-    Cliente toEvent(EventUpdateDto updateDto);
-
-    EventUpdateDto toUpdateDto(Cliente event);
-    */
-
+    List<ClienteResponseDto> toListResponseDto(List<Cliente> cliente);
 }
