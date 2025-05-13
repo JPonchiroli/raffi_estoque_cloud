@@ -1,14 +1,7 @@
-package com.raffi_estoque.entities;
+package com.raffi_estoque.dto;
 
-import com.raffi_estoque.dto.FornecedorCreateDto;
-import jakarta.persistence.*;
+public class FornecedorResponseDto {
 
-@Entity
-@Table(name = "tb_fornecedor")
-public class Fornecedor {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codFornecedor;
     private String nomeFornecedor;
     private String cnpj;
@@ -22,9 +15,9 @@ public class Fornecedor {
     private String uf;
     private String complemento;
 
-    public Fornecedor() {}
+    public FornecedorResponseDto() {}
 
-    public Fornecedor(int codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, int cep, String rua, int numeroRua, String bairro, String cidade, String uf, String complemento) {
+    public FornecedorResponseDto(int codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, int cep, String rua, int numeroRua, String bairro, String cidade, String uf, String complemento) {
         this.codFornecedor = codFornecedor;
         this.nomeFornecedor = nomeFornecedor;
         this.cnpj = cnpj;
@@ -38,8 +31,6 @@ public class Fornecedor {
         this.uf = uf;
         this.complemento = complemento;
     }
-
-    // Getters and Setters
 
     public int getCodFornecedor() {
         return codFornecedor;
