@@ -60,4 +60,14 @@ public class ClienteCreateDto {
     public void setNumeroRua(Integer numeroRua) {
         this.numeroRua = numeroRua;
     }
+
+    @Override
+    public String toString() {
+        return "ClienteCreateDto{" +
+                "nomeCliente='" + nomeCliente + '\'' +
+                ", cep='" + cep + '\'' +
+                ", complemento='" + complemento + '\'' +
+                ", numeroRua=" + numeroRua +
+                '}';
+    }
 }

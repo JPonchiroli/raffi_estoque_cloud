@@ -4,6 +4,7 @@ import com.raffi_estoque.dto.ClienteCreateDto;
 
 import com.raffi_estoque.dto.ClienteResponseDto;
 import com.raffi_estoque.entities.Cliente;
+import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;
 import org.mapstruct.factory.Mappers;
 import org.mapstruct.Mapper;
@@ -17,6 +18,7 @@ public interface ClienteMapper {
 
     ClienteResponseDto toClienteResponseDto(Cliente cliente);
 
+    @Mapping(source = "nomeCliente", target = "nomeCliente")
     Cliente toCliente(ClienteCreateDto clienteCreateDto);
 
     List<ClienteResponseDto> toListResponseDto(List<Cliente> cliente);

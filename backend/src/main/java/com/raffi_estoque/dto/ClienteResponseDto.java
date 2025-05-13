@@ -97,4 +97,19 @@ public class ClienteResponseDto {
     public void setComplemento(String complemento) {
         this.complemento = complemento;
     }
+
+    @Override
+    public String toString() {
+        return "ClienteResponseDto{" +
+                "codCliente=" + codCliente +
+                ", nomeCliente='" + nomeCliente + '\'' +
+                ", cep=" + cep +
+                ", rua='" + rua + '\'' +
+                ", numeroRua=" + numeroRua +
+                ", bairro='" + bairro + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", uf='" + uf + '\'' +
+                ", complemento='" + complemento + '\'' +
+                '}';
+    }
 }
