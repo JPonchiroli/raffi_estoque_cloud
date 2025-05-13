@@ -2,6 +2,7 @@ package com.raffi_estoque.controllers;
 
 import com.raffi_estoque.dto.ClienteCreateDto;
 import com.raffi_estoque.dto.ClienteResponseDto;
+import com.raffi_estoque.dto.ClienteUpdateDto;
 import com.raffi_estoque.entities.Cliente;
 import com.raffi_estoque.services.ClienteService;
 import com.raffi_estoque.mapper.ClienteMapper;
@@ -50,13 +51,13 @@ public class ClienteController {
         List<Cliente> clientes = clienteService.findAll();
         return ResponseEntity.ok().body(mapper.toListResponseDto(clientes));
     }
-/*
-        @PutMapping("/update-event/{id}")
-        public ResponseEntity<ClienteUpdateDto> updateEvent(@PathVariable Long id, @RequestBody @Valid ClienteUpdateDto updateDto){
-            Cliente event = clienteService.update(id, mapper.toEvent(updateDto));
-            return ResponseEntity.ok(mapper.toUpdateDto(event));
+
+        @PutMapping("/update-cliente/{id}")
+        public ResponseEntity<ClienteUpdateDto> updateEvent(@PathVariable Integer id, @RequestBody @Valid ClienteUpdateDto updateDto){
+            Cliente cliente = clienteService.update(id, mapper.toCliente(updateDto));
+            return ResponseEntity.ok(mapper.toUpdate(cliente));
         }
-*/
+
     @GetMapping("/get-address/{cep}")
     public ViaCepResponse getAddress(@PathVariable String cep) {
         return clienteService.getAddress(cep);

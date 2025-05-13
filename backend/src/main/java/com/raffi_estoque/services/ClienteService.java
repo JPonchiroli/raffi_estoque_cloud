@@ -38,11 +38,11 @@ public class ClienteService {
     }
 
     @Transactional
-    public Cliente update(Integer id, Cliente event){
-        Cliente eventUpd = findById(id);
-        eventUpd.setNomeCliente(event.getNomeCliente());
-        eventUpd.setComplemento(event.getComplemento());
-        return eventRepository.save(eventUpd);
+    public Cliente update(Integer id, Cliente cliente){
+        Cliente clienteUpd = findById(id);
+        clienteUpd.setNomeCliente(cliente.getNomeCliente());
+        clienteUpd.setComplemento(cliente.getComplemento());
+        return eventRepository.save(clienteUpd);
     }
 
     @Transactional

@@ -9,31 +9,31 @@ import java.time.LocalDateTime;
 public class ClienteUpdateDto {
 
     @NotBlank
-    @Size(min = 3, max = 50)
-    private String eventName;
-    @FutureOrPresent
-    private LocalDateTime dateTime;
+    private String nomeCliente;
 
-    public ClienteUpdateDto(){}
+    @NotBlank
+    private String complemento;
 
-    public ClienteUpdateDto(String eventName, LocalDateTime dateTime) {
-        this.eventName = eventName;
-        this.dateTime = dateTime;
+    public ClienteUpdateDto() {}
+
+    public ClienteUpdateDto(String nomeCliente, String complemento) {
+        this.nomeCliente = nomeCliente;
+        this.complemento = complemento;
     }
 
-    public String getEventName() {
-        return eventName;
+    public @NotBlank String getNomeCliente() {
+        return nomeCliente;
     }
 
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
+    public void setNomeCliente(@NotBlank String nomeCliente) {
+        this.nomeCliente = nomeCliente;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public @NotBlank String getComplemento() {
+        return complemento;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setComplemento(@NotBlank String complemento) {
+        this.complemento = complemento;
     }
 }
