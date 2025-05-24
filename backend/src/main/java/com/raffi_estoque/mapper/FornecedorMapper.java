@@ -17,6 +17,9 @@ public interface FornecedorMapper {
     FornecedorResponseDto toFornecedorResponseDto(Fornecedor fornecedor);
 
     @Mapping(source = "nomeFornecedor", target = "nomeFornecedor")
+    @Mapping(source = "complemento", target = "complemento")
+    @Mapping(source = "numeroRua", target = "numeroRua")
+    @Mapping(source = "cep", target = "cep")
     Fornecedor toFornecedor(FornecedorCreateDto fornecedor);
 
     List<FornecedorResponseDto> toListResponseDto(List<Fornecedor> fornecedor);

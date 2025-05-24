@@ -22,8 +22,8 @@ public class ClienteService {
     private ViaCepClient viaCepclient;
 
     @Transactional
-    public Cliente save(Cliente event){
-        return eventRepository.save(event);
+    public Cliente save(Cliente cliente){
+        return eventRepository.save(cliente);
     }
 
     @Transactional

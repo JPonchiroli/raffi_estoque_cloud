@@ -39,8 +39,6 @@ public class Fornecedor {
         this.complemento = complemento;
     }
 
-    // Getters and Setters
-
     public int getCodFornecedor() {
         return codFornecedor;
     }
@@ -135,5 +133,23 @@ public class Fornecedor {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    @Override
+    public String toString() {
+        return "Fornecedor{" +
+                "codFornecedor=" + codFornecedor +
+                ", nomeFornecedor='" + nomeFornecedor + '\'' +
+                ", cnpj='" + cnpj + '\'' +
+                ", email='" + email + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", cep=" + cep +
+                ", rua='" + rua + '\'' +
+                ", numeroRua=" + numeroRua +
+                ", bairro='" + bairro + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", uf='" + uf + '\'' +
+                ", complemento='" + complemento + '\'' +
+                '}';
     }
 }
