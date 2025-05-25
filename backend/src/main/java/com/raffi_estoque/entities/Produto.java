@@ -9,7 +9,6 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codProduto;
-    private int codCliente;
     private int codFornecedor;
     private String nomeProduto;
     private int unidadeMedida;
@@ -19,7 +18,6 @@ public class Produto {
     private int estoqueMinimo;
     private boolean avisoRepor;
 
-    // Getters and Setters
     public int getCodProduto() {
         return codProduto;
     }
@@ -27,15 +25,7 @@ public class Produto {
     public void setCodProduto(int codProduto) {
         this.codProduto = codProduto;
     }
-
-    public int getCodCliente() {
-        return codCliente;
-    }
-
-    public void setCodCliente(int codCliente) {
-        this.codCliente = codCliente;
-    }
-
+    
     public int getCodFornecedor() {
         return codFornecedor;
     }
