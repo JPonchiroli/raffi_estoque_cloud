@@ -16,25 +16,25 @@ import java.util.Optional;
 public class ClienteService {
 
     @Autowired
-    private ClienteRepository eventRepository;
+    private ClienteRepository clienteRepository;
 
     @Autowired
     private ViaCepClient viaCepclient;
 
     @Transactional
     public Cliente save(Cliente cliente){
-        return eventRepository.save(cliente);
+        return clienteRepository.save(cliente);
     }
 
     @Transactional
     public Cliente findById(Integer id){
-        Optional<Cliente> event = eventRepository.findById(id);
+        Optional<Cliente> event = clienteRepository.findById(id);
         return event.orElseThrow(() -> new ObjectNotFoundException("Cliente Não Encontrado"));
     }
 
     @Transactional
     public List<Cliente> findAll(){
-        return eventRepository.findAll();
+        return clienteRepository.findAll();
     }
 
     @Transactional
@@ -42,19 +42,18 @@ public class ClienteService {
         Cliente clienteUpd = findById(id);
         clienteUpd.setNomeCliente(cliente.getNomeCliente());
         clienteUpd.setComplemento(cliente.getComplemento());
-        return eventRepository.save(clienteUpd);
+        return clienteRepository.save(clienteUpd);
     }
 
     @Transactional
     public void deleteById(Integer id) {
-        Optional<Cliente> event = eventRepository.findById(id);
+        Optional<Cliente> event = clienteRepository.findById(id);
 
-        eventRepository.deleteById(id);
+        clienteRepository.deleteById(id);
     }
 
     public ViaCepResponse getAddress(String cep) {
         return viaCepclient.getAddress(cep);
     }
-
 
 }

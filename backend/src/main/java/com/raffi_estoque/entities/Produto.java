@@ -2,6 +2,8 @@ package com.raffi_estoque.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Optional;
+
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
@@ -9,14 +11,31 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int codProduto;
-    private int codFornecedor;
     private String nomeProduto;
-    private int unidadeMedida;
+    private String unidadeMedida;
     private double valorCusto;
     private double valorVenda;
     private int estoqueAtual;
     private int estoqueMinimo;
     private boolean avisoRepor;
+
+    @ManyToOne
+    @JoinColumn(name = "codFornecedor", nullable = false)
+    private Fornecedor fornecedor;
+
+    public Produto(){}
+
+    public Produto(int codProduto, String nomeProduto, String unidadeMedida, double valorCusto, double valorVenda, int estoqueAtual, int estoqueMinimo, boolean avisoRepor, Fornecedor fornecedor) {
+        this.codProduto = codProduto;
+        this.nomeProduto = nomeProduto;
+        this.unidadeMedida = unidadeMedida;
+        this.valorCusto = valorCusto;
+        this.valorVenda = valorVenda;
+        this.estoqueAtual = estoqueAtual;
+        this.estoqueMinimo = estoqueMinimo;
+        this.avisoRepor = avisoRepor;
+        this.fornecedor = fornecedor;
+    }
 
     public int getCodProduto() {
         return codProduto;
@@ -24,14 +43,6 @@ public class Produto {
 
     public void setCodProduto(int codProduto) {
         this.codProduto = codProduto;
-    }
-    
-    public int getCodFornecedor() {
-        return codFornecedor;
-    }
-
-    public void setCodFornecedor(int codFornecedor) {
-        this.codFornecedor = codFornecedor;
     }
 
     public String getNomeProduto() {
@@ -42,11 +53,11 @@ public class Produto {
         this.nomeProduto = nomeProduto;
     }
 
-    public int getUnidadeMedida() {
+    public String getUnidadeMedida() {
         return unidadeMedida;
     }
 
-    public void setUnidadeMedida(int unidadeMedida) {
+    public void setUnidadeMedida(String unidadeMedida) {
         this.unidadeMedida = unidadeMedida;
     }
 
@@ -90,4 +101,11 @@ public class Produto {
         this.avisoRepor = avisoRepor;
     }
 
+    public Fornecedor getFornecedor() {
+        return fornecedor;
+    }
+
+    public void setFornecedor(Fornecedor fornecedor) {
+        this.fornecedor = fornecedor;
+    }
 }

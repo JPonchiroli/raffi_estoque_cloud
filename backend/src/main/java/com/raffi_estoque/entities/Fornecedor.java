@@ -3,6 +3,8 @@ package com.raffi_estoque.entities;
 import com.raffi_estoque.dto.FornecedorCreateDto;
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_fornecedor")
 public class Fornecedor {
@@ -21,6 +23,9 @@ public class Fornecedor {
     private String cidade;
     private String uf;
     private String complemento;
+
+    @OneToMany(mappedBy = "fornecedor")
+    private List<Produto> produtos;
 
     public Fornecedor() {}
 
@@ -133,6 +138,14 @@ public class Fornecedor {
 
     public void setComplemento(String complemento) {
         this.complemento = complemento;
+    }
+
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
     @Override
