@@ -49,7 +49,8 @@ public class FornecedorService {
 
     @Transactional
     public void deleteById(Integer id) {
-        Optional<Fornecedor> event = fornecedorRepository.findById(id);
+        Optional<Fornecedor> fornecedor = Optional.ofNullable(fornecedorRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Fornecedor Não Encontrado")));
 
         fornecedorRepository.deleteById(id);
     }

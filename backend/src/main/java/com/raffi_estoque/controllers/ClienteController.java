@@ -26,7 +26,7 @@ public class ClienteController {
     private ClienteMapper mapper;
 
     @PostMapping("/create-cliente")
-    public ResponseEntity<ClienteResponseDto> createEvent(@RequestBody ClienteCreateDto cliente) {
+    public ResponseEntity<ClienteResponseDto> createCliente(@RequestBody ClienteCreateDto cliente) {
         Cliente clienteCreated = mapper.toCliente(cliente);
         String cep = cliente.getCep();
         ViaCepResponse address = getAddress(cep);
@@ -52,11 +52,18 @@ public class ClienteController {
         return ResponseEntity.ok().body(mapper.toListResponseDto(clientes));
     }
 
-        @PutMapping("/update-cliente/{id}")
-        public ResponseEntity<ClienteUpdateDto> updateEvent(@PathVariable Integer id, @RequestBody @Valid ClienteUpdateDto updateDto){
-            Cliente cliente = clienteService.update(id, mapper.toCliente(updateDto));
-            return ResponseEntity.ok(mapper.toUpdate(cliente));
-        }
+    @PutMapping("/update-cliente/{id}")
+    public ResponseEntity<ClienteUpdateDto> updateCliente(@PathVariable Integer id, @RequestBody @Valid ClienteUpdateDto updateDto){
+        Cliente cliente = clienteService.update(id, mapper.toCliente(updateDto));
+        return ResponseEntity.ok(mapper.toUpdate(cliente));
+    }
+
+    @DeleteMapping("/deletar-cliente/{id}")
+    public ResponseEntity<Void> deleteCliente(@PathVariable("id") Integer id){
+        clienteService.deleteById(id);
+
+        return ResponseEntity.noContent().build();
+    }
 
     @GetMapping("/get-address/{cep}")
     public ViaCepResponse getAddress(@PathVariable String cep) {

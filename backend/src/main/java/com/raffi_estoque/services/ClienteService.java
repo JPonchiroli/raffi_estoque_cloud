@@ -47,7 +47,8 @@ public class ClienteService {
 
     @Transactional
     public void deleteById(Integer id) {
-        Optional<Cliente> event = clienteRepository.findById(id);
+        Optional<Cliente> cliente = Optional.ofNullable(clienteRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Cliente Não Encontrado")));
 
         clienteRepository.deleteById(id);
     }

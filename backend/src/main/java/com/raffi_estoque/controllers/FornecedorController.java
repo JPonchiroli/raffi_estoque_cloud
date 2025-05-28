@@ -55,6 +55,13 @@ public class FornecedorController {
         return ResponseEntity.ok(mapper.toUpdate(fornecedor));
     }
 
+    @DeleteMapping("/deletar-fornecedor/{id}")
+    public ResponseEntity<Void> deleteFornecedor(@PathVariable("id") Integer id){
+        fornecedorService.deleteById(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/get-address/{cep}")
     public ViaCepResponse getAddress(@PathVariable String cep) {
         return fornecedorService.getAddress(cep);

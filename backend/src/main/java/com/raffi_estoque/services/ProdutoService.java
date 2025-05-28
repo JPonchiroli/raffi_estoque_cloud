@@ -65,7 +65,8 @@ public class ProdutoService {
 
     @Transactional
     public void deleteById(Integer id) {
-        Optional<Produto> event = produtoRepository.findById(id);
+        Optional<Produto> event = Optional.ofNullable(produtoRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("Produto Não Encontrado")));
 
         produtoRepository.deleteById(id);
     }
