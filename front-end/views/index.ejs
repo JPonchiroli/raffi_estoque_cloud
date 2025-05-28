@@ -1,54 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
     <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <title>Raffi Estoque</title>
-
-        <link rel="stylesheet" href="/styles/index.css">
+        <link rel="stylesheet" href="/styles/index.css" />
     </head>
     <body>
-        
-        <div>
+        <header>
             <h1>Raffi Estoque</h1>
             <h2>Bem-vindo ao sistema de controle de estoque!</h2>
-        </div>
-        
-        <div class="container-buttons">
-            <button onclick="window.location.href='/cadastro-cliente'">
-                <p>Cliente</p>
-            </button>
+        </header>
 
-            <button onclick="window.location.href='/cadastro-produto'">
-                <p>Produto</p>
-            </button>
+        <main>
+            <section class="actions">
+                <h3>Ações Rápidas</h3>
+                <div class="button-grid">
+                    <button onclick="window.location.href='/cadastro-cliente'">Cliente</button>
+                    <button onclick="window.location.href='/cadastro-produto'">Produto</button>
+                    <button onclick="window.location.href='/cadastro-fornecedor'">Fornecedor</button>
+                    <button onclick="chamarBackend()">Testar Backend Java</button>
+                </div>
+            </section>
+        </main>
 
-            <button onclick="window.location.href='/cadastro-fornecedor'">
-                <p>Fornecedor</p>
-            </button>
+        <footer>
+            <p>&copy; 2025 Raffi Estoque</p>
+        </footer>
 
-            <button onclick="chamarBackend()">
-                <p>Testar Backend Java</p>
-            </button>
-        </div>
-
+        <script>
+            function chamarBackend() {
+                fetch('/chamar-backend-java')
+                .then(res => res.json())
+                .then(data => {
+                    if (data.resposta) {
+                        console.log(data.resposta);
+                    } else {
+                        console.error('Resposta não encontrada');
+                    }
+                })
+                .catch(err => {
+                    console.log('Erro na requisição');
+                    console.error(err);
+                });
+            }
+        </script>
     </body>
-
-    <script>
-        function chamarBackend() {
-            fetch('/chamar-backend-java')
-            .then(res => res.json())
-            .then(data => {
-                if (data.resposta) {
-                console.log(data.resposta);
-                } else {
-                console.error('Resposta não encontrada');
-                }
-            })
-            .catch(err => {
-                console.log('Erro na requisição');
-                console.error(err);
-            });
-        }
-    </script>
 </html>
