@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Listar Clientes</title>
+
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.dataTables.min.css">
+        <link rel="stylesheet" href="/styles/listar.css">
+    </head>
+    <body>
+        <header>
+            <h1>Listar Clientes</h1>
+            <h2>Acompanhe aqui o cadadastro de todos os seus clientes</h2>
+        </header>
+
+        <main>
+            <section>
+                <table id="tabelaClientes" class="display">
+                    <thead>
+                        <tr>
+                            <th>Código Cliente</th>
+                            <th>Nome Cliente</th>
+                            <th>CEP</th>
+                            <th>Cidade</th>
+                            <th>Bairro</th>
+                            <th>Rua</th>
+                            <th>Número Rua</th>
+                            <th>Complemento</th>
+                            <th>UF</th>
+                        </tr>
+                    </thead>
+                </table>
+            </section>
+
+
+            <section class="actions">
+                <div class="button-grid">
+                    <button onclick="window.location.href='/'">Voltar</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Raffi Estoque</p>
+        </footer>
+    </body>
+
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="http://cdn.datatables.net/2.3.1/js/dataTables.min.js"></script>
+    <script>
+        let table = new DataTable('#tabelaClientes', {
+            language: {
+                decimal: ",",
+                thousands: ".",
+                search: "Buscar:",
+                lengthMenu: "Mostrar _MENU_ registros por página",
+                zeroRecords: "Nenhum cliente encontrado",
+                info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
+                infoEmpty: "Nenhum registro disponível",
+                infoFiltered: "(filtrado de _MAX_ registros no total)",
+                paginate: {
+                    first: "Primeira",
+                    last: "Última",
+                    next: "Próxima",
+                    previous: "Anterior"
+                },
+                emptyTable: "Nenhum dado disponível na tabela"
+            }
+        });
+
+        window.onload = () => {
+            fetch('/listar-clientes-backend')
+            .then(res => res.json())
+            .then(data => {
+                if (data && Array.isArray(data)) {
+                    const table = $('#tabelaClientes').DataTable();
+
+                    data.forEach(cliente => {
+                        const row = [
+                            cliente.codCliente || '',
+                            cliente.nomeCliente || '',
+                            cliente.cep || '',
+                            cliente.cidade || '',
+                            cliente.bairro || '',
+                            cliente.rua || '',
+                            cliente.numero_rua || '',
+                            cliente.complemento || '',
+                            cliente.uf || ''
+                        ];
+
+                        const newRow = table.row.add(row).draw().node();
+
+                        const headers = [
+                            'Código Cliente', 'Nome Cliente', 'CEP', 'Cidade',
+                            'Bairro', 'Rua', 'Número Rua', 'Complemento', 'UF'
+                        ];
+
+                        $(newRow).find('td').each(function (index) {
+                            $(this).attr('data-label', headers[index]);
+                        });
+                    });
+                } else {
+                    console.error('Erro ao buscar clientes:', data.error || 'Resposta inesperada');
+                }
+            })
+            .catch(error => {
+                console.error('Erro de requisição:', error);
+            });
+        };
+    </script>
+</html>
