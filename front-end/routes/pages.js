@@ -22,7 +22,6 @@ router.get('/listar-clientes', (req, res) => {
   res.render('listar-clientes'); 
 });
 
-
 router.get('/chamar-backend-java', async (req, res) => {
   try {
     const response = await axios.get('http://localhost:8080/api');
@@ -42,5 +41,20 @@ router.get('/listar-clientes-backend', async (req, res) => {
     res.status(500).json({ erro: 'Erro ao listar clientes do backend Java' });
   }
 })
+
+router.delete('/deletar-cliente-backend/:id', async (req, res) => {
+  const { id } = req.params;
+  if (!id) {
+    return res.status(400).json({ erro: 'ID do cliente é obrigatório' });
+  }
+
+  try {
+    const response = await axios.delete(`http://localhost:8080/api/clientes/deletar-cliente/${id}`);
+    res.json({ mensagem: 'Cliente deletado com sucesso', dados: response.data });
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ erro: 'Erro ao deletar cliente do backend Java' });
+  }
+});
 
 module.exports = router;
