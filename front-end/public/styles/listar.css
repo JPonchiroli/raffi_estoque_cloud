@@ -143,9 +143,12 @@ button:hover {
 }
 
 footer {
+    width: 100%;
     text-align: center;
     padding: 1rem;
     background-color: #ecf0f1;
-    margin-top: 2rem;
     font-size: 0.9rem;
+    margin-top: 2rem;
+    position: fixed;
+    bottom: 0;
 }
