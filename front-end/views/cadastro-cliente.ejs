@@ -1,28 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cadastro Cliente</title>
+<html lang="pt-BR">
 
-        <link rel="stylesheet" href="/styles/cadastro.css">
-    </head>
-    <body>
-        <header>
-            <h1>Cliente</h1>
-            <h2>Cadastre novos clientes!</h2>
-        </header>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <link rel="stylesheet" href="/styles/cadastro.css">
+</head>
 
-        <main>
-            <section class="actions">
-                <div class="button-grid">
-                    <button onclick="window.location.href='/'">Voltar</button>
-                </div>
-            </section>
-        </main>
+<body>
+    <header>
+        <h1>Clientes</h1>
+        <h2>Cadastre novos Clientes!</h2>
+    </header>
 
-        <footer>
-            <p>&copy; 2025 Raffi Estoque</p>
-        </footer>
-    </body>
+    <main>
+
+        <form>
+            <h2>Cadastro de Cliente</h2>
+
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" required>
+
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep" required>
+
+            <label for="rua">Rua:</label>
+            <input type="text" id="rua" name="rua" required>
+
+            <label for="numerorua">Número da Rua:</label>
+            <input type="text" id="nrua" name="nrua" required>
+
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro" required>
+
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" required>
+
+            <label for="estado">Estado:</label>
+            <select id="estado" name="estado" required>
+                <option value="">Selecione</option>
+            </select>
+
+            <div class="button-group">
+                <button type="submit">Cadastrar</button>
+                <button type="button" onclick="window.location.href='/'">Voltar</button>
+            </div>
+        </form>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Raffi Estoque</p>
+    </footer>
+</body>
+
 </html>
