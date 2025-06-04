@@ -31,7 +31,7 @@ main {
     margin: 0 auto;
 }
 
-table#tabelaClientess {
+table#tabela {
     width: 100%;
     border-collapse: collapse;
     background-color: white;
@@ -41,44 +41,44 @@ table#tabelaClientess {
     margin-bottom: 2rem;
 }
 
-#tabelaClientes thead {
+#tabela thead {
     background-color: #34495e;
     color: white;
     text-align: left;
 }
 
-#tabelaClientes thead th {
+#tabela thead th {
     padding: 1rem;
     font-weight: 600;
     font-size: 0.95rem;
 }
 
-#tabelaClientes tbody td {
+#tabela tbody td {
     padding: 0.85rem 1rem;
     border-bottom: 1px solid #e0e0e0;
     font-size: 0.95rem;
 }
 
-#tabelaClientes tbody tr:nth-child(even) {
+#tabela tbody tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
-#tabelaClientes tbody tr:hover {
+#tabela tbody tr:hover {
     background-color: #eaf2f8;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 @media (max-width: 768px) {
-    table#tabelaClientes, thead, tbody, th, td, tr {
+    table#tabela, thead, tbody, th, td, tr {
         display: block;
     }
 
-    #tabelaClientes thead {
+    #tabela thead {
         display: none;
     }
 
-    #tabelaClientes tbody tr {
+    #tabela tbody tr {
         margin-bottom: 1rem;
         background-color: white;
         border-radius: 8px;
@@ -86,14 +86,14 @@ table#tabelaClientess {
         padding: 1rem;
     }
 
-    #tabelaClientes tbody td {
+    #tabela tbody td {
         display: flex;
         justify-content: space-between;
         padding: 0.5rem 0;
         border: none;
     }
 
-    #tabelaClientes tbody td::before {
+    #tabela tbody td::before {
         content: attr(data-label);
         font-weight: bold;
         color: #34495e;

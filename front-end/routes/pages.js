@@ -22,6 +22,10 @@ router.get('/listar-clientes', (req, res) => {
   res.render('listar-clientes'); 
 });
 
+router.get('/listar-produtos', (req, res) => {
+  res.render('listar-produtos'); 
+});
+
 router.get('/chamar-backend-java', async (req, res) => {
   try {
     const response = await axios.get('http://localhost:8080/api');

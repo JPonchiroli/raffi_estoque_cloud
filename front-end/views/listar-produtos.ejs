@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Clientes</title>
+    <title>Listar Produtos</title>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="/styles/listar.css">
@@ -12,8 +12,8 @@
 
 <body>
     <header>
-        <h1>Listar Clientes</h1>
-        <h2>Acompanhe aqui o cadadastro de todos os seus clientes</h2>
+        <h1>Listar Produtos</h1>
+        <h2>Acompanhe aqui o cadastro de todos os seus produtos</h2>
     </header>
 
     <main>
@@ -21,21 +21,18 @@
             <table id="tabela" class="display">
                 <thead>
                     <tr>
-                        <th>Código Cliente</th>
-                        <th>Nome Cliente</th>
-                        <th>CEP</th>
-                        <th>Cidade</th>
-                        <th>Bairro</th>
-                        <th>Rua</th>
-                        <th>Número Rua</th>
-                        <th>Complemento</th>
-                        <th>UF</th>
+                        <th>Código Produto</th>
+                        <th>Nome Produto</th>
+                        <th>Unidade de Medida</th>
+                        <th>Valor de Custo</th>
+                        <th>Valor de Venda</th>
+                        <th>Estoque Atual</th>
+                        <th>Estoque Mínimo</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
             </table>
         </section>
-
 
         <section class="actions">
             <div class="button-grid">
@@ -49,7 +46,6 @@
     </footer>
 </body>
 
-
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="http://cdn.datatables.net/2.3.1/js/dataTables.min.js"></script>
 <script>
@@ -59,7 +55,7 @@
             thousands: ".",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros por página",
-            zeroRecords: "Nenhum cliente encontrado",
+            zeroRecords: "Nenhum produto encontrado",
             info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
             infoEmpty: "Nenhum registro disponível",
             infoFiltered: "(filtrado de _MAX_ registros no total)",
@@ -69,36 +65,34 @@
                 next: "Próxima",
                 previous: "Anterior"
             },
-            emptyTable: "Nenhum cliente cadastrado"
+            emptyTable: "Nenhum produto cadastrado"
         }
     });
 
     window.onload = () => {
-        fetch('/listar-clientes-backend')
+        fetch('/listar-produtos-backend')
             .then(res => res.json())
             .then(data => {
                 if (data && Array.isArray(data)) {
-                    const table = $('#tabelaClientes').DataTable();
+                    const table = $('#tabelaProdutos').DataTable();
 
-                    data.forEach(cliente => {
+                    data.forEach(produto => {
                         const row = [
-                            cliente.codCliente || '',
-                            cliente.nomeCliente || '',
-                            cliente.cep || '',
-                            cliente.cidade || '',
-                            cliente.bairro || '',
-                            cliente.rua || '',
-                            cliente.numeroRua || '',
-                            cliente.complemento || '',
-                            cliente.uf || '',
-                            `<button class="btn-excluir" data-id="${cliente.codCliente}">Excluir</button>`
+                            produto.codProduto || '',
+                            produto.nomeProduto || '',
+                            produto.unidadeMedida || '',
+                            produto.valorCusto || '',
+                            produto.valorVenda || '',
+                            produto.estoqueAtual || '',
+                            produto.estoqueMinimo || '',
+                            `<button class="btn-excluir" data-id="${produto.codProduto}">Excluir</button>`
                         ];
 
                         const newRow = table.row.add(row).draw().node();
 
                         const headers = [
-                            'Código Cliente', 'Nome Cliente', 'CEP', 'Cidade', 'Bairro',
-                            'Rua', 'Número Rua', 'Complemento', 'UF', 'Ações'
+                            'Código Produto', 'Nome Produto', 'Unidade de Medida', 'Valor de Custo', 
+                            'Valor de Venda', 'Estoque Atual', 'Estoque Mínimo', 'Ações'
                         ];
 
                         $(newRow).find('td').each(function (index) {
@@ -106,7 +100,7 @@
                         });
                     });
                 } else {
-                    console.error('Erro ao buscar clientes:', data.error || 'Resposta inesperada');
+                    console.error('Erro ao buscar produtos:', data.error || 'Resposta inesperada');
                 }
             })
             .catch(error => {
@@ -114,11 +108,11 @@
             });
     };
 
-    $('#tabelaClientes').on('click', '.btn-excluir', function () {
+    $('#tabelaProdutos').on('click', '.btn-excluir', function () {
         const id = $(this).data('id');
 
-        if (confirm('Deseja realmente excluir este cliente?')) {
-            fetch(`/deletar-cliente-backend/${id}`, {
+        if (confirm('Deseja realmente excluir este produto?')) {
+            fetch(`/deletar-produto-backend/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => {
@@ -126,12 +120,12 @@
                     return res.json();
                 })
                 .then(result => {
-                    alert('Cliente excluído com sucesso!');
-                    $('#tabelaClientes').DataTable().row($(this).parents('tr')).remove().draw();
+                    alert('Produto excluído com sucesso!');
+                    $('#tabelaProdutos').DataTable().row($(this).parents('tr')).remove().draw();
                 })
                 .catch(err => {
                     console.error('Erro:', err);
-                    alert('Erro ao excluir cliente.');
+                    alert('Erro ao excluir produto.');
                 });
         }
     });
