@@ -115,4 +115,15 @@ router.delete('/deletar-fornecedor-backend/:id', async (req, res) => {
   }
 });
 
+router.get('/buscar-endereco-backend/:cep', async (req, res) => {
+    const { cep } = req.params;
+
+    try {
+        const response = await axios.get(`http://localhost:8080/api/address/get-address/${cep}`);
+        res.json(response.data);
+    } catch (error) {
+        res.status(500).json({ erro: 'Não foi possível buscar o endereço.' });
+    }
+});
+
 module.exports = router;

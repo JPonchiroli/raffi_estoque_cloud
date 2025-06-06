@@ -59,6 +59,8 @@ label {
 
 input[type="text"],
 input[type="number"],
+input[type="email"],
+input[type="tel"],
 select {
     width: 100%;
     padding: 0.5rem;

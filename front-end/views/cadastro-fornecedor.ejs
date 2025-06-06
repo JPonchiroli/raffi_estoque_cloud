@@ -44,9 +44,36 @@
                 <label for="cidade">Cidade:</label>
                 <input type="text" id="cidade" name="cidade" required />
     
-                <label for="uf">UF:</label>
-                <select id="uf" name="uf" required>
+                <label for="estado">Estado:</label>
+                <select id="estado" name="estado" required>
                     <option value="">Selecione</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="DF">Distrito Federal</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
                 </select>
     
                 <label for="complemento">Complemento:</label>
@@ -66,4 +93,35 @@
             <p>&copy; 2025 Raffi Estoque</p>
         </footer>
     </body>
+    <script>
+        document.getElementById('cep').addEventListener('blur', async () => {
+            const cep = document.getElementById('cep').value.replace(/\D/g, '');
+
+            if (cep.length !== 8) return;
+
+            try {
+                const response = await fetch(`/buscar-endereco-backend/${cep}`);
+                if (!response.ok) throw new Error('Erro ao buscar endereço');
+
+                const data = await response.json();
+
+                document.getElementById('rua').value = data.logradouro || '';
+                document.getElementById('bairro').value = data.bairro || '';
+                document.getElementById('cidade').value = data.localidade || '';
+                
+                const estadoSelect = document.getElementById('estado');
+                const uf = data.uf || '';
+
+                for (let option of estadoSelect.options) {
+                    if (option.value === uf) {
+                        estadoSelect.value = uf;
+                        break;
+                    }
+                }
+
+            } catch (error) {
+                alert('Erro ao buscar endereço: ' + error.message);
+            }
+        });
+    </script>
 </html>
