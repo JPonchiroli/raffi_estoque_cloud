@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Produtos</title>
+    <title>Listar Fornecedores</title>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="/styles/listar.css">
@@ -12,8 +12,8 @@
 
 <body>
     <header>
-        <h1>Listar Produtos</h1>
-        <h2>Acompanhe aqui o cadastro de todos os seus produtos</h2>
+        <h1>Listar Fornecedores</h1>
+        <h2>Acompanhe aqui o cadadastro de todos os seus fornecedores</h2>
     </header>
 
     <main>
@@ -21,18 +21,24 @@
             <table id="tabela" class="display">
                 <thead>
                     <tr>
-                        <th>Código Produto</th>
-                        <th>Nome Produto</th>
-                        <th>Unidade de Medida</th>
-                        <th>Valor de Custo</th>
-                        <th>Valor de Venda</th>
-                        <th>Estoque Atual</th>
-                        <th>Estoque Mínimo</th>
+                        <th>Código Fornecedores</th>
+                        <th>Nome Fornecedor</th>
+                        <th>Cnpj</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>CEP</th>
+                        <th>Cidade</th>
+                        <th>Bairro</th>
+                        <th>Rua</th>
+                        <th>Número Rua</th>
+                        <th>Complemento</th>
+                        <th>UF</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
             </table>
         </section>
+
 
         <div class="button-group">
             <button onclick="window.location.href='/'">Voltar</button>
@@ -44,6 +50,7 @@
     </footer>
 </body>
 
+
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="http://cdn.datatables.net/2.3.1/js/dataTables.min.js"></script>
 <script>
@@ -53,7 +60,7 @@
             thousands: ".",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros por página",
-            zeroRecords: "Nenhum produto encontrado",
+            zeroRecords: "Nenhum cliente encontrado",
             info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
             infoEmpty: "Nenhum registro disponível",
             infoFiltered: "(filtrado de _MAX_ registros no total)",
@@ -63,36 +70,39 @@
                 next: "Próxima",
                 previous: "Anterior"
             },
-            emptyTable: "Nenhum produto cadastrado"
+            emptyTable: "Nenhum fornecedor cadastrado"
         }
     });
 
     window.onload = () => {
-        fetch('/listar-produtos-backend')
+        fetch('/listar-fornecedores-backend')
             .then(res => res.json())
             .then(data => {
                 if (data && Array.isArray(data)) {
                     const table = $('#tabela').DataTable();
 
-                    data.forEach(produto => {
+                    data.forEach(fornecedor => {
                         const row = [
-                            produto.codProduto || '',
-                            produto.nomeProduto || '',
-                            produto.unidadeMedida || '',
-                            produto.valorCusto || '',
-                            produto.valorVenda || '',
-                            produto.estoqueAtual || '',
-                            produto.estoqueMinimo || '',
-                            `<button class="btn-excluir" data-id="${produto.codProduto}">Excluir</button>`
+                            fornecedor.codFornecedor || '',
+                            fornecedor.nomeFornecedor || '',
+                            fornecedor.cnpj || '',
+                            fornecedor.email || '',
+                            fornecedor.telefone || '',
+                            fornecedor.cep || '',
+                            fornecedor.cidade || '',
+                            fornecedor.bairro || '',
+                            fornecedor.rua || '',
+                            fornecedor.numeroRua || '',
+                            fornecedor.complemento || '',
+                            fornecedor.uf || '',
+                            `<button class="btn-excluir" data-id="${fornecedor.codFornecedor}">Excluir</button>`
                         ];
-
-                        console.log(produto)
 
                         const newRow = table.row.add(row).draw().node();
 
                         const headers = [
-                            'Código Produto', 'Nome Produto', 'Unidade de Medida', 'Valor de Custo', 
-                            'Valor de Venda', 'Estoque Atual', 'Estoque Mínimo', 'Ações'
+                            'Código Fornecedor', 'Nome Fornecedor', 'Cnpj', 'Email', 'Telefone', 'CEP', 'Cidade', 'Bairro',
+                            'Rua', 'Número Rua', 'Complemento', 'UF', 'Ações'
                         ];
 
                         $(newRow).find('td').each(function (index) {
@@ -100,7 +110,7 @@
                         });
                     });
                 } else {
-                    console.error('Erro ao buscar produtos:', data.error || 'Resposta inesperada');
+                    console.error('Erro ao buscar fornecedores:', data.error || 'Resposta inesperada');
                 }
             })
             .catch(error => {
@@ -111,8 +121,8 @@
     $('#tabela').on('click', '.btn-excluir', function () {
         const id = $(this).data('id');
 
-        if (confirm('Deseja realmente excluir este produto?')) {
-            fetch(`/deletar-produto-backend/${id}`, {
+        if (confirm('Deseja realmente excluir este fornecedor?')) {
+            fetch(`/deletar-fornecedor-backend/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => {
@@ -120,12 +130,12 @@
                     return res.json();
                 })
                 .then(result => {
-                    alert('Produto excluído com sucesso!');
+                    alert('Fornecedor excluído com sucesso!');
                     $('#tabela').DataTable().row($(this).parents('tr')).remove().draw();
                 })
                 .catch(err => {
                     console.error('Erro:', err);
-                    alert('Erro ao excluir produto.');
+                    alert('Erro ao excluir fornecedor.');
                 });
         }
     });

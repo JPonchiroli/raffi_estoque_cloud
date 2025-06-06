@@ -1,11 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap');
 
+* {
+    box-sizing: border-box; 
+}
+
 body {
     font-family: 'Cal Sans', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f4f4f4;
     color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
 }
 
 header {
@@ -26,9 +34,15 @@ h2 {
 }
 
 main {
-    padding: 2rem;
-    max-width: 800px;
-    margin: 0 auto;
+    flex: 1;
+    padding: 2rem 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.tabela-container {
+    width: 80%;
 }
 
 table#tabela {
@@ -37,7 +51,7 @@ table#tabela {
     background-color: white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     border-radius: 8px;
-    overflow: hidden;
+    overflow-y: hidden;
     margin-bottom: 2rem;
 }
 
@@ -120,14 +134,15 @@ table#tabela {
     margin-bottom: 1rem;
 }
 
-.button-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-    justify-content: center;
+.button-group {
+    display: flex;
+    flex-direction: column; 
+    gap: 0.5rem;
+    margin-top: 1.5rem;
 }
 
-button {
+.button-group button {
+    width: 100%;
     padding: 0.75rem;
     font-size: 1rem;
     background-color: #34495e;
@@ -137,7 +152,7 @@ button {
     transition: background-color 0.3s ease;
 }
 
-button:hover {
+.button-group button:hover {
     background-color: #2c3e50;
     cursor: pointer;
 }
@@ -148,7 +163,4 @@ footer {
     padding: 1rem;
     background-color: #ecf0f1;
     font-size: 0.9rem;
-    margin-top: 2rem;
-    position: fixed;
-    bottom: 0;
 }

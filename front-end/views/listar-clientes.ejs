@@ -17,7 +17,7 @@
     </header>
 
     <main>
-        <section>
+        <section class="tabela-container">
             <table id="tabela" class="display">
                 <thead>
                     <tr>
@@ -37,11 +37,9 @@
         </section>
 
 
-        <section class="actions">
-            <div class="button-grid">
-                <button onclick="window.location.href='/'">Voltar</button>
-            </div>
-        </section>
+        <div class="button-group">
+            <button onclick="window.location.href='/'">Voltar</button>
+        </div>
     </main>
 
     <footer>
@@ -78,7 +76,7 @@
             .then(res => res.json())
             .then(data => {
                 if (data && Array.isArray(data)) {
-                    const table = $('#tabelaClientes').DataTable();
+                    const table = $('#tabela').DataTable();
 
                     data.forEach(cliente => {
                         const row = [
@@ -114,7 +112,7 @@
             });
     };
 
-    $('#tabelaClientes').on('click', '.btn-excluir', function () {
+    $('#tabela').on('click', '.btn-excluir', function () {
         const id = $(this).data('id');
 
         if (confirm('Deseja realmente excluir este cliente?')) {
@@ -127,7 +125,7 @@
                 })
                 .then(result => {
                     alert('Cliente excluído com sucesso!');
-                    $('#tabelaClientes').DataTable().row($(this).parents('tr')).remove().draw();
+                    $('#tabela').DataTable().row($(this).parents('tr')).remove().draw();
                 })
                 .catch(err => {
                     console.error('Erro:', err);
