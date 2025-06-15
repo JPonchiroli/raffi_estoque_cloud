@@ -16,7 +16,7 @@
     </header>
 
     <main>
-        <form>
+        <form id="cadastroForm" method="POST">
             <h2>Cadastro de Produto</h2>
 
             <label for="nomeProduto">Nome do Produto:</label>
@@ -79,9 +79,8 @@
                 const data = await res.json();
 
                 listaSugestoes.innerHTML = '';
-                
+
                 data.forEach(f => {
-                    console.log('Fornecedor:', f.nomeFornecedor, f.codFornecedor);
                     const li = document.createElement('li');
                     li.textContent = f.nomeFornecedor;
                     li.addEventListener('click', () => {
@@ -100,6 +99,44 @@
         document.addEventListener('click', (e) => {
             if (!document.querySelector('.autocomplete-container').contains(e.target)) {
                 listaSugestoes.innerHTML = '';
+            }
+        });
+
+        document.getElementById('cadastroForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            try {
+                const formData = {
+                    nomeProduto: document.getElementById('nomeProduto').value,
+                    unidadeMedida: document.getElementById('unidadeMedida').value,
+                    valorCusto: document.getElementById('valorCusto').value,
+                    valorVenda: document.getElementById('valorVenda').value,
+                    estoqueAtual: document.getElementById('estoqueAtual').value,
+                    estoqueMinimo: document.getElementById('estoqueMinimo').value,
+                    codFornecedor: document.getElementById('fornecedorId').value
+                };
+
+                const response = await fetch('/produtos/cadastrar-produto-backend', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    const erroTexto = await response.text();
+                    throw new Error('Erro ao cadastrar produto: ' + erroTexto);
+                }
+
+                const result = await response.json();
+                alert('Produto cadastrado com sucesso!');
+
+                document.getElementById('cadastroForm').reset();
+
+            } catch (error) {
+                alert('Erro no produto: ' + error.message);
+                console.error('Erro:', error);
             }
         });
 

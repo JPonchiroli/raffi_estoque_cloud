@@ -3,6 +3,38 @@ const axios = require('axios');
 const router = express.Router();
 
 
+router.post('/cadastrar-produto-backend', async (req, res) => {
+  try {
+    const produtoData = {
+      nomeProduto: req.body.nomeProduto,
+      unidadeMedida: req.body.unidadeMedida,
+      valorCusto: req.body.valorCusto,
+      valorVenda: req.body.valorVenda,
+      estoqueAtual: req.body.estoqueAtual,
+      estoqueMinimo: req.body.estoqueMinimo,
+      codFornecedor: req.body.codFornecedor
+    };
+
+    const response = await axios.post(
+      'http://localhost:8080/api/produtos/create-produto',
+      produtoData
+    );
+
+    res.json(response.data);
+
+  } catch (error) {
+    console.error('Erro ao cadastrar produto no backend Java:', error.message);
+    if (error.response) {
+      res.status(error.response.status).json({
+        erro: error.response.data.message || 'Erro ao produto cliente no backend Java'
+      });
+    } else if (error.request) {
+      res.status(500).json({ erro: 'Nenhuma resposta recebida do backend Java' });
+    } else {
+      res.status(500).json({ erro: 'Erro ao configurar a requisição para o backend Java' });
+    }
+  }
+});
 
 router.get('/listar-produtos-backend', async (req, res) => {
   try {
