@@ -28,6 +28,7 @@
                         <th>Valor de Venda</th>
                         <th>Estoque Atual</th>
                         <th>Estoque Mínimo</th>
+                        <th>Fornecedor</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -70,19 +71,22 @@
     window.onload = () => {
         fetch('/produtos/listar-produtos-backend')
             .then(res => res.json())
-            .then(data => {
+            .then(async data => {
                 if (data && Array.isArray(data)) {
                     const table = $('#tabela').DataTable();
 
-                    data.forEach(produto => {
+                    for (const produto of data) {
+                        const nomeFornecedor = await buscarNomeFornecedor(produto.codFornecedor);
+
                         const row = [
                             produto.codProduto || '',
                             produto.nomeProduto || '',
                             produto.unidadeMedida || '',
-                            'R$ ' + produto.valorCusto || '',
-                            'R$ ' + produto.valorVenda || '',
+                            produto.valorCusto != null ? `R$ ${produto.valorCusto}` : '',
+                            produto.valorVenda != null ? `R$ ${produto.valorVenda}` : '',
                             produto.estoqueAtual || '',
                             produto.estoqueMinimo || '',
+                            nomeFornecedor || '',
                             `<button class="btn-excluir" data-id="${produto.codProduto}">Excluir</button> <button class="btn-editar" data-id="${produto.codProduto}">Editar</button>`
                         ];
 
@@ -90,13 +94,13 @@
 
                         const headers = [
                             'Código Produto', 'Nome Produto', 'Unidade de Medida', 'Valor de Custo',
-                            'Valor de Venda', 'Estoque Atual', 'Estoque Mínimo', 'Ações'
+                            'Valor de Venda', 'Estoque Atual', 'Estoque Mínimo', 'Fornecedor', 'Ações'
                         ];
 
                         $(newRow).find('td').each(function (index) {
                             $(this).attr('data-label', headers[index]);
                         });
-                    });
+                    }
                 } else {
                     console.error('Erro ao buscar produtos:', data.error || 'Resposta inesperada');
                 }
@@ -217,6 +221,18 @@
         $editarBtn.text('Editar');
         $(this).remove();
     });
+
+    async function buscarNomeFornecedor(id) {
+        try {
+            const res = await fetch(`/fornecedores/busca-fornecedor-id-backend/${id}`); //
+            const data = await res.json();
+            console.log(`Fornecedor encontrado: ${data.nomeFornecedor}`);
+            return data.nomeFornecedor || 'Fornecedor não encontrado';
+        } catch (err) {
+            console.error(`Erro ao buscar fornecedor ${id}:`, err);
+            return 'Erro ao buscar fornecedor';
+        }
+    }
 
 </script>
 

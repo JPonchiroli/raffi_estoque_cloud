@@ -96,4 +96,20 @@ router.get('/busca-fornecedores-nome-backend/:nomeFornecedor', async (req, res) 
     }
 });
 
+router.get('/busca-fornecedor-id-backend/:id', async (req, res) => {
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ erro: 'Nome do fornecedor é obrigatório' });
+    }
+
+    try {
+        const response = await axios.get(`http://localhost:8080/api/fornecedores/get-fornecedor/${id}`);
+        
+        res.json(response.data);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ erro: 'Erro ao encontrar fornecedores' });
+    }
+});
+
 module.exports = router;
