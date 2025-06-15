@@ -14,7 +14,7 @@
         </header>
         <main>
 
-            <form>
+            <form id="cadastroForm" method="POST" action="/cadastrar-fornecedor-backend">
                 <h2>Cadastro de Fornecedor</h2>
     
                 <label for="nome">Nome:</label>
@@ -35,8 +35,8 @@
                 <label for="rua">Rua:</label>
                 <input type="text" id="rua" name="rua" required />
     
-                <label for="nrua">Número da Rua:</label>
-                <input type="text" id="nrua" name="nrua" required />
+                <label for="numeroRua">Número da Rua:</label>
+                <input type="text" id="numeroRua" name="numeroRua" required />
     
                 <label for="bairro">Bairro:</label>
                 <input type="text" id="bairro" name="bairro" required />
@@ -100,7 +100,7 @@
             if (cep.length !== 8) return;
 
             try {
-                const response = await fetch(`/buscar-endereco-backend/${cep}`);
+                const response = await fetch(`/utils/buscar-endereco-backend/${cep}`);
                 if (!response.ok) throw new Error('Erro ao buscar endereço');
 
                 const data = await response.json();
@@ -123,5 +123,42 @@
                 alert('Erro ao buscar endereço: ' + error.message);
             }
         });
+
+        document.getElementById('cadastroForm').addEventListener('submit', async (event) => {
+        event.preventDefault(); 
+
+        try {
+            const formData = {
+                nome: document.getElementById('nome').value,
+                cnpj: document.getElementById('cnpj').value,
+                email: document.getElementById('email').value,
+                telefone: document.getElementById('telefone').value,
+                cep: document.getElementById('cep').value,
+                numeroRua: document.getElementById('numeroRua').value,
+                complemento: document.getElementById('complemento').value
+            };
+
+            const response = await fetch('/clientes/cadastrar-fornecedor-backend', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (!response.ok) {
+                throw new Error('Erro ao cadastrar fornecedor' + reponse.statusText);
+            }
+
+            const result = await response.json();
+            alert('Fornecedor cadastrado com sucesso!');
+
+            document.getElementById('cadastroForm').reset();
+
+        } catch (error) {
+            alert('Erro no cadastro: ' + error.message);
+            console.error('Erro:', error);
+        }
+    });
     </script>
 </html>

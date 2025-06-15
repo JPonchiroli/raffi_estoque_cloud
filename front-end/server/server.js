@@ -11,7 +11,16 @@ app.use(cors());
 app.use(express.json());
 
 const pagesRouter = require('../routes/pages');
-app.use('/', pagesRouter);
+const clientesRouter = require('../routes/clientes');
+const fornecedoresRouter = require('../routes/fornecedores');
+const produtosRouter = require('../routes/produtos');
+const utilsRouter = require('../routes/utils');
+
+app.use('/', pagesRouter);                     
+app.use('/clientes', clientesRouter);           
+app.use('/fornecedores', fornecedoresRouter);  
+app.use('/produtos', produtosRouter);  
+app.use('/utils', utilsRouter);                
 
 app.listen(3000, () => {
   console.log(`Servidor rodando em http://localhost:${port}`);

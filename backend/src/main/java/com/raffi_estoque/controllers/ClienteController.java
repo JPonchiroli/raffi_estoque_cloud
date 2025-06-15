@@ -25,6 +25,7 @@ public class ClienteController {
     @Autowired
     private ClienteMapper mapper;
 
+    @CrossOrigin(origins = "*")
     @PostMapping("/create-cliente")
     public ResponseEntity<ClienteResponseDto> createCliente(@RequestBody ClienteCreateDto cliente) {
         Cliente clienteCreated = mapper.toCliente(cliente);

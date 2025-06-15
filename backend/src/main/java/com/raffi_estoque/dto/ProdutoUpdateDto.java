@@ -25,21 +25,16 @@ public class ProdutoUpdateDto {
     @NotBlank
     private Integer estoqueMinimo;
 
-    @NotBlank
-    private Boolean avisoRepor;
-
-
     public ProdutoUpdateDto() {
     }
 
-    public ProdutoUpdateDto(String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Boolean avisoRepor) {
+    public ProdutoUpdateDto(String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo) {
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
         this.valorCusto = valorCusto;
         this.valorVenda = valorVenda;
         this.estoqueAtual = estoqueAtual;
         this.estoqueMinimo = estoqueMinimo;
-        this.avisoRepor = avisoRepor;
     }
 
     public String getNomeProduto() {
@@ -90,14 +85,6 @@ public class ProdutoUpdateDto {
         this.estoqueMinimo = estoqueMinimo;
     }
 
-    public Boolean getAvisoRepor() {
-        return avisoRepor;
-    }
-
-    public void setAvisoRepor(Boolean avisoRepor) {
-        this.avisoRepor = avisoRepor;
-    }
-
     @Override
     public String toString() {
         return "ProdutoUpdateDto{" +
@@ -107,7 +94,6 @@ public class ProdutoUpdateDto {
                 ", valorVenda=" + valorVenda +
                 ", estoqueAtual=" + estoqueAtual +
                 ", estoqueMinimo=" + estoqueMinimo +
-                ", avisoRepor=" + avisoRepor +
                 '}';
     }
 }

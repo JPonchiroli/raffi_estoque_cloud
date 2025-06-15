@@ -17,7 +17,6 @@ public class Produto {
     private double valorVenda;
     private int estoqueAtual;
     private int estoqueMinimo;
-    private boolean avisoRepor;
 
     @ManyToOne
     @JoinColumn(name = "codFornecedor", nullable = false)
@@ -25,7 +24,7 @@ public class Produto {
 
     public Produto(){}
 
-    public Produto(int codProduto, String nomeProduto, String unidadeMedida, double valorCusto, double valorVenda, int estoqueAtual, int estoqueMinimo, boolean avisoRepor, Fornecedor fornecedor) {
+    public Produto(int codProduto, String nomeProduto, String unidadeMedida, double valorCusto, double valorVenda, int estoqueAtual, int estoqueMinimo, Fornecedor fornecedor) {
         this.codProduto = codProduto;
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
@@ -33,7 +32,6 @@ public class Produto {
         this.valorVenda = valorVenda;
         this.estoqueAtual = estoqueAtual;
         this.estoqueMinimo = estoqueMinimo;
-        this.avisoRepor = avisoRepor;
         this.fornecedor = fornecedor;
     }
 
@@ -91,14 +89,6 @@ public class Produto {
 
     public void setEstoqueMinimo(int estoqueMinimo) {
         this.estoqueMinimo = estoqueMinimo;
-    }
-
-    public boolean isAvisoRepor() {
-        return avisoRepor;
-    }
-
-    public void setAvisoRepor(boolean avisoRepor) {
-        this.avisoRepor = avisoRepor;
     }
 
     public Fornecedor getFornecedor() {

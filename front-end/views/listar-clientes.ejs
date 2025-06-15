@@ -72,7 +72,7 @@
     });
 
     window.onload = () => {
-        fetch('/listar-clientes-backend')
+        fetch('/clientes/listar-clientes-backend')
             .then(res => res.json())
             .then(data => {
                 if (data && Array.isArray(data)) {
@@ -116,7 +116,7 @@
         const id = $(this).data('id');
 
         if (confirm('Deseja realmente excluir este cliente?')) {
-            fetch(`/deletar-cliente-backend/${id}`, {
+            fetch(`/clientes/deletar-cliente-backend/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => {

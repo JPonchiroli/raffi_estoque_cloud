@@ -19,15 +19,13 @@ public class ProdutoResponseDto {
 
     private Integer estoqueMinimo;
 
-    private Boolean avisoRepor;
-
     private Integer codFornecedor;
 
 
     public ProdutoResponseDto() {
     }
 
-    public ProdutoResponseDto(Integer codProduto, String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Boolean avisoRepor, Integer codFornecedor) {
+    public ProdutoResponseDto(Integer codProduto, String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
         this.codProduto = codProduto;
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
@@ -35,7 +33,6 @@ public class ProdutoResponseDto {
         this.valorVenda = valorVenda;
         this.estoqueAtual = estoqueAtual;
         this.estoqueMinimo = estoqueMinimo;
-        this.avisoRepor = avisoRepor;
         this.codFornecedor = codFornecedor;
     }
 
@@ -95,14 +92,6 @@ public class ProdutoResponseDto {
         this.estoqueMinimo = estoqueMinimo;
     }
 
-    public Boolean getAvisoRepor() {
-        return avisoRepor;
-    }
-
-    public void setAvisoRepor(Boolean avisoRepor) {
-        this.avisoRepor = avisoRepor;
-    }
-
     public Integer getCodFornecedor() {
         return codFornecedor;
     }
@@ -120,7 +109,6 @@ public class ProdutoResponseDto {
                 ", valorVenda=" + valorVenda +
                 ", estoqueAtual=" + estoqueAtual +
                 ", estoqueMinimo=" + estoqueMinimo +
-                ", avisoRepor=" + avisoRepor +
                 ", codFornecedor=" + codFornecedor +
                 '}';
     }

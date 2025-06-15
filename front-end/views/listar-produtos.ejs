@@ -68,7 +68,7 @@
     });
 
     window.onload = () => {
-        fetch('/listar-produtos-backend')
+        fetch('/produtos/listar-produtos-backend')
             .then(res => res.json())
             .then(data => {
                 if (data && Array.isArray(data)) {
@@ -79,8 +79,8 @@
                             produto.codProduto || '',
                             produto.nomeProduto || '',
                             produto.unidadeMedida || '',
-                            produto.valorCusto || '',
-                            produto.valorVenda || '',
+                            'R$ ' + produto.valorCusto || '',
+                            'R$ ' + produto.valorVenda || '',
                             produto.estoqueAtual || '',
                             produto.estoqueMinimo || '',
                             `<button class="btn-excluir" data-id="${produto.codProduto}">Excluir</button>`
@@ -112,7 +112,7 @@
         const id = $(this).data('id');
 
         if (confirm('Deseja realmente excluir este produto?')) {
-            fetch(`/deletar-produto-backend/${id}`, {
+            fetch(`/produtos/deletar-produto-backend/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => {
