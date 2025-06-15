@@ -59,7 +59,6 @@ public class ProdutoService {
         produtoUpd.setValorVenda(produto.getValorVenda());
         produtoUpd.setEstoqueAtual(produto.getEstoqueAtual());
         produtoUpd.setEstoqueMinimo(produto.getEstoqueMinimo());
-        produtoUpd.setAvisoRepor(produto.isAvisoRepor());
         return produtoRepository.save(produtoUpd);
     }
 

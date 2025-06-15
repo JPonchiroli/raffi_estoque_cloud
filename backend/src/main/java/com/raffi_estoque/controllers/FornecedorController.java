@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/fornecedores")
@@ -23,7 +24,7 @@ public class FornecedorController {
     private FornecedorMapper mapper;
 
     @PostMapping("/create-fornecedor")
-    public ResponseEntity<FornecedorResponseDto> createEvent(@RequestBody FornecedorCreateDto fornecedor) {
+    public ResponseEntity<FornecedorResponseDto> createFornecedor(@RequestBody FornecedorCreateDto fornecedor) {
         Fornecedor fornecedorCreated = mapper.toFornecedor(fornecedor);
         String cep = fornecedor.getCep();
         ViaCepResponse address = getAddress(cep);
@@ -50,7 +51,7 @@ public class FornecedorController {
     }
 
     @PutMapping("/update-fornecedor/{id}")
-    public ResponseEntity<FornecedorUpdateDto> updateEvent(@PathVariable Integer id, @RequestBody @Valid FornecedorUpdateDto updateDto){
+    public ResponseEntity<FornecedorUpdateDto> updateFornecedor(@PathVariable Integer id, @RequestBody @Valid FornecedorUpdateDto updateDto){
         Fornecedor fornecedor = fornecedorService.update(id, mapper.toFornecedor(updateDto));
         return ResponseEntity.ok(mapper.toUpdate(fornecedor));
     }
@@ -66,4 +67,13 @@ public class FornecedorController {
     public ViaCepResponse getAddress(@PathVariable String cep) {
         return fornecedorService.getAddress(cep);
     }
+
+    @GetMapping("/get-fornecedor-nome/{nomeFornecedor}")
+    public List<FornecedorNomeDto> getFornecedorPorNome(@PathVariable String nomeFornecedor) {
+        List<Fornecedor> fornecedores = fornecedorService.findFornecedorPorNome(nomeFornecedor);
+        return fornecedores.stream()
+                .map(f -> new FornecedorNomeDto(f.getNomeFornecedor(), f.getCodFornecedor()))
+                .collect(Collectors.toList());
+    }
+
 }

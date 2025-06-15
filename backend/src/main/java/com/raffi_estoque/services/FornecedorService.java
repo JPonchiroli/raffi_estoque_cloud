@@ -1,5 +1,6 @@
 package com.raffi_estoque.services;
 
+import com.raffi_estoque.dto.FornecedorNomeDto;
 import com.raffi_estoque.dto.ViaCepResponse;
 import com.raffi_estoque.entities.Cliente;
 import com.raffi_estoque.entities.Fornecedor;
@@ -57,5 +58,9 @@ public class FornecedorService {
 
     public ViaCepResponse getAddress(String cep) {
         return viaCepclient.getAddress(cep);
+    }
+
+    public List<Fornecedor> findFornecedorPorNome (String nomeFornecedor) {
+        return fornecedorRepository.findByNomeFornecedorContainingIgnoreCase(nomeFornecedor);
     }
 }
