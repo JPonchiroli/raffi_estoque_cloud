@@ -1,54 +1,110 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Cadastro Produto</title>
-        <link rel="stylesheet" href="/styles/cadastro.css">
-    </head>
-    <body>
-    
-        <header>
-            <h1>Cadastro de Produto</h1>
-            <h2>Preencha as informações do produto</h2>
-        </header>
 
-        <main>
-            <form>
-                <h2>Cadastro de Produto</h2>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Produto</title>
+    <link rel="stylesheet" href="/styles/cadastro.css">
+</head>
 
-                <label for="nomeProduto">Nome do Produto:</label>
-                <input type="text" id="nomeProduto" name="nomeProduto" required />
+<body>
 
-                <label for="unidadeMedida">Unidade de Medida:</label>
-                <select id="unidadeMedida" name="unidadeMedida" required>
-                    <option value="">Selecione uma unidade</option> <option value="Unidade">Unitário</option>
-                    <option value="Kg">Kg</option>
-                    <option value="Metro">Metro</option>
-                </select>
+    <header>
+        <h1>Cadastro de Produto</h1>
+        <h2>Preencha as informações do produto</h2>
+    </header>
+
+    <main>
+        <form>
+            <h2>Cadastro de Produto</h2>
+
+            <label for="nomeProduto">Nome do Produto:</label>
+            <input type="text" id="nomeProduto" name="nomeProduto" required />
+
+            <label for="unidadeMedida">Unidade de Medida:</label>
+            <select id="unidadeMedida" name="unidadeMedida" required>
+                <option value="">Selecione uma unidade</option>
+                <option value="Unidade">Unitário</option>
+                <option value="Kg">Kg</option>
+                <option value="Metro">Metro</option>
+            </select>
+
+            <label for="valorCusto">Valor de Custo:</label>
+            <input type="number" step="0.01" id="valorCusto" name="valorCusto" required />
+
+            <label for="valorVenda">Valor de Venda:</label>
+            <input type="number" step="0.01" id="valorVenda" name="valorVenda" required />
+
+            <label for="estoqueAtual">Estoque Atual:</label>
+            <input type="number" id="estoqueAtual" name="estoqueAtual" required />
+
+            <label for="estoqueMinimo">Estoque Mínimo:</label>
+            <input type="number" id="estoqueMinimo" name="estoqueMinimo" required />
+
+            <label for="fornecedorNome">Fornecedor:</label>
+            <div class="autocomplete-container">
+                <input type="text" id="fornecedorNome" placeholder="Digite o nome do fornecedor" autocomplete="off" />
+                <ul id="sugestoesFornecedor" class="autocomplete-list"></ul>
+            </div>
+            <input type="hidden" name="fornecedorId" id="fornecedorId" />
+
+            <div class="button-group">
+                <button type="submit">Cadastrar Produto</button>
+                <button type="button" onclick="window.location.href='/'">Voltar</button>
+            </div>
+        </form>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Raffi Estoque</p>
+    </footer>
+
+    <script>
+        const inputFornecedor = document.getElementById('fornecedorNome');
+        const listaSugestoes = document.getElementById('sugestoesFornecedor');
+        const inputHiddenId = document.getElementById('fornecedorId');
+
+        inputFornecedor.addEventListener('input', async () => {
+            const nomeFornecedor = inputFornecedor.value;
+
+            if (nomeFornecedor.length < 2) {
+                listaSugestoes.innerHTML = '';
+                return;
+            }
+
+            try {
+                const res = await fetch(`/fornecedores/busca-fornecedores-nome-backend/${encodeURIComponent(nomeFornecedor)}`);
+                const data = await res.json();
+
+                listaSugestoes.innerHTML = '';
                 
-                <label for="valorCusto">Valor de Custo:</label>
-                <input type="number" step="0.01" id="valorCusto" name="valorCusto" required />
+                data.forEach(f => {
+                    console.log('Fornecedor:', f.nomeFornecedor, f.codFornecedor);
+                    const li = document.createElement('li');
+                    li.textContent = f.nomeFornecedor;
+                    li.addEventListener('click', () => {
+                        inputFornecedor.value = f.nomeFornecedor;
+                        inputHiddenId.value = f.codFornecedor;
+                        listaSugestoes.innerHTML = '';
+                    });
+                    listaSugestoes.appendChild(li);
+                });
 
-                <label for="valorVenda">Valor de Venda:</label>
-                <input type="number" step="0.01" id="valorVenda" name="valorVenda" required />
+            } catch (err) {
+                console.error('Erro ao buscar fornecedores:', err);
+            }
+        });
 
-                <label for="estoqueAtual">Estoque Atual:</label>
-                <input type="number" id="estoqueAtual" name="estoqueAtual" required />
+        document.addEventListener('click', (e) => {
+            if (!document.querySelector('.autocomplete-container').contains(e.target)) {
+                listaSugestoes.innerHTML = '';
+            }
+        });
 
-                <label for="estoqueMinimo">Estoque Mínimo:</label>
-                <input type="number" id="estoqueMinimo" name="estoqueMinimo" required />
+    </script>
 
-                <div class="button-group">
-                    <button type="submit">Cadastrar Produto</button>
-                    <button type="button" onclick="window.location.href='/'">Voltar</button>
-                </div>
-            </form>
-    
-        </main>
+</body>
 
-        <footer>
-            <p>&copy; 2025 Raffi Estoque</p>
-        </footer>
-    </body>
 </html>

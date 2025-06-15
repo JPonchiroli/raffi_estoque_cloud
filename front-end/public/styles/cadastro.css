@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap');
 
 * {
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 body {
@@ -68,9 +68,36 @@ select {
     border-radius: 4px;
 }
 
+.autocomplete-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    background: white;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    width: 100%;
+    z-index: 1000;
+}
+
+.autocomplete-list li {
+    padding: 5px;
+    cursor: pointer;
+    color: #333;
+}
+
+.autocomplete-list li:hover {
+    background-color: #eee;
+}
+
+.autocomplete-container {
+    position: relative;
+}
+
 .button-group {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     gap: 0.5rem;
     margin-top: 1.5rem;
 }
