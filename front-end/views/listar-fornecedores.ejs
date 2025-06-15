@@ -95,7 +95,7 @@
                             fornecedor.numeroRua || '',
                             fornecedor.complemento || '',
                             fornecedor.uf || '',
-                            `<button class="btn-excluir" data-id="${fornecedor.codFornecedor}">Excluir</button>`
+                            `<button class="btn-excluir" data-id="${fornecedor.codFornecedor}">Excluir</button> <button class="btn-editar" data-id="${fornecedor.codFornecedor}">Editar</button>`
                         ];
 
                         const newRow = table.row.add(row).draw().node();
@@ -139,6 +139,77 @@
                 });
         }
     });
+
+    $('#tabela').on('click', '.btn-editar', function () {
+        const $btn = $(this);
+        const $row = $btn.closest('tr');
+
+        if ($btn.text() === 'Editar') {
+            const nomeTd = $row.find('td').eq(1);
+            const emailTd = $row.find('td').eq(3);
+            const telefoneTd = $row.find('td').eq(4);
+
+            const nomeVal = nomeTd.text();
+            const emailVal = emailTd.text();
+            const telefoneVal = telefoneTd.text();
+
+            nomeTd.html(`<input type="text" value="${nomeVal}" />`);
+            emailTd.html(`<input type="text" value="${emailVal}" />`);
+            telefoneTd.html(`<input type="text" value="${telefoneVal}" />`);
+
+            $btn.text('Confirmar');
+            $btn.after(`<button class="btn-cancelar" data-id="${$btn.data('id')}">Cancelar</button>`);
+        } else {
+            const id = $btn.data('id');
+            const $row = $btn.closest('tr');
+
+            const nomeFornecedor = $row.find('td').eq(1).find('input').val();
+            const email = $row.find('td').eq(3).find('input').val();
+            const telefone = $row.find('td').eq(4).find('input').val();
+
+            const dadosAtualizados = { nomeFornecedor, email, telefone };
+            
+            fetch(`/fornecedores/atualizar-fornecedor-backend/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dadosAtualizados)
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error('Erro ao atualizar');
+                    return res.json();
+                })
+                .then(() => {
+                    $row.find('td').eq(1).text(nomeFornecedor);
+                    $row.find('td').eq(3).text(email);
+                    $row.find('td').eq(4).text(telefone);
+
+                    $btn.text('Editar');
+                    $row.find('.btn-cancelar').remove();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Erro ao atualizar fornecedor.');
+                });
+        }
+    });
+
+    $('#tabela').on('click', '.btn-cancelar', function () {
+        const $row = $(this).closest('tr');
+        const $editarBtn = $row.find('.btn-editar');
+
+        const nomeOriginal = $row.find('td').eq(1).find('input').attr('value');
+        const emailOriginal = $row.find('td').eq(3).find('input').attr('value');
+        const telefoneOriginal = $row.find('td').eq(4).find('input').attr('value');
+
+        $row.find('td').eq(1).text(nomeOriginal);
+        $row.find('td').eq(3).text(emailOriginal);
+        $row.find('td').eq(4).text(telefoneOriginal);
+
+        $editarBtn.text('Editar');
+        $(this).remove();
+    });
+
+
 </script>
 
 </html>

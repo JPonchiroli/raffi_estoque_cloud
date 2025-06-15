@@ -158,9 +158,7 @@
             const complemento = $row.find('td').eq(7).find('input').val();
 
             const dadosAtualizados = { nomeCliente, complemento };
-            
-            console.log('Atualizando cliente:', id, nomeCliente, complemento);
-            
+        
             fetch(`/clientes/atualizar-cliente-backend/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -197,7 +195,6 @@
         $editarBtn.text('Editar');
         $(this).remove();
     });
-
 
 </script>
 

@@ -50,7 +50,6 @@ router.put('/atualizar-cliente-backend/:id', async (req, res) => {
     const response = await axios.put(`http://localhost:8080/api/clientes/update-cliente/${codCliente}`, {
       nomeCliente,
       complemento
-
     });
 
     res.status(200).json({ mensagem: 'Cliente atualizado com sucesso!', dados: response.data });

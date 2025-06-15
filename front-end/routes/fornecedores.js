@@ -45,6 +45,24 @@ router.get('/listar-fornecedores-backend', async (req, res) => {
     }
 });
 
+router.put('/atualizar-fornecedor-backend/:id', async (req, res) => {
+  const codFornecedor = req.params.id;
+  const { nomeFornecedor, email, telefone } = req.body;
+
+  try {
+    const response = await axios.put(`http://localhost:8080/api/fornecedores/update-fornecedor/${codFornecedor}`, {
+      nomeFornecedor,
+      email,
+      telefone
+    });
+
+    res.status(200).json({ mensagem: 'Fornecedor atualizado com sucesso!', dados: response.data });
+  } catch (erro) {
+    console.error('Erro ao atualizar fornecedor:', erro);
+    res.status(500).json({ erro: 'Erro interno ao atualizar fornecedor' });
+  }
+});
+
 router.delete('/deletar-fornecedor-backend/:id', async (req, res) => {
     const { id } = req.params;
     if (!id) {
