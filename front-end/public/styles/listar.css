@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Cal+Sans&display=swap');
 
 * {
-    box-sizing: border-box; 
+    box-sizing: border-box;
 }
 
 body {
@@ -42,7 +42,8 @@ main {
 }
 
 .tabela-container {
-    width: 80%;
+    overflow-x: auto;
+    width: 100%;
 }
 
 table#tabela {
@@ -83,8 +84,66 @@ table#tabela {
     transition: background-color 0.3s ease;
 }
 
+#tabela td {
+    white-space: nowrap;
+}
+
+/* Inputs de edição na tabela */
+#tabela td input[type="text"] {
+    width: 100%;
+    padding: 4px;
+    font-size: 0.9rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Botões de ação dentro da tabela */
+#tabela .btn-editar,
+#tabela .btn-cancelar,
+#tabela .btn-excluir {
+    padding: 5px 10px;
+    margin: 2px;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+#tabela .btn-editar {
+    background-color: #2980b9;
+}
+
+#tabela .btn-editar:hover {
+    background-color: #1f6392;
+}
+
+#tabela .btn-cancelar {
+    background-color: #95a5a6;
+}
+
+#tabela .btn-cancelar:hover {
+    background-color: #7f8c8d;
+}
+
+#tabela .btn-excluir {
+    background-color: #c0392b;
+}
+
+#tabela .btn-excluir:hover {
+    background-color: #992d22;
+}
+
 @media (max-width: 768px) {
-    table#tabela, thead, tbody, th, td, tr {
+
+    table#tabela,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
         display: block;
     }
 
@@ -96,7 +155,7 @@ table#tabela {
         margin-bottom: 1rem;
         background-color: white;
         border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
         padding: 1rem;
     }
 
@@ -136,7 +195,7 @@ table#tabela {
 
 .button-group {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     gap: 0.5rem;
     margin-top: 1.5rem;
 }

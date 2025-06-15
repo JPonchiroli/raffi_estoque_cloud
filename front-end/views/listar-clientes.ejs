@@ -89,7 +89,7 @@
                             cliente.numeroRua || '',
                             cliente.complemento || '',
                             cliente.uf || '',
-                            `<button class="btn-excluir" data-id="${cliente.codCliente}">Excluir</button>`
+                            `<button class="btn-excluir" data-id="${cliente.codCliente}">Excluir</button> <button class="btn-editar" data-id="${cliente.codCliente}">Editar</button>`
                         ];
 
                         const newRow = table.row.add(row).draw().node();
@@ -133,6 +133,72 @@
                 });
         }
     });
+
+    $('#tabela').on('click', '.btn-editar', function () {
+        const $btn = $(this);
+        const $row = $btn.closest('tr');
+
+        if ($btn.text() === 'Editar') {
+            const nomeTd = $row.find('td').eq(1);
+            const complementoTd = $row.find('td').eq(7);
+
+            const nomeVal = nomeTd.text();
+            const complementoVal = complementoTd.text();
+
+            nomeTd.html(`<input type="text" value="${nomeVal}" />`);
+            complementoTd.html(`<input type="text" value="${complementoVal}" />`);
+
+            $btn.text('Confirmar');
+            $btn.after(`<button class="btn-cancelar" data-id="${$btn.data('id')}">Cancelar</button>`);
+        } else {
+            const id = $btn.data('id');
+            const $row = $btn.closest('tr');
+
+            const nomeCliente = $row.find('td').eq(1).find('input').val();
+            const complemento = $row.find('td').eq(7).find('input').val();
+
+            const dadosAtualizados = { nomeCliente, complemento };
+            
+            console.log('Atualizando cliente:', id, nomeCliente, complemento);
+            
+            fetch(`/clientes/atualizar-cliente-backend/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dadosAtualizados)
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error('Erro ao atualizar');
+                    return res.json();
+                })
+                .then(() => {
+                    $row.find('td').eq(1).text(nomeCliente);
+                    $row.find('td').eq(7).text(complemento);
+
+                    $btn.text('Editar');
+                    $row.find('.btn-cancelar').remove();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Erro ao atualizar cliente.');
+                });
+        }
+    });
+
+    $('#tabela').on('click', '.btn-cancelar', function () {
+        const $row = $(this).closest('tr');
+        const $editarBtn = $row.find('.btn-editar');
+
+        const nomeOriginal = $row.find('td').eq(1).find('input').attr('value');
+        const complementoOriginal = $row.find('td').eq(7).find('input').attr('value');
+
+        $row.find('td').eq(1).text(nomeOriginal);
+        $row.find('td').eq(7).text(complementoOriginal);
+
+        $editarBtn.text('Editar');
+        $(this).remove();
+    });
+
+
 </script>
 
 </html>

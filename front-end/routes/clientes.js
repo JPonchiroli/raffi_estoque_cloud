@@ -42,6 +42,24 @@ router.get('/listar-clientes-backend', async (req, res) => {
   }
 });
 
+router.put('/atualizar-cliente-backend/:id', async (req, res) => {
+  const codCliente = req.params.id;
+  const { nomeCliente, complemento } = req.body;
+
+  try {
+    const response = await axios.put(`http://localhost:8080/api/clientes/update-cliente/${codCliente}`, {
+      nomeCliente,
+      complemento
+
+    });
+
+    res.status(200).json({ mensagem: 'Cliente atualizado com sucesso!', dados: response.data });
+  } catch (erro) {
+    console.error('Erro ao atualizar cliente:', erro);
+    res.status(500).json({ erro: 'Erro interno ao atualizar cliente' });
+  }
+});
+
 router.delete('/deletar-cliente-backend/:id', async (req, res) => {
   const { id } = req.params;
   if (!id) {
