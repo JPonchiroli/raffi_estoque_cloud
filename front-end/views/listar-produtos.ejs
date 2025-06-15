@@ -83,15 +83,13 @@
                             'R$ ' + produto.valorVenda || '',
                             produto.estoqueAtual || '',
                             produto.estoqueMinimo || '',
-                            `<button class="btn-excluir" data-id="${produto.codProduto}">Excluir</button>`
+                            `<button class="btn-excluir" data-id="${produto.codProduto}">Excluir</button> <button class="btn-editar" data-id="${produto.codProduto}">Editar</button>`
                         ];
-
-                        console.log(produto)
 
                         const newRow = table.row.add(row).draw().node();
 
                         const headers = [
-                            'Código Produto', 'Nome Produto', 'Unidade de Medida', 'Valor de Custo', 
+                            'Código Produto', 'Nome Produto', 'Unidade de Medida', 'Valor de Custo',
                             'Valor de Venda', 'Estoque Atual', 'Estoque Mínimo', 'Ações'
                         ];
 
@@ -129,6 +127,97 @@
                 });
         }
     });
+
+    $('#tabela').on('click', '.btn-editar', function () {
+        const $btn = $(this);
+        const $row = $btn.closest('tr');
+
+        if ($btn.text() === 'Editar') {
+            const nomeProdutoTd = $row.find('td').eq(1);
+            const unidadeMedidaTd = $row.find('td').eq(2);
+            const valorCustoTd = $row.find('td').eq(3);
+            const valorVendaTd = $row.find('td').eq(4);
+            const estoqueAtualTd = $row.find('td').eq(5);
+            const estoqueMinimoTd = $row.find('td').eq(6);
+
+            const nomeProdutoVal = nomeProdutoTd.text();
+            const unidadeMedidaVal = unidadeMedidaTd.text();
+            const valorCustoVal = valorCustoTd.text();
+            const valorVendaVal = valorVendaTd.text();
+            const estoqueAtualVal = estoqueAtualTd.text();
+            const estoqueMinimoVal = estoqueMinimoTd.text();
+
+            nomeProdutoTd.html(`<input type="text" value="${nomeProdutoVal}" />`);
+            unidadeMedidaTd.html(`<input type="text" value="${unidadeMedidaVal}" />`);
+            valorCustoTd.html(`<input type="text" value="${valorCustoVal.replace("R$ ", "")}" />`);
+            valorVendaTd.html(`<input type="text" value="${valorVendaVal.replace("R$ ", "")}" />`);
+            estoqueAtualTd.html(`<input type="text" value="${estoqueAtualVal}" />`);
+            estoqueMinimoTd.html(`<input type="text" value="${estoqueMinimoVal}" />`);
+
+            $btn.text('Confirmar');
+            $btn.after(`<button class="btn-cancelar" data-id="${$btn.data('id')}">Cancelar</button>`);
+        } else {
+            const id = $btn.data('id');
+            const $row = $btn.closest('tr');
+
+            const nomeProduto = $row.find('td').eq(1).find('input').val();
+            const unidadeMedida = $row.find('td').eq(2).find('input').val();
+            const valorCusto = $row.find('td').eq(3).find('input').val();
+            const valorVenda = $row.find('td').eq(4).find('input').val();
+            const estoqueAtual = $row.find('td').eq(5).find('input').val();
+            const estoqueMinimo = $row.find('td').eq(6).find('input').val();
+
+            const dadosAtualizados = { nomeProduto, unidadeMedida, valorCusto, valorVenda, estoqueAtual, estoqueMinimo };
+
+            fetch(`/produtos/atualizar-produto-backend/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(dadosAtualizados)
+            })
+                .then(res => {
+                    if (!res.ok) throw new Error('Erro ao atualizar');
+                    return res.json();
+                })
+                .then(() => {
+                    $row.find('td').eq(1).text(nomeProduto);
+                    $row.find('td').eq(2).text(unidadeMedida);
+                    $row.find('td').eq(3).text(valorCusto);
+                    $row.find('td').eq(4).text(valorVenda);
+                    $row.find('td').eq(5).text(estoqueAtual);
+                    $row.find('td').eq(6).text(estoqueMinimo);
+
+                    $btn.text('Editar');
+                    $row.find('.btn-cancelar').remove();
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert('Erro ao atualizar produto.');
+                });
+        }
+    });
+
+    $('#tabela').on('click', '.btn-cancelar', function () {
+        const $row = $(this).closest('tr');
+        const $editarBtn = $row.find('.btn-editar');
+
+        const nomeProduto = $row.find('td').eq(1).find('input').attr('value');
+        const unidadeMedida = $row.find('td').eq(2).find('input').attr('value');
+        const valorCusto = $row.find('td').eq(3).find('input').attr('value');
+        const valorVenda = $row.find('td').eq(4).find('input').attr('value');
+        const estoqueAtual = $row.find('td').eq(5).find('input').attr('value');
+        const estoqueMinimo = $row.find('td').eq(6).find('input').attr('value');
+
+        $row.find('td').eq(1).text(nomeProduto);
+        $row.find('td').eq(2).text(unidadeMedida);
+        $row.find('td').eq(3).text(`R$ ${valorCusto}`);
+        $row.find('td').eq(4).text(`R$ ${valorVenda}`);
+        $row.find('td').eq(5).text(estoqueAtual);
+        $row.find('td').eq(6).text(estoqueMinimo);
+
+        $editarBtn.text('Editar');
+        $(this).remove();
+    });
+
 </script>
 
 </html>

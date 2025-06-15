@@ -46,6 +46,27 @@ router.get('/listar-produtos-backend', async (req, res) => {
   }
 });
 
+router.put('/atualizar-produto-backend/:id', async (req, res) => {
+  const codProduto = req.params.id;
+  const { nomeProduto, unidadeMedida, valorCusto, valorVenda, estoqueAtual, estoqueMinimo } = req.body;
+
+  try {
+    const response = await axios.put(`http://localhost:8080/api/produtos/update-produto/${codProduto}`, {
+      nomeProduto,
+      unidadeMedida,
+      valorCusto,
+      valorVenda,
+      estoqueAtual,
+      estoqueMinimo
+    });
+
+    res.status(200).json({ mensagem: 'Produto atualizado com sucesso!', dados: response.data });
+  } catch (erro) {
+    console.error('Erro ao atualizar produto:', erro);
+    res.status(500).json({ erro: 'Erro interno ao atualizar produto' });
+  }
+});
+
 router.delete('/deletar-produto-backend/:id', async (req, res) => {
   const { id } = req.params;
   if (!id) {
