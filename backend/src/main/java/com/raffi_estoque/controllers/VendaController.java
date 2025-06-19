@@ -79,4 +79,17 @@ public class VendaController {
 
         return ResponseEntity.status(201).body(mapper.toVendaResponseDto(venda));
     }
+
+    @GetMapping("/get-venda/{id}")
+    public ResponseEntity<VendaResponseDto> getVenda(@PathVariable("id") int codVenda) {
+        Venda venda = vendaService.findById(codVenda);
+        return ResponseEntity.ok(mapper.toVendaResponseDto(venda));
+    }
+
+    @GetMapping("/get-all-vendas")
+    public ResponseEntity<List<VendaResponseDto>> getAllVendas() {
+        List<Venda> vendas = vendaService.findAll();
+        return ResponseEntity.ok(mapper.toListResponseDto(vendas));
+    }
+
 }
