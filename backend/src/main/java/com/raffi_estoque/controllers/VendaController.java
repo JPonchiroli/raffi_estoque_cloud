@@ -92,4 +92,24 @@ public class VendaController {
         return ResponseEntity.ok(mapper.toListResponseDto(vendas));
     }
 
+    @DeleteMapping("/delete-venda/{id}")
+    public ResponseEntity<Void> deleteVenda(@PathVariable("id") int codVenda) {
+        Venda venda = vendaService.findById(codVenda);
+        List<ItemVenda> itens = venda.getItens();
+
+        for (ItemVenda item: itens) {
+            int codProduto = item.getProduto().getCodProduto();
+
+            Produto produto = produtoService.findById(codProduto);
+
+            produto.setEstoqueAtual(produto.getEstoqueAtual() + item.getQuantidade());
+
+            produtoService.update(codProduto, produto);
+        }
+
+        vendaService.deleteById(codVenda);
+        return ResponseEntity.noContent().build();
+    }
+
+
 }
