@@ -1,12 +1,8 @@
-package com.raffi_estoque.dto;
+package com.raffi_estoque.dto.venda;
 
-import com.raffi_estoque.entities.Cliente;
-import com.raffi_estoque.entities.ItemVenda;
-import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public class VendaResponseDto {
@@ -14,6 +10,7 @@ public class VendaResponseDto {
     private int codVenda;
     private int codCliente;
     private Double valorTotal;
+    @JsonFormat(pattern = "HH'h'mm dd/MM/yyyy")
     private LocalDateTime dataVenda;
     private List<ItemVendaResponseDto> itens;
 

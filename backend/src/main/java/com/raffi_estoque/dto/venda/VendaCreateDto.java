@@ -1,6 +1,5 @@
-package com.raffi_estoque.dto;
+package com.raffi_estoque.dto.venda;
 
-import com.raffi_estoque.entities.ItemVenda;
 import jakarta.validation.constraints.NotBlank;
 
 import java.util.List;

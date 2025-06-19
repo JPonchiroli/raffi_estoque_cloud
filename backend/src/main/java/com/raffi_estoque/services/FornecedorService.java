@@ -1,8 +1,6 @@
 package com.raffi_estoque.services;
 
-import com.raffi_estoque.dto.FornecedorNomeDto;
-import com.raffi_estoque.dto.ViaCepResponse;
-import com.raffi_estoque.entities.Cliente;
+import com.raffi_estoque.dto.viacep.ViaCepResponse;
 import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.feign.ViaCepClient;
 import com.raffi_estoque.repositories.FornecedorRepository;

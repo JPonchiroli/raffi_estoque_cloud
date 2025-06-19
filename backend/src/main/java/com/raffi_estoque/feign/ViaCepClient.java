@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import com.raffi_estoque.dto.ViaCepResponse;
+import com.raffi_estoque.dto.viacep.ViaCepResponse;
 
 @FeignClient(value = "ViaCepClient", url = "viacep.com.br/ws/")
 public interface ViaCepClient {

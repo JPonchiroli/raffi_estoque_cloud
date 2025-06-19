@@ -1,6 +1,5 @@
 package com.raffi_estoque.entities;
 
-import com.raffi_estoque.dto.FornecedorCreateDto;
 import jakarta.persistence.*;
 
 import java.util.List;

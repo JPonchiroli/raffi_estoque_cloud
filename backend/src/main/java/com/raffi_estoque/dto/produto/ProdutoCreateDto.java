@@ -1,32 +1,38 @@
-package com.raffi_estoque.dto;
+package com.raffi_estoque.dto.produto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 
-public class ProdutoResponseDto {
+public class ProdutoCreateDto {
 
-    private Integer codProduto;
-
+    @NotBlank
     private String nomeProduto;
 
+    @NotBlank
     private String unidadeMedida;
 
+    @NotBlank
+    @Positive
     private Double valorCusto;
 
+    @NotBlank
+    @Positive
     private Double valorVenda;
 
+    @NotBlank
     private Integer estoqueAtual;
 
+    @NotBlank
     private Integer estoqueMinimo;
 
+    @NotBlank
     private Integer codFornecedor;
 
 
-    public ProdutoResponseDto() {
+    public ProdutoCreateDto() {
     }
 
-    public ProdutoResponseDto(Integer codProduto, String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
-        this.codProduto = codProduto;
+    public ProdutoCreateDto(String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
         this.valorCusto = valorCusto;
@@ -34,14 +40,6 @@ public class ProdutoResponseDto {
         this.estoqueAtual = estoqueAtual;
         this.estoqueMinimo = estoqueMinimo;
         this.codFornecedor = codFornecedor;
-    }
-
-    public Integer getCodProduto() {
-        return codProduto;
-    }
-
-    public void setCodProduto(Integer codProduto) {
-        this.codProduto = codProduto;
     }
 
     public String getNomeProduto() {
@@ -102,14 +100,13 @@ public class ProdutoResponseDto {
 
     @Override
     public String toString() {
-        return "ProdutoResponseDto{" +
+        return "ProdutoCreateDto{" +
                 "nomeProduto='" + nomeProduto + '\'' +
                 ", unidadeMedida='" + unidadeMedida + '\'' +
                 ", valorCusto=" + valorCusto +
                 ", valorVenda=" + valorVenda +
                 ", estoqueAtual=" + estoqueAtual +
                 ", estoqueMinimo=" + estoqueMinimo +
-                ", codFornecedor=" + codFornecedor +
                 '}';
     }
 }

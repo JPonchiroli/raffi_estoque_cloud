@@ -1,6 +1,8 @@
 package com.raffi_estoque.mapper;
 
-import com.raffi_estoque.dto.*;
+import com.raffi_estoque.dto.produto.ProdutoCreateDto;
+import com.raffi_estoque.dto.produto.ProdutoResponseDto;
+import com.raffi_estoque.dto.produto.ProdutoUpdateDto;
 import com.raffi_estoque.entities.Produto;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;

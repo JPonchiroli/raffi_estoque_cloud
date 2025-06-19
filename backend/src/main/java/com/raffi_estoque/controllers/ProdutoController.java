@@ -1,14 +1,13 @@
 package com.raffi_estoque.controllers;
 
-import com.raffi_estoque.dto.ProdutoCreateDto;
-import com.raffi_estoque.dto.ProdutoResponseDto;
-import com.raffi_estoque.dto.ProdutoUpdateDto;
+import com.raffi_estoque.dto.produto.ProdutoCreateDto;
+import com.raffi_estoque.dto.produto.ProdutoResponseDto;
+import com.raffi_estoque.dto.produto.ProdutoUpdateDto;
 import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.entities.Produto;
 import com.raffi_estoque.mapper.ProdutoMapper;
 import com.raffi_estoque.repositories.FornecedorRepository;
 import com.raffi_estoque.services.ProdutoService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

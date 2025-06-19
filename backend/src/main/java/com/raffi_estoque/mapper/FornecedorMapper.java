@@ -1,6 +1,8 @@
 package com.raffi_estoque.mapper;
 
-import com.raffi_estoque.dto.*;
+import com.raffi_estoque.dto.fornecedor.FornecedorCreateDto;
+import com.raffi_estoque.dto.fornecedor.FornecedorResponseDto;
+import com.raffi_estoque.dto.fornecedor.FornecedorUpdateDto;
 import com.raffi_estoque.entities.Fornecedor;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

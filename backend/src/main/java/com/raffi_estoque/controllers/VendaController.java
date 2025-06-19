@@ -1,24 +1,22 @@
 package com.raffi_estoque.controllers;
 
-import com.raffi_estoque.dto.*;
+import com.raffi_estoque.dto.venda.ItemVendaCreateDto;
+import com.raffi_estoque.dto.venda.VendaCreateDto;
+import com.raffi_estoque.dto.venda.VendaResponseDto;
 import com.raffi_estoque.entities.*;
 import com.raffi_estoque.mapper.VendaMapper;
 import com.raffi_estoque.repositories.ClienteRepository;
-import com.raffi_estoque.repositories.FornecedorRepository;
 import com.raffi_estoque.repositories.ProdutoRepository;
 import com.raffi_estoque.services.ProdutoService;
 import com.raffi_estoque.services.VendaService;
 import com.raffi_estoque.services.exception.EstoqueInsuficienteException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/vendas")

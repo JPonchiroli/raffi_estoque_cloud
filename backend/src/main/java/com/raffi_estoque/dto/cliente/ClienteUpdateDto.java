@@ -1,10 +1,6 @@
-package com.raffi_estoque.dto;
+package com.raffi_estoque.dto.cliente;
 
-import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
-
-import java.time.LocalDateTime;
 
 public class ClienteUpdateDto {
 

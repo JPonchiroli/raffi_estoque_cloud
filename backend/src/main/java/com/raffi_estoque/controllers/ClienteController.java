@@ -1,12 +1,12 @@
 package com.raffi_estoque.controllers;
 
-import com.raffi_estoque.dto.ClienteCreateDto;
-import com.raffi_estoque.dto.ClienteResponseDto;
-import com.raffi_estoque.dto.ClienteUpdateDto;
+import com.raffi_estoque.dto.cliente.ClienteCreateDto;
+import com.raffi_estoque.dto.cliente.ClienteResponseDto;
+import com.raffi_estoque.dto.cliente.ClienteUpdateDto;
 import com.raffi_estoque.entities.Cliente;
 import com.raffi_estoque.services.ClienteService;
 import com.raffi_estoque.mapper.ClienteMapper;
-import com.raffi_estoque.dto.ViaCepResponse;
+import com.raffi_estoque.dto.viacep.ViaCepResponse;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

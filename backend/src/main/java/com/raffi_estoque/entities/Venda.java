@@ -1,5 +1,6 @@
 package com.raffi_estoque.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ public class Venda {
 
     private Double valorTotal;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "HH'h'mm dd/MM/yyyy")
     private LocalDateTime dataVenda;
 
     public Venda(){}

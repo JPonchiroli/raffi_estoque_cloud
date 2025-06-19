@@ -1,9 +1,9 @@
 package com.raffi_estoque.mapper;
 
-import com.raffi_estoque.dto.ClienteCreateDto;
+import com.raffi_estoque.dto.cliente.ClienteCreateDto;
 
-import com.raffi_estoque.dto.ClienteResponseDto;
-import com.raffi_estoque.dto.ClienteUpdateDto;
+import com.raffi_estoque.dto.cliente.ClienteResponseDto;
+import com.raffi_estoque.dto.cliente.ClienteUpdateDto;
 import com.raffi_estoque.entities.Cliente;
 import org.mapstruct.Mapping;
 import org.springframework.stereotype.Component;

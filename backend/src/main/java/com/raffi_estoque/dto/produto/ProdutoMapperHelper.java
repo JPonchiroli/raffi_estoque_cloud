@@ -1,4 +1,4 @@
-package com.raffi_estoque.dto;
+package com.raffi_estoque.dto.produto;
 
 import com.raffi_estoque.entities.Produto;
 import org.mapstruct.Named;

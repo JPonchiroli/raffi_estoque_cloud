@@ -1,6 +1,6 @@
 package com.raffi_estoque.controllers;
 
-import com.raffi_estoque.dto.ViaCepResponse;
+import com.raffi_estoque.dto.viacep.ViaCepResponse;
 import com.raffi_estoque.services.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

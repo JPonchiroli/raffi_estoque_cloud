@@ -1,4 +1,4 @@
-package com.raffi_estoque.dto;
+package com.raffi_estoque.dto.fornecedor;
 
 public class FornecedorResponseDto {
 

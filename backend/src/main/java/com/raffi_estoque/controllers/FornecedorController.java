@@ -1,7 +1,10 @@
 package com.raffi_estoque.controllers;
 
-import com.raffi_estoque.dto.*;
-import com.raffi_estoque.entities.Cliente;
+import com.raffi_estoque.dto.fornecedor.FornecedorCreateDto;
+import com.raffi_estoque.dto.fornecedor.FornecedorNomeDto;
+import com.raffi_estoque.dto.fornecedor.FornecedorResponseDto;
+import com.raffi_estoque.dto.fornecedor.FornecedorUpdateDto;
+import com.raffi_estoque.dto.viacep.ViaCepResponse;
 import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.mapper.FornecedorMapper;
 import com.raffi_estoque.services.FornecedorService;

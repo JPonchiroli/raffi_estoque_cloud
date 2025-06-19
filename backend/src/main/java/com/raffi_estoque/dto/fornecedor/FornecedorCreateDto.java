@@ -1,4 +1,4 @@
-package com.raffi_estoque.dto;
+package com.raffi_estoque.dto.fornecedor;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package com.raffi_estoque.dto;
+package com.raffi_estoque.dto.produto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;

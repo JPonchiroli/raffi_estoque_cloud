@@ -1,8 +1,6 @@
-package com.raffi_estoque.dto;
+package com.raffi_estoque.dto.cliente;
 
 import jakarta.validation.constraints.*;
-
-import java.time.LocalDateTime;
 
 public class ClienteCreateDto {
 
