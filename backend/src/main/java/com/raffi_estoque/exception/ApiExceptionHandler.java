@@ -1,7 +1,7 @@
 package com.raffi_estoque.exception;
 
+import com.raffi_estoque.services.exception.EstoqueInsuficienteException;
 import com.raffi_estoque.services.exception.ObjectNotFoundException;
-import com.raffi_estoque.services.exception.SupportTicketException;
 
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
 
+import java.util.LinkedHashMap;
 
 
 @RestControllerAdvice
@@ -55,15 +56,16 @@ public class ApiExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-    @ExceptionHandler(SupportTicketException.class)
-    public ResponseEntity<ErrorMessage> handleSupportTicketException(SupportTicketException ex, HttpServletRequest request){
+    @ExceptionHandler(EstoqueInsuficienteException.class)
+    public ResponseEntity<ErrorMessage> handleEstoqueInsuficienteException(EstoqueInsuficienteException ex, HttpServletRequest request){
         ErrorMessage error = new ErrorMessage(
                 request.getRequestURI(),
                 request.getMethod(),
-                HttpStatus.CONFLICT.value(),
-                "Conflict",
+                HttpStatus.BAD_REQUEST.value(),
+                "Estoque Insuficiente",
                 ex.getMessage()
         );
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
+
 }
