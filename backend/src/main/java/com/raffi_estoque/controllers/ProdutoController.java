@@ -1,8 +1,11 @@
 package com.raffi_estoque.controllers;
 
+import com.raffi_estoque.dto.cliente.ClienteNomeDto;
 import com.raffi_estoque.dto.produto.ProdutoCreateDto;
+import com.raffi_estoque.dto.produto.ProdutoNomeDto;
 import com.raffi_estoque.dto.produto.ProdutoResponseDto;
 import com.raffi_estoque.dto.produto.ProdutoUpdateDto;
+import com.raffi_estoque.entities.Cliente;
 import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.entities.Produto;
 import com.raffi_estoque.mapper.ProdutoMapper;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/produtos")
@@ -63,5 +67,13 @@ public class ProdutoController {
         produtoService.deleteById(id);
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/get-produto-nome/{nomeProduto}")
+    public List<ProdutoNomeDto> getProdutoPorNome(@PathVariable String nomeProduto) {
+        List<Produto> produtos = produtoService.findFornecedorPorNome(nomeProduto);
+        return produtos.stream()
+                .map(f -> new ProdutoNomeDto(f.getCodProduto(), f.getNomeProduto()))
+                .collect(Collectors.toList());
     }
 }

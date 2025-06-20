@@ -69,4 +69,8 @@ public class ProdutoService {
 
         produtoRepository.deleteById(id);
     }
+
+    public List<Produto> findFornecedorPorNome(String nomeProduto) {
+        return produtoRepository.findByNomeProdutoContainingIgnoreCase(nomeProduto);
+    }
 }

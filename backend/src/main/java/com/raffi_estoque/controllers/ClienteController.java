@@ -76,7 +76,7 @@ public class ClienteController {
     }
 
     @GetMapping("/get-cliente-nome/{nomeCliente}")
-    public List<ClienteNomeDto> getFornecedorPorNome(@PathVariable String nomeCliente) {
+    public List<ClienteNomeDto> getNomePorNome(@PathVariable String nomeCliente) {
         List<Cliente> clientes = clienteService.findFornecedorPorNome(nomeCliente);
         return clientes.stream()
                 .map(f -> new ClienteNomeDto(f.getCodCliente(), f.getNomeCliente()))
