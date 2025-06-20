@@ -57,4 +57,7 @@ public class ClienteService {
         return viaCepclient.getAddress(cep);
     }
 
+    public List<Cliente> findFornecedorPorNome(String nomeCliente) {
+        return clienteRepository.findByNomeClienteContainingIgnoreCase(nomeCliente);
+    }
 }

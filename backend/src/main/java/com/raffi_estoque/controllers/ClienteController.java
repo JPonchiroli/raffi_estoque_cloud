@@ -1,9 +1,12 @@
 package com.raffi_estoque.controllers;
 
 import com.raffi_estoque.dto.cliente.ClienteCreateDto;
+import com.raffi_estoque.dto.cliente.ClienteNomeDto;
 import com.raffi_estoque.dto.cliente.ClienteResponseDto;
 import com.raffi_estoque.dto.cliente.ClienteUpdateDto;
+import com.raffi_estoque.dto.fornecedor.FornecedorNomeDto;
 import com.raffi_estoque.entities.Cliente;
+import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.services.ClienteService;
 import com.raffi_estoque.mapper.ClienteMapper;
 import com.raffi_estoque.dto.viacep.ViaCepResponse;
@@ -14,6 +17,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -69,6 +73,14 @@ public class ClienteController {
     @GetMapping("/get-address/{cep}")
     public ViaCepResponse getAddress(@PathVariable String cep) {
         return clienteService.getAddress(cep);
+    }
+
+    @GetMapping("/get-cliente-nome/{nomeCliente}")
+    public List<ClienteNomeDto> getFornecedorPorNome(@PathVariable String nomeCliente) {
+        List<Cliente> clientes = clienteService.findFornecedorPorNome(nomeCliente);
+        return clientes.stream()
+                .map(f -> new ClienteNomeDto(f.getCodCliente(), f.getNomeCliente()))
+                .collect(Collectors.toList());
     }
 
 }
