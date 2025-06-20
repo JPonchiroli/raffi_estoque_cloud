@@ -19,4 +19,14 @@ router.post('/cadastrar-venda-backend', async (req, res) => {
     }
 });
 
+router.get('/listar-vendas-backend', async (req, res) => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/vendas/get-all-vendas');
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ erro: 'Erro ao listar vendas do backend Java' });
+    console.error(error.message);
+  }
+});
+
 module.exports = router;

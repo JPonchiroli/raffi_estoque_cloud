@@ -34,4 +34,8 @@ router.get('/listar-fornecedores', (req, res) => {
   res.render('listar-fornecedores');
 });
 
+router.get('/listar-vendas', (req, res) => {
+  res.render('listar-vendas');
+});
+
 module.exports = router;
