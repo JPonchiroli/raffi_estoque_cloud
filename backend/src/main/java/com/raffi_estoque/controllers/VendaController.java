@@ -1,6 +1,7 @@
 package com.raffi_estoque.controllers;
 
 import com.raffi_estoque.dto.venda.ItemVendaCreateDto;
+import com.raffi_estoque.dto.venda.ItemVendaResponseDto;
 import com.raffi_estoque.dto.venda.VendaCreateDto;
 import com.raffi_estoque.dto.venda.VendaResponseDto;
 import com.raffi_estoque.entities.*;
@@ -10,6 +11,7 @@ import com.raffi_estoque.repositories.ProdutoRepository;
 import com.raffi_estoque.services.ProdutoService;
 import com.raffi_estoque.services.VendaService;
 import com.raffi_estoque.services.exception.EstoqueInsuficienteException;
+import feign.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/vendas")
@@ -109,5 +112,13 @@ public class VendaController {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping("/get-itens-venda/{codVenda}")
+    public ResponseEntity<List<ItemVendaResponseDto>> getItensVenda(@PathVariable("codVenda") int codVenda) {
+        List<ItemVenda> itensVenda = vendaService.findItensVendaByVendaId(codVenda);
+        List<ItemVendaResponseDto> response = itensVenda.stream()
+                .map(mapper::toItemVendaResponseDto)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(response);
+    }
 
 }
