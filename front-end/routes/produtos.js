@@ -46,6 +46,24 @@ router.get('/listar-produtos-backend', async (req, res) => {
   }
 });
 
+router.get('/busca-produtos-nome-backend/:nomeProduto', async (req, res) => {
+    const { nomeProduto } = req.params;
+    if (!nomeProduto) {
+        return res.status(400).json({ erro: 'Nome do produto é obrigatório' });
+    }
+
+    try {
+        const response = await axios.get(`http://localhost:8080/api/produtos/get-produto-nome/${nomeProduto}`);
+        
+        console.log('Resposta do Spring:', response.data);
+        
+        res.json(response.data);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ erro: 'Erro ao encontrar produtos' });
+    }
+});
+
 router.put('/atualizar-produto-backend/:id', async (req, res) => {
   const codProduto = req.params.id;
   const { nomeProduto, unidadeMedida, valorCusto, valorVenda, estoqueAtual, estoqueMinimo } = req.body;

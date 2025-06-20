@@ -18,6 +18,10 @@ router.get('/cadastro-fornecedor', (req, res) => {
   res.render('cadastro-fornecedor');
 });
 
+router.get('/cadastro-venda', (req, res) => {
+  res.render('cadastro-venda');
+});
+
 router.get('/listar-clientes', (req, res) => {
   res.render('listar-clientes');
 });

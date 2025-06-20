@@ -14,12 +14,14 @@ const pagesRouter = require('../routes/pages');
 const clientesRouter = require('../routes/clientes');
 const fornecedoresRouter = require('../routes/fornecedores');
 const produtosRouter = require('../routes/produtos');
+const vendasRouter = require('../routes/vendas');
 const utilsRouter = require('../routes/utils');
 
 app.use('/', pagesRouter);                     
 app.use('/clientes', clientesRouter);           
 app.use('/fornecedores', fornecedoresRouter);  
 app.use('/produtos', produtosRouter);  
+app.use('/vendas', vendasRouter);
 app.use('/utils', utilsRouter);                
 
 app.listen(3000, () => {

@@ -88,7 +88,6 @@ table#tabela {
     white-space: nowrap;
 }
 
-/* Inputs de edição na tabela */
 #tabela td input[type="text"] {
     width: 100%;
     padding: 4px;
@@ -98,7 +97,6 @@ table#tabela {
     box-sizing: border-box;
 }
 
-/* Botões de ação dentro da tabela */
 #tabela .btn-editar,
 #tabela .btn-cancelar,
 #tabela .btn-excluir {

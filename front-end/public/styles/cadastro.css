@@ -95,6 +95,33 @@ select {
     position: relative;
 }
 
+#carrinho {
+    margin-top: 20px;
+}
+
+.produto-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.botaoCarrinho {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    background-color: #c0392b;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+}
+
+.botaoCarrinho:hover {
+    background-color: #992d22;
+    cursor: pointer;
+}
+
 .button-group {
     display: flex;
     flex-direction: column;

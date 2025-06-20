@@ -42,6 +42,24 @@ router.get('/listar-clientes-backend', async (req, res) => {
   }
 });
 
+router.get('/busca-clientes-nome-backend/:nomeCliente', async (req, res) => {
+    const { nomeCliente } = req.params;
+    if (!nomeCliente) {
+        return res.status(400).json({ erro: 'Nome do cliente é obrigatório' });
+    }
+
+    try {
+        const response = await axios.get(`http://localhost:8080/api/clientes/get-cliente-nome/${nomeCliente}`);
+        
+        console.log('Resposta do Spring:', response.data);
+        
+        res.json(response.data);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).json({ erro: 'Erro ao encontrar clientes' });
+    }
+});
+
 router.put('/atualizar-cliente-backend/:id', async (req, res) => {
   const codCliente = req.params.id;
   const { nomeCliente, complemento } = req.body;
