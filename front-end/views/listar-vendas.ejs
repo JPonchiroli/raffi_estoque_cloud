@@ -104,8 +104,8 @@
     $('#tabela').on('click', '.btn-excluir', function () {
         const id = $(this).data('id');
 
-        if (confirm('Deseja realmente excluir este produto?')) {
-            fetch(`/produtos/deletar-produto-backend/${id}`, {
+        if (confirm('Deseja realmente excluir esta venda? A deleção pode alterar o estoque dos produtos vendidos.')) {
+            fetch(`/vendas/deletar-venda-backend/${id}`, {
                 method: 'DELETE'
             })
                 .then(res => {
@@ -113,12 +113,12 @@
                     return res.json();
                 })
                 .then(result => {
-                    alert('Produto excluído com sucesso!');
+                    alert('Venda excluída com sucesso!');
                     $('#tabela').DataTable().row($(this).parents('tr')).remove().draw();
                 })
                 .catch(err => {
                     console.error('Erro:', err);
-                    alert('Erro ao excluir produto.');
+                    alert('Erro ao excluir venda.');
                 });
         }
     });
