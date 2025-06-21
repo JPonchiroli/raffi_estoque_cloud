@@ -99,7 +99,8 @@ table#tabela {
 
 #tabela .btn-editar,
 #tabela .btn-cancelar,
-#tabela .btn-excluir {
+#tabela .btn-excluir,
+#tabela .btn-detalhes {
     padding: 5px 10px;
     margin: 2px;
     font-size: 0.85rem;
@@ -110,11 +111,11 @@ table#tabela {
     transition: background-color 0.3s ease;
 }
 
-#tabela .btn-editar {
+#tabela .btn-editar, .btn-detalhes {
     background-color: #2980b9;
 }
 
-#tabela .btn-editar:hover {
+#tabela .btn-editar, .btn-detalhes:hover {
     background-color: #1f6392;
 }
 

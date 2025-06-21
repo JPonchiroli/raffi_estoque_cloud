@@ -38,4 +38,8 @@ router.get('/listar-vendas', (req, res) => {
   res.render('listar-vendas');
 });
 
+router.get('/detalhes-venda', (req, res) => {
+  res.render('detalhes-venda');
+});
+
 module.exports = router;

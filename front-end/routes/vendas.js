@@ -29,6 +29,21 @@ router.get('/listar-vendas-backend', async (req, res) => {
   }
 });
 
+router.get('/listar-itens-vendas-backend/:codVenda', async (req, res) => {
+  const { codVenda } = req.params;
+  if (!codVenda) {
+    return res.status(400).json({ erro: 'ID da venda é obrigatório' });
+  }
+
+  try {
+    const response = await axios.get(`http://localhost:8080/api/vendas/get-itens-venda/${codVenda}`);
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ erro: 'Erro ao listar vendas do backend Java' });
+    console.error(error.message);
+  }
+});
+
 router.delete('/deletar-venda-backend/:id', async (req, res) => {
   const { id } = req.params;
   if (!id) {

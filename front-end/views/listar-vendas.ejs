@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listar Produtos</title>
+    <title>Listar Vendas</title>
 
     <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.dataTables.min.css">
     <link rel="stylesheet" href="/styles/listar.css">
@@ -60,7 +60,7 @@
                 next: "Próxima",
                 previous: "Anterior"
             },
-            emptyTable: "Nenhum produto cadastrado"
+            emptyTable: "Nenhuma venda cadastrada"
         }
     });
 
@@ -79,7 +79,7 @@
                             nomeCliente,
                             venda.dataVenda || '',
                             venda.valorTotal != null ? `R$ ${venda.valorTotal}` : '',
-                            `<button class="btn-excluir" data-id="${venda.codVenda}">Excluir</button>`
+                            `<button class="btn-detalhes" data-id="${venda.codVenda}">Ver Detalhes</button> <button class="btn-excluir" data-id="${venda.codVenda}">Excluir</button>`
                         ];
 
                         const newRow = table.row.add(row).draw().node();
@@ -100,6 +100,11 @@
                 console.error('Erro de requisição:', error);
             });
     };
+
+    $('#tabela').on('click', '.btn-detalhes', function () {
+        const id = $(this).data('id');
+        window.location.href = `/detalhes-venda?codVenda=${id}`;
+    });
 
     $('#tabela').on('click', '.btn-excluir', function () {
         const id = $(this).data('id');
