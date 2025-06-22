@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/clientes")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ClienteController {
 
     @Autowired
@@ -29,7 +30,6 @@ public class ClienteController {
     @Autowired
     private ClienteMapper mapper;
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/create-cliente")
     public ResponseEntity<ClienteResponseDto> createCliente(@RequestBody ClienteCreateDto cliente) {
         Cliente clienteCreated = mapper.toCliente(cliente);

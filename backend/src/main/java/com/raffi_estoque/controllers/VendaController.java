@@ -11,7 +11,6 @@ import com.raffi_estoque.repositories.ProdutoRepository;
 import com.raffi_estoque.services.ProdutoService;
 import com.raffi_estoque.services.VendaService;
 import com.raffi_estoque.services.exception.EstoqueInsuficienteException;
-import feign.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +22,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/vendas")
+@CrossOrigin(origins = "http://localhost:3000")
 public class VendaController {
 
     @Autowired
@@ -40,7 +40,6 @@ public class VendaController {
     @Autowired
     private VendaMapper mapper;
 
-    @CrossOrigin(origins = "*")
     @PostMapping("/create-venda")
     public ResponseEntity<VendaResponseDto> createVenda(@RequestBody VendaCreateDto dto) {
         Venda venda = new Venda();

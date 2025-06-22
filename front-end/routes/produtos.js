@@ -16,7 +16,7 @@ router.post('/cadastrar-produto-backend', async (req, res) => {
     };
 
     const response = await axios.post(
-      'http://localhost:8080/api/produtos/create-produto',
+      'http://backend:8080/api/produtos/create-produto',
       produtoData
     );
 
@@ -38,7 +38,7 @@ router.post('/cadastrar-produto-backend', async (req, res) => {
 
 router.get('/listar-produtos-backend', async (req, res) => {
   try {
-    const response = await axios.get('http://localhost:8080/api/produtos/get-all-produtos');
+    const response = await axios.get('http://backend:8080/api/produtos/get-all-produtos');
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ erro: 'Erro ao listar produtos do backend Java' });
@@ -53,7 +53,7 @@ router.get('/busca-produtos-nome-backend/:nomeProduto', async (req, res) => {
     }
 
     try {
-        const response = await axios.get(`http://localhost:8080/api/produtos/get-produto-nome/${nomeProduto}`);
+        const response = await axios.get(`http://backend:8080/api/produtos/get-produto-nome/${nomeProduto}`);
         
         console.log('Resposta do Spring:', response.data);
         
@@ -69,7 +69,7 @@ router.put('/atualizar-produto-backend/:id', async (req, res) => {
   const { nomeProduto, unidadeMedida, valorCusto, valorVenda, estoqueAtual, estoqueMinimo } = req.body;
 
   try {
-    const response = await axios.put(`http://localhost:8080/api/produtos/update-produto/${codProduto}`, {
+    const response = await axios.put(`http://backend:8080/api/produtos/update-produto/${codProduto}`, {
       nomeProduto,
       unidadeMedida,
       valorCusto,
@@ -92,7 +92,7 @@ router.delete('/deletar-produto-backend/:id', async (req, res) => {
   }
 
   try {
-    const response = await axios.delete(`http://localhost:8080/api/produtos/deletar-produto/${id}`);
+    const response = await axios.delete(`http://backend:8080/api/produtos/deletar-produto/${id}`);
     res.json({ mensagem: 'Produto deletado com sucesso', dados: response.data });
   } catch (error) {
     console.error(error.message);

@@ -7,7 +7,7 @@ router.post('/cadastrar-venda-backend', async (req, res) => {
   const { codCliente, itens } = req.body;
 
   try {
-    const resposta = await axios.post('http://localhost:8080/api/vendas/create-venda', {
+    const resposta = await axios.post('http://backend:8080/api/vendas/create-venda', {
       codCliente,
       itens
     });
@@ -21,7 +21,7 @@ router.post('/cadastrar-venda-backend', async (req, res) => {
 
 router.get('/listar-vendas-backend', async (req, res) => {
   try {
-    const response = await axios.get('http://localhost:8080/api/vendas/get-all-vendas');
+    const response = await axios.get('http://backend:8080/api/vendas/get-all-vendas');
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ erro: 'Erro ao listar vendas do backend Java' });
@@ -36,7 +36,7 @@ router.get('/listar-itens-vendas-backend/:codVenda', async (req, res) => {
   }
 
   try {
-    const response = await axios.get(`http://localhost:8080/api/vendas/get-itens-venda/${codVenda}`);
+    const response = await axios.get(`http://backend:8080/api/vendas/get-itens-venda/${codVenda}`);
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ erro: 'Erro ao listar vendas do backend Java' });
@@ -51,7 +51,7 @@ router.delete('/deletar-venda-backend/:id', async (req, res) => {
   }
 
   try {
-    const response = await axios.delete(`http://localhost:8080/api/vendas/delete-venda/${id}`);
+    const response = await axios.delete(`http://backend:8080/api/vendas/delete-venda/${id}`);
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ erro: 'Erro ao deletar venda do backend Java' });

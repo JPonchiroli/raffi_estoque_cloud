@@ -15,7 +15,7 @@ router.post('/cadastrar-fornecedor-backend', async (req, res) => {
         };
 
         const response = await axios.post(
-            'http://localhost:8080/api/fornecedores/create-fornecedor',
+            'http://backend:8080/api/fornecedores/create-fornecedor',
             fornecedorData
         );
 
@@ -37,7 +37,7 @@ router.post('/cadastrar-fornecedor-backend', async (req, res) => {
 
 router.get('/listar-fornecedores-backend', async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:8080/api/fornecedores/get-all-fornecedores');
+        const response = await axios.get('http://backend:8080/api/fornecedores/get-all-fornecedores');
         res.json(response.data);
     } catch (error) {
         res.status(500).json({ erro: 'Erro ao listar fornecedores do backend Java' });
@@ -50,7 +50,7 @@ router.put('/atualizar-fornecedor-backend/:id', async (req, res) => {
   const { nomeFornecedor, email, telefone } = req.body;
 
   try {
-    const response = await axios.put(`http://localhost:8080/api/fornecedores/update-fornecedor/${codFornecedor}`, {
+    const response = await axios.put(`http://backend:8080/api/fornecedores/update-fornecedor/${codFornecedor}`, {
       nomeFornecedor,
       email,
       telefone
@@ -70,7 +70,7 @@ router.delete('/deletar-fornecedor-backend/:id', async (req, res) => {
     }
 
     try {
-        const response = await axios.delete(`http://localhost:8080/api/fornecedores/deletar-fornecedor/${id}`);
+        const response = await axios.delete(`http://backend:8080/api/fornecedores/deletar-fornecedor/${id}`);
         res.json({ mensagem: 'Fornecedor deletado com sucesso', dados: response.data });
     } catch (error) {
         console.error(error.message);
@@ -85,7 +85,7 @@ router.get('/busca-fornecedores-nome-backend/:nomeFornecedor', async (req, res) 
     }
 
     try {
-        const response = await axios.get(`http://localhost:8080/api/fornecedores/get-fornecedor-nome/${nomeFornecedor}`);
+        const response = await axios.get(`http://backend:8080/api/fornecedores/get-fornecedor-nome/${nomeFornecedor}`);
         
         console.log('Resposta do Spring:', response.data); // 🔍 Veja isso no terminal
         
@@ -103,7 +103,7 @@ router.get('/busca-fornecedor-id-backend/:id', async (req, res) => {
     }
 
     try {
-        const response = await axios.get(`http://localhost:8080/api/fornecedores/get-fornecedor/${id}`);
+        const response = await axios.get(`http://backend:8080/api/fornecedores/get-fornecedor/${id}`);
         
         res.json(response.data);
     } catch (error) {

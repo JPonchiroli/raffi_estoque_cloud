@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/fornecedores")
+@CrossOrigin(origins = "http://localhost:3000")
 public class FornecedorController {
 
     @Autowired
