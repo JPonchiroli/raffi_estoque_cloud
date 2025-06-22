@@ -2,7 +2,8 @@ version: "3.8"
 
 services:
   db:
-    image: mysql:latest
+    # image: mysql:latest
+    image: jponchiroli/raffi_estoque:mysql
     ports:
       - "3307:3306"
     environment:
@@ -12,10 +13,8 @@ services:
       - my-network
 
   backend:
-    build:
-      context: ./backend
-      dockerfile: Dockerfile
-    image: backend/latest
+    # image: backend
+    image: jponchiroli/raffi_estoque:backend
     ports:
       - "8080:8080"
     environment:
@@ -29,10 +28,8 @@ services:
       - my-network
 
   frontend:
-    build:
-      context: ./front-end
-      dockerfile: Dockerfile
-    image: frontend/latest
+    # image: frontend
+    image: jponchiroli/raffi_estoque:frontend
     ports:
       - "3000:3000"
     networks:
