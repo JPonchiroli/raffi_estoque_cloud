@@ -74,3 +74,13 @@ Aplicação web para gerenciamento de estoque, com interface amigável, backend 
 - Backend (API REST): http://localhost:8080
 
 - Banco de dados: porta 3307 (pode ser acessado por ferramentas como DBeaver ou MySQL Workbench)
+
+### Manutenção 
+
+1. **Atualizar tags para repositório: **
+   ```bash
+   # No diretório do projeto
+   docker build -t jponchiroli/raffi_estoque:frontend ./front-end
+   docker build -t jponchiroli/raffi_estoque:backend ./backend
+   ```
+
