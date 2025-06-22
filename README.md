@@ -75,7 +75,7 @@ Aplicação web para gerenciamento de estoque, com interface amigável, backend 
 
 - Banco de dados: porta 3307 (pode ser acessado por ferramentas como DBeaver ou MySQL Workbench)
 
---
+ ---
 
 ### ⚙️ Manutenção 
 
@@ -85,4 +85,5 @@ Aplicação web para gerenciamento de estoque, com interface amigável, backend 
    docker build -t jponchiroli/raffi_estoque:frontend ./front-end
    docker build -t jponchiroli/raffi_estoque:backend ./backend
    ```
+
 
