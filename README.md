@@ -60,9 +60,11 @@ Aplicação web para gerenciamento de estoque, com interface amigável, backend 
    cd raffi_estoque
    ```
 
-2. **Suba os containers com Docker Compose:**
+2. **Suba os containers com Docker Compose ([Repositório Aqui](https://hub.docker.com/r/jponchiroli/raffi_estoque)):**
    ```bash
-   docker compose pull     # Garante que todas as imagens sejam baixadas do Docker Hub
+   docker pull jponchiroli/raffi_estoque:mysql
+   docker pull jponchiroli/raffi_estoque:frontend
+   docker pull jponchiroli/raffi_estoque:backend
    docker compose up -d    # Sobe o projeto em segundo plano
    ```
 
