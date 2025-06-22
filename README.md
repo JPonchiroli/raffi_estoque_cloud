@@ -75,7 +75,9 @@ Aplicação web para gerenciamento de estoque, com interface amigável, backend 
 
 - Banco de dados: porta 3307 (pode ser acessado por ferramentas como DBeaver ou MySQL Workbench)
 
-### Manutenção 
+--
+
+### ⚙️ Manutenção 
 
 1. **Atualizar tags para repositório:** 
    ```bash
