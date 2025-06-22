@@ -77,7 +77,7 @@ Aplicação web para gerenciamento de estoque, com interface amigável, backend 
 
 ### Manutenção 
 
-1. **Atualizar tags para repositório: **
+1. **Atualizar tags para repositório:** 
    ```bash
    # No diretório do projeto
    docker build -t jponchiroli/raffi_estoque:frontend ./front-end
