@@ -138,7 +138,7 @@
                 complemento: document.getElementById('complemento').value
             };
 
-            const response = await fetch('/clientes/cadastrar-fornecedor-backend', {
+            const response = await fetch('/fornecedores/cadastrar-fornecedor-backend', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -147,7 +147,7 @@
             });
 
             if (!response.ok) {
-                throw new Error('Erro ao cadastrar fornecedor' + reponse.statusText);
+                throw new Error('Erro ao cadastrar fornecedor' + response.statusText);
             }
 
             const result = await response.json();

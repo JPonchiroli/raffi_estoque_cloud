@@ -33,6 +33,9 @@
             <label for="valorCusto">Valor de Custo:</label>
             <input type="number" step="0.01" id="valorCusto" name="valorCusto" required />
 
+            <label for="percentualLucro">Lucro (%)</label>
+            <input type="number" step="0.01" value="30" id="percentualLucro" name="percentualLucro" />
+
             <label for="valorVenda">Valor de Venda:</label>
             <input type="number" step="0.01" id="valorVenda" name="valorVenda" required />
 
@@ -140,6 +143,22 @@
             }
         });
 
+        const valorCustoInput = document.getElementById('valorCusto');
+        const percentualLucroInput = document.getElementById('percentualLucro');
+        const valorVendaInput = document.getElementById('valorVenda');
+
+        function atualizarValorVenda() {
+            const valorCusto = parseFloat(valorCustoInput.value);
+            const percentualLucro = parseFloat(percentualLucroInput.value);
+
+            if (!isNaN(valorCusto) && !isNaN(percentualLucro)) {
+                const valorVenda = valorCusto * (1 + percentualLucro / 100);
+                valorVendaInput.value = valorVenda.toFixed(2);
+            }
+        }
+
+        percentualLucroInput.addEventListener('input', atualizarValorVenda);
+        valorCustoInput.addEventListener('input', atualizarValorVenda);
     </script>
 
 </body>
