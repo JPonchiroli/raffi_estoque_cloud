@@ -75,6 +75,8 @@ Aplicação web para gerenciamento de estoque, com interface amigável, backend 
 
 - Banco de dados: porta 3307 (pode ser acessado por ferramentas como DBeaver ou MySQL Workbench)
 
+- Docker Desktop: Uma vez feito o docker compose é possível rodar aplicação diretamente no docker desktop
+
  ---
 
 ### ⚙️ Manutenção 
