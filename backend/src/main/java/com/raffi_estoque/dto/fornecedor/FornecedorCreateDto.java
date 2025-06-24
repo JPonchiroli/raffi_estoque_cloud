@@ -10,7 +10,6 @@ public class FornecedorCreateDto {
     private String nomeFornecedor;
     @NotBlank
     private String cnpj;
-    @NotBlank
     @Email
     private String email;
     @NotBlank
