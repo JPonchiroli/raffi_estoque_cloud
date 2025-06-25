@@ -151,8 +151,14 @@
             const valorCusto = parseFloat(valorCustoInput.value);
             const percentualLucro = parseFloat(percentualLucroInput.value);
 
+            if (valorCustoInput.value === '') {
+                valorVendaInput.value = '';
+                return;
+            }
+
             if (!isNaN(valorCusto) && !isNaN(percentualLucro)) {
-                const valorVenda = valorCusto * (1 + percentualLucro / 100);
+                const resto = ((100 - percentualLucro) / 100);
+                const valorVenda = valorCusto / resto;
                 valorVendaInput.value = valorVenda.toFixed(2);
             }
         }
