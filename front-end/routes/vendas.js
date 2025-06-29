@@ -13,9 +13,22 @@ router.post('/cadastrar-venda-backend', async (req, res) => {
     });
 
     res.status(resposta.status).json({ mensagem: 'Venda cadastrada com sucesso!' });
-  } catch (erro) {
-    console.error('Erro ao enviar venda para o backend:', erro.message);
-    res.status(500).json({ erro: 'Erro ao cadastrar venda' });
+  } catch (error) {
+    console.error('Erro ao cadastrar venda no backend Java:', error);
+
+    if (error.response) {
+      res.status(error.response.status).json({
+        erro: error.response.data.message || 'Erro ao cadastrar venda no backend Java (resposta com erro)'
+      });
+    } else if (error.request) {
+      res.status(500).json({
+        erro: 'Nenhuma resposta recebida do backend Java. Verifique se ele está online.'
+      });
+    } else {
+      res.status(500).json({
+        erro: 'Erro interno ao configurar a requisição para o backend Java.'
+      });
+    }
   }
 });
 

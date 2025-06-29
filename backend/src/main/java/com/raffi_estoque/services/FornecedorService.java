@@ -5,6 +5,7 @@ import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.feign.ViaCepClient;
 import com.raffi_estoque.repositories.FornecedorRepository;
 import com.raffi_estoque.services.exception.ObjectNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +20,26 @@ public class FornecedorService {
     private FornecedorRepository fornecedorRepository;
 
     @Autowired
+    private AddressService addressService;
+
+    @Autowired
     private ViaCepClient viaCepclient;
 
     @Transactional
     public Fornecedor save(Fornecedor fornecedor){
+        String cep = fornecedor.getCep();
+        String cepFormatado = addressService.zerarCep(cep);
+
+        fornecedor.setCep(cepFormatado);
+
+        if (!addressService.isCepZerado(cepFormatado)) {
+            ViaCepResponse address = getAddress(cepFormatado);
+            fornecedor.setRua(address.getLogradouro());
+            fornecedor.setBairro(address.getBairro());
+            fornecedor.setCidade(address.getLocalidade());
+            fornecedor.setUf(address.getUf());
+        }
+
         return fornecedorRepository.save(fornecedor);
     }
 
@@ -43,6 +60,23 @@ public class FornecedorService {
         fornecedorUpd.setNomeFornecedor(fornecedor.getNomeFornecedor());
         fornecedorUpd.setEmail(fornecedor.getEmail());
         fornecedorUpd.setTelefone(fornecedor.getTelefone());
+        fornecedorUpd.setCnpj(fornecedor.getCnpj());
+        fornecedorUpd.setCep(fornecedor.getCep());
+
+        String cepFormatado = addressService.zerarCep(fornecedor.getCep());
+        fornecedor.setCep(cepFormatado);
+
+        if (!addressService.isCepZerado(cepFormatado)) {
+            ViaCepResponse address = getAddress(cepFormatado);
+            fornecedorUpd.setRua(address.getLogradouro());
+            fornecedorUpd.setBairro(address.getBairro());
+            fornecedorUpd.setCidade(address.getLocalidade());
+            fornecedorUpd.setUf(address.getUf());
+        }
+
+        fornecedorUpd.setNumeroRua(fornecedor.getNumeroRua());
+        fornecedorUpd.setComplemento(fornecedor.getComplemento());
+
         return fornecedorRepository.save(fornecedorUpd);
     }
 

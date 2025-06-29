@@ -8,7 +8,9 @@ import com.raffi_estoque.dto.viacep.ViaCepResponse;
 import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.mapper.FornecedorMapper;
 import com.raffi_estoque.services.FornecedorService;
+
 import jakarta.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -30,14 +32,6 @@ public class FornecedorController {
     @PostMapping("/create-fornecedor")
     public ResponseEntity<FornecedorResponseDto> createFornecedor(@RequestBody FornecedorCreateDto fornecedor) {
         Fornecedor fornecedorCreated = mapper.toFornecedor(fornecedor);
-        String cep = fornecedor.getCep();
-        ViaCepResponse address = getAddress(cep);
-
-        fornecedorCreated.setRua(address.getLogradouro());
-        fornecedorCreated.setBairro(address.getBairro());
-        fornecedorCreated.setCidade(address.getLocalidade());
-        fornecedorCreated.setUf(address.getUf());
-
         fornecedorService.save(fornecedorCreated);
         return ResponseEntity.status(201).body(mapper.toFornecedorResponseDto(fornecedorCreated));
     }

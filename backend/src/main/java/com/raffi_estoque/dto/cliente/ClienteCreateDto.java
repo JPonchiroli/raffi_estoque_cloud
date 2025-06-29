@@ -7,11 +7,9 @@ public class ClienteCreateDto {
     @NotBlank
     private String nomeCliente;
 
-    @NotBlank
     @Size(min = 8, max = 8)
     private String cep;
 
-    @NotBlank
     @Size(min = 3, max = 50)
     private String complemento;
 

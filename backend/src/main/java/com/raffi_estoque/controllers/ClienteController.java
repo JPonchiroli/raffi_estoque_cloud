@@ -4,9 +4,8 @@ import com.raffi_estoque.dto.cliente.ClienteCreateDto;
 import com.raffi_estoque.dto.cliente.ClienteNomeDto;
 import com.raffi_estoque.dto.cliente.ClienteResponseDto;
 import com.raffi_estoque.dto.cliente.ClienteUpdateDto;
-import com.raffi_estoque.dto.fornecedor.FornecedorNomeDto;
 import com.raffi_estoque.entities.Cliente;
-import com.raffi_estoque.entities.Fornecedor;
+import com.raffi_estoque.services.AddressService;
 import com.raffi_estoque.services.ClienteService;
 import com.raffi_estoque.mapper.ClienteMapper;
 import com.raffi_estoque.dto.viacep.ViaCepResponse;
@@ -28,19 +27,14 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @Autowired
+    private AddressService addressService;
+
+    @Autowired
     private ClienteMapper mapper;
 
     @PostMapping("/create-cliente")
     public ResponseEntity<ClienteResponseDto> createCliente(@RequestBody ClienteCreateDto cliente) {
         Cliente clienteCreated = mapper.toCliente(cliente);
-        String cep = cliente.getCep();
-        ViaCepResponse address = getAddress(cep);
-
-        clienteCreated.setRua(address.getLogradouro());
-        clienteCreated.setBairro(address.getBairro());
-        clienteCreated.setCidade(address.getLocalidade());
-        clienteCreated.setUf(address.getUf());
-
         clienteService.save(clienteCreated);
         return ResponseEntity.status(201).body(mapper.toClienteResponseDto(clienteCreated));
     }
@@ -66,7 +60,6 @@ public class ClienteController {
     @DeleteMapping("/deletar-cliente/{id}")
     public ResponseEntity<Void> deleteCliente(@PathVariable("id") Integer id){
         clienteService.deleteById(id);
-
         return ResponseEntity.noContent().build();
     }
 
@@ -79,7 +72,7 @@ public class ClienteController {
     public List<ClienteNomeDto> getNomePorNome(@PathVariable String nomeCliente) {
         List<Cliente> clientes = clienteService.findFornecedorPorNome(nomeCliente);
         return clientes.stream()
-                .map(f -> new ClienteNomeDto(f.getCodCliente(), f.getNomeCliente()))
+                .map(f -> new ClienteNomeDto(f.getNomeCliente(), f.getCodCliente()))
                 .collect(Collectors.toList());
     }
 

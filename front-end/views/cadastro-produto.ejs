@@ -22,6 +22,9 @@
             <label for="nomeProduto">Nome do Produto:</label>
             <input type="text" id="nomeProduto" name="nomeProduto" required />
 
+            <label for="codigoBarra">Escaneie um código de barras:</label>
+            <input type="text" id="codigoBarra" name="codigoBarra" />
+
             <label for="unidadeMedida">Unidade de Medida:</label>
             <select id="unidadeMedida" name="unidadeMedida" required>
                 <option value="">Selecione uma unidade</option>
@@ -111,6 +114,7 @@
             try {
                 const formData = {
                     nomeProduto: document.getElementById('nomeProduto').value,
+                    codigoBarra: document.getElementById('codigoBarra').value,
                     unidadeMedida: document.getElementById('unidadeMedida').value,
                     valorCusto: document.getElementById('valorCusto').value,
                     valorVenda: document.getElementById('valorVenda').value,
@@ -165,6 +169,17 @@
 
         percentualLucroInput.addEventListener('input', atualizarValorVenda);
         valorCustoInput.addEventListener('input', atualizarValorVenda);
+
+        const campo = document.getElementById("codigoBarra");
+
+        campo.addEventListener("keydown", function (event) {
+            const codigo = campo.value.trim();
+            if (codigo !== "") {
+                resultado.textContent = `Código lido: ${codigo}`;
+                campo.value = codigo;
+            }
+        });
+
     </script>
 
 </body>

@@ -7,6 +7,7 @@ router.post('/cadastrar-produto-backend', async (req, res) => {
   try {
     const produtoData = {
       nomeProduto: req.body.nomeProduto,
+      codigoBarras: req.body.codigoBarras,
       unidadeMedida: req.body.unidadeMedida,
       valorCusto: req.body.valorCusto,
       valorVenda: req.body.valorVenda,
@@ -23,15 +24,20 @@ router.post('/cadastrar-produto-backend', async (req, res) => {
     res.json(response.data);
 
   } catch (error) {
-    console.error('Erro ao cadastrar produto no backend Java:', error.message);
+    console.error('Erro ao cadastrar produto no backend Java:', error);
+
     if (error.response) {
       res.status(error.response.status).json({
-        erro: error.response.data.message || 'Erro ao produto cliente no backend Java'
+        erro: error.response.data.message || 'Erro ao cadastrar produto no backend Java (resposta com erro)'
       });
     } else if (error.request) {
-      res.status(500).json({ erro: 'Nenhuma resposta recebida do backend Java' });
+      res.status(500).json({
+        erro: 'Nenhuma resposta recebida do backend Java. Verifique se ele está online.'
+      });
     } else {
-      res.status(500).json({ erro: 'Erro ao configurar a requisição para o backend Java' });
+      res.status(500).json({
+        erro: 'Erro interno ao configurar a requisição para o backend Java.'
+      });
     }
   }
 });
@@ -47,21 +53,21 @@ router.get('/listar-produtos-backend', async (req, res) => {
 });
 
 router.get('/busca-produtos-nome-backend/:nomeProduto', async (req, res) => {
-    const { nomeProduto } = req.params;
-    if (!nomeProduto) {
-        return res.status(400).json({ erro: 'Nome do produto é obrigatório' });
-    }
+  const { nomeProduto } = req.params;
+  if (!nomeProduto) {
+    return res.status(400).json({ erro: 'Nome do produto é obrigatório' });
+  }
 
-    try {
-        const response = await axios.get(`http://backend:8080/api/produtos/get-produto-nome/${nomeProduto}`);
-        
-        console.log('Resposta do Spring:', response.data);
-        
-        res.json(response.data);
-    } catch (error) {
-        console.error(error.message);
-        res.status(500).json({ erro: 'Erro ao encontrar produtos' });
-    }
+  try {
+    const response = await axios.get(`http://backend:8080/api/produtos/get-produto-nome/${nomeProduto}`);
+
+    console.log('Resposta do Spring:', response.data);
+
+    res.json(response.data);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({ erro: 'Erro ao encontrar produtos' });
+  }
 });
 
 router.put('/atualizar-produto-backend/:id', async (req, res) => {

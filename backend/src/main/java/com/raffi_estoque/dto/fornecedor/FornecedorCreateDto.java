@@ -8,18 +8,13 @@ public class FornecedorCreateDto {
 
     @NotBlank
     private String nomeFornecedor;
-    @NotBlank
     private String cnpj;
     @Email
     private String email;
-    @NotBlank
     private String telefone;
-    @NotBlank
     @Size(min = 8, max = 8)
     private String cep;
-    @NotBlank
     private String complemento;
-    @NotBlank
     private Integer numeroRua;
 
     public FornecedorCreateDto(){}

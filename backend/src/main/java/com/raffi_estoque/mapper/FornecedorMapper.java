@@ -4,10 +4,12 @@ import com.raffi_estoque.dto.fornecedor.FornecedorCreateDto;
 import com.raffi_estoque.dto.fornecedor.FornecedorResponseDto;
 import com.raffi_estoque.dto.fornecedor.FornecedorUpdateDto;
 import com.raffi_estoque.entities.Fornecedor;
+
+import org.springframework.stereotype.Component;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 

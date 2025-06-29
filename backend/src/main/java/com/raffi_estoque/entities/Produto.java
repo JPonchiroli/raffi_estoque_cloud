@@ -2,21 +2,20 @@ package com.raffi_estoque.entities;
 
 import jakarta.persistence.*;
 
-import java.util.Optional;
-
 @Entity
 @Table(name = "tb_produto")
 public class Produto {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codProduto;
+    private Integer codProduto;
+    private Long codigoBarras;
     private String nomeProduto;
     private String unidadeMedida;
-    private double valorCusto;
-    private double valorVenda;
-    private int estoqueAtual;
-    private int estoqueMinimo;
+    private Double valorCusto;
+    private Double valorVenda;
+    private Integer estoqueAtual;
+    private Integer estoqueMinimo;
 
     @ManyToOne
     @JoinColumn(name = "codFornecedor", nullable = false)
@@ -24,8 +23,9 @@ public class Produto {
 
     public Produto(){}
 
-    public Produto(int codProduto, String nomeProduto, String unidadeMedida, double valorCusto, double valorVenda, int estoqueAtual, int estoqueMinimo, Fornecedor fornecedor) {
+    public Produto(Integer codProduto, Long codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Fornecedor fornecedor) {
         this.codProduto = codProduto;
+        this.codigoBarras = codigoBarras;
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
         this.valorCusto = valorCusto;
@@ -35,12 +35,20 @@ public class Produto {
         this.fornecedor = fornecedor;
     }
 
-    public int getCodProduto() {
+    public Integer getCodProduto() {
         return codProduto;
     }
 
-    public void setCodProduto(int codProduto) {
+    public void setCodProduto(Integer codProduto) {
         this.codProduto = codProduto;
+    }
+
+    public Long getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(Long codigoBarras) {
+        this.codigoBarras = codigoBarras;
     }
 
     public String getNomeProduto() {
@@ -59,35 +67,35 @@ public class Produto {
         this.unidadeMedida = unidadeMedida;
     }
 
-    public double getValorCusto() {
+    public Double getValorCusto() {
         return valorCusto;
     }
 
-    public void setValorCusto(double valorCusto) {
+    public void setValorCusto(Double valorCusto) {
         this.valorCusto = valorCusto;
     }
 
-    public double getValorVenda() {
+    public Double getValorVenda() {
         return valorVenda;
     }
 
-    public void setValorVenda(double valorVenda) {
+    public void setValorVenda(Double valorVenda) {
         this.valorVenda = valorVenda;
     }
 
-    public int getEstoqueAtual() {
+    public Integer getEstoqueAtual() {
         return estoqueAtual;
     }
 
-    public void setEstoqueAtual(int estoqueAtual) {
+    public void setEstoqueAtual(Integer estoqueAtual) {
         this.estoqueAtual = estoqueAtual;
     }
 
-    public int getEstoqueMinimo() {
+    public Integer getEstoqueMinimo() {
         return estoqueMinimo;
     }
 
-    public void setEstoqueMinimo(int estoqueMinimo) {
+    public void setEstoqueMinimo(Integer estoqueMinimo) {
         this.estoqueMinimo = estoqueMinimo;
     }
 

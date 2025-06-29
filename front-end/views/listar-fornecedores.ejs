@@ -85,16 +85,16 @@
                         const row = [
                             fornecedor.codFornecedor || '',
                             fornecedor.nomeFornecedor || '',
-                            fornecedor.cnpj || '',
-                            fornecedor.email || '',
-                            fornecedor.telefone || '',
-                            fornecedor.cep || '',
-                            fornecedor.cidade || '',
-                            fornecedor.bairro || '',
-                            fornecedor.rua || '',
-                            fornecedor.numeroRua || '',
-                            fornecedor.complemento || '',
-                            fornecedor.uf || '',
+                            fornecedor.cnpj || 'Não informado',
+                            fornecedor.email || 'Não informado',
+                            fornecedor.telefone || 'Não informado',
+                            fornecedor.cep || 'Não informado',
+                            fornecedor.cidade || 'Não informado',
+                            fornecedor.bairro || 'Não informado',
+                            fornecedor.rua || 'Não informado',
+                            fornecedor.numeroRua || 'Não informado',
+                            fornecedor.complemento || 'Não informado',
+                            fornecedor.uf || 'Não informado',
                             `<button class="btn-excluir" data-id="${fornecedor.codFornecedor}">Excluir</button> <button class="btn-editar" data-id="${fornecedor.codFornecedor}">Editar</button>`
                         ];
 
@@ -146,16 +146,28 @@
 
         if ($btn.text() === 'Editar') {
             const nomeTd = $row.find('td').eq(1);
+            const cnpjTd = $row.find('td').eq(2);
             const emailTd = $row.find('td').eq(3);
             const telefoneTd = $row.find('td').eq(4);
+            const cepTd = $row.find('td').eq(5);
+            const numeroRuaTd = $row.find('td').eq(9);
+            const complementoTd = $row.find('td').eq(10);
 
             const nomeVal = nomeTd.text();
+            const cnpjVal = cnpjTd.text();
             const emailVal = emailTd.text();
             const telefoneVal = telefoneTd.text();
+            const cepVal = cepTd.text();
+            const numeroRuaVal = numeroRuaTd.text();
+            const complementoVal = complementoTd.text();
 
             nomeTd.html(`<input type="text" value="${nomeVal}" />`);
+            cnpjTd.html(`<input type="text" value="${cnpjVal}" />`);
             emailTd.html(`<input type="text" value="${emailVal}" />`);
             telefoneTd.html(`<input type="text" value="${telefoneVal}" />`);
+            cepTd.html(`<input type="text" value="${cepVal}" />`);
+            numeroRuaTd.html(`<input type="text" value="${numeroRuaVal}" />`);
+            complementoTd.html(`<input type="text" value="${complementoVal}" />`);
 
             $btn.text('Confirmar');
             $btn.after(`<button class="btn-cancelar" data-id="${$btn.data('id')}">Cancelar</button>`);
@@ -164,10 +176,14 @@
             const $row = $btn.closest('tr');
 
             const nomeFornecedor = $row.find('td').eq(1).find('input').val();
+            const cnpj = $row.find('td').eq(2).find('input').val();
             const email = $row.find('td').eq(3).find('input').val();
             const telefone = $row.find('td').eq(4).find('input').val();
+            const cep = $row.find('td').eq(5).find('input').val();
+            const numeroRua = $row.find('td').eq(9).find('input').val();
+            const complemento = $row.find('td').eq(10).find('input').val();
 
-            const dadosAtualizados = { nomeFornecedor, email, telefone };
+            const dadosAtualizados = { nomeFornecedor, cnpj, email, telefone, cep, numeroRua, complemento };
             
             fetch(`/fornecedores/atualizar-fornecedor-backend/${id}`, {
                 method: 'PUT',
@@ -180,11 +196,16 @@
                 })
                 .then(() => {
                     $row.find('td').eq(1).text(nomeFornecedor);
+                    $row.find('td').eq(2).text(cnpj);
                     $row.find('td').eq(3).text(email);
                     $row.find('td').eq(4).text(telefone);
+                    $row.find('td').eq(5).text(cep);
+                    $row.find('td').eq(9).text(numeroRua);
+                    $row.find('td').eq(10).text(complemento);
 
                     $btn.text('Editar');
                     $row.find('.btn-cancelar').remove();
+                    window.location.reload();
                 })
                 .catch(err => {
                     console.error(err);
@@ -198,12 +219,20 @@
         const $editarBtn = $row.find('.btn-editar');
 
         const nomeOriginal = $row.find('td').eq(1).find('input').attr('value');
+        const cnpjOriginal = $row.find('td').eq(2).find('input').attr('value');
         const emailOriginal = $row.find('td').eq(3).find('input').attr('value');
         const telefoneOriginal = $row.find('td').eq(4).find('input').attr('value');
+        const cepOriginal = $row.find('td').eq(5).find('input').attr('value');
+        const numeroRuaOriginal = $row.find('td').eq(9).find('input').attr('value');
+        const complementoOriginal = $row.find('td').eq(10).find('input').attr('value');
 
         $row.find('td').eq(1).text(nomeOriginal);
+        $row.find('td').eq(2).text(cnpjOriginal);
         $row.find('td').eq(3).text(emailOriginal);
         $row.find('td').eq(4).text(telefoneOriginal);
+        $row.find('td').eq(5).text(cepOriginal);
+        $row.find('td').eq(9).text(numeroRuaOriginal);
+        $row.find('td').eq(10).text(complementoOriginal);
 
         $editarBtn.text('Editar');
         $(this).remove();

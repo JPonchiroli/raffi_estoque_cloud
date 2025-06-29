@@ -22,15 +22,20 @@ router.post('/cadastrar-fornecedor-backend', async (req, res) => {
         res.json(response.data);
 
     } catch (error) {
-        console.error('Erro ao cadastrar fornecedor no backend Java:', error.message);
+        console.error('Erro ao cadastrar fornecedor no backend Java:', error);
+
         if (error.response) {
             res.status(error.response.status).json({
-                erro: error.response.data.message || 'Erro ao cadastrar fornecedor no backend Java'
+                erro: error.response.data.message || 'Erro ao cadastrar fornecedor no backend Java (resposta com erro)'
             });
         } else if (error.request) {
-            res.status(500).json({ erro: 'Nenhuma resposta recebida do backend Java' });
+            res.status(500).json({
+                erro: 'Nenhuma resposta recebida do backend Java. Verifique se ele está online.'
+            });
         } else {
-            res.status(500).json({ erro: 'Erro ao configurar a requisição para o backend Java' });
+            res.status(500).json({
+                erro: 'Erro interno ao configurar a requisição para o backend Java.'
+            });
         }
     }
 });
@@ -46,21 +51,25 @@ router.get('/listar-fornecedores-backend', async (req, res) => {
 });
 
 router.put('/atualizar-fornecedor-backend/:id', async (req, res) => {
-  const codFornecedor = req.params.id;
-  const { nomeFornecedor, email, telefone } = req.body;
+    const codFornecedor = req.params.id;
+    const { nomeFornecedor, cnpj, email, telefone, cep, numeroRua, complemento } = req.body;
 
-  try {
-    const response = await axios.put(`http://backend:8080/api/fornecedores/update-fornecedor/${codFornecedor}`, {
-      nomeFornecedor,
-      email,
-      telefone
-    });
+    try {
+        const response = await axios.put(`http://backend:8080/api/fornecedores/update-fornecedor/${codFornecedor}`, {
+            nomeFornecedor,
+            cnpj,
+            email,
+            telefone,
+            cep,
+            numeroRua,
+            complemento
+        });
 
-    res.status(200).json({ mensagem: 'Fornecedor atualizado com sucesso!', dados: response.data });
-  } catch (erro) {
-    console.error('Erro ao atualizar fornecedor:', erro);
-    res.status(500).json({ erro: 'Erro interno ao atualizar fornecedor' });
-  }
+        res.status(200).json({ mensagem: 'Fornecedor atualizado com sucesso!', dados: response.data });
+    } catch (erro) {
+        console.error('Erro ao atualizar fornecedor:', erro);
+        res.status(500).json({ erro: 'Erro interno ao atualizar fornecedor' });
+    }
 });
 
 router.delete('/deletar-fornecedor-backend/:id', async (req, res) => {
@@ -86,9 +95,9 @@ router.get('/busca-fornecedores-nome-backend/:nomeFornecedor', async (req, res) 
 
     try {
         const response = await axios.get(`http://backend:8080/api/fornecedores/get-fornecedor-nome/${nomeFornecedor}`);
-        
+
         console.log('Resposta do Spring:', response.data); // 🔍 Veja isso no terminal
-        
+
         res.json(response.data);
     } catch (error) {
         console.error(error.message);
@@ -104,7 +113,7 @@ router.get('/busca-fornecedor-id-backend/:id', async (req, res) => {
 
     try {
         const response = await axios.get(`http://backend:8080/api/fornecedores/get-fornecedor/${id}`);
-        
+
         res.json(response.data);
     } catch (error) {
         console.error(error.message);

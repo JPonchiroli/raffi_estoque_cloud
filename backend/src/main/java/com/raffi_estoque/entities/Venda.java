@@ -3,7 +3,6 @@ package com.raffi_estoque.entities;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +13,9 @@ public class Venda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codVenda;
+    private Integer codVenda;
 
-    private int codCliente;
+    private Integer codCliente;
 
     @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ItemVenda> itens = new ArrayList<>();
@@ -28,7 +27,7 @@ public class Venda {
 
     public Venda(){}
 
-    public Venda(int codVenda, int codCliente, List<ItemVenda> itens, Double valorTotal, LocalDateTime dataVenda) {
+    public Venda(Integer codVenda, Integer codCliente, List<ItemVenda> itens, Double valorTotal, LocalDateTime dataVenda) {
         this.codVenda = codVenda;
         this.codCliente = codCliente;
         this.itens = itens;
@@ -36,19 +35,19 @@ public class Venda {
         this.dataVenda = dataVenda;
     }
 
-    public int getCodVenda() {
+    public Integer getCodVenda() {
         return codVenda;
     }
 
-    public void setCodVenda(int codVenda) {
+    public void setCodVenda(Integer codVenda) {
         this.codVenda = codVenda;
     }
 
-    public int getCodCliente() {
+    public Integer getCodCliente() {
         return codCliente;
     }
 
-    public void setCodCliente(int codCliente) {
+    public void setCodCliente(Integer codCliente) {
         this.codCliente = codCliente;
     }
 

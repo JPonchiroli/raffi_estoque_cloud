@@ -8,6 +8,8 @@ public class ProdutoCreateDto {
     @NotBlank
     private String nomeProduto;
 
+    private Long codigoBarras;
+
     @NotBlank
     private String unidadeMedida;
 
@@ -32,8 +34,9 @@ public class ProdutoCreateDto {
     public ProdutoCreateDto() {
     }
 
-    public ProdutoCreateDto(String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
+    public ProdutoCreateDto(String nomeProduto, Long codigoBarras, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
         this.nomeProduto = nomeProduto;
+        this.codigoBarras = codigoBarras;
         this.unidadeMedida = unidadeMedida;
         this.valorCusto = valorCusto;
         this.valorVenda = valorVenda;
@@ -48,6 +51,14 @@ public class ProdutoCreateDto {
 
     public void setNomeProduto(String nomeProduto) {
         this.nomeProduto = nomeProduto;
+    }
+
+    public Long getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(Long codigoBarras) {
+        this.codigoBarras = codigoBarras;
     }
 
     public String getUnidadeMedida() {

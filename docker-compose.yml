@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   db:
-    # image: mysql:latest
+    #image: mysql:latest
     image: jponchiroli/raffi_estoque:mysql
     ports:
       - "3307:3306"
@@ -13,8 +13,9 @@ services:
       - my-network
 
   backend:
-    # image: backend
-    image: jponchiroli/raffi_estoque:backend
+    #build:
+    #  context: ./backend # Para rodar localmente
+    image: jponchiroli/raffi_estoque:backend # Para rodar a partir do Docker Hub
     ports:
       - "8080:8080"
     environment:
@@ -28,8 +29,9 @@ services:
       - my-network
 
   frontend:
-    # image: frontend
-    image: jponchiroli/raffi_estoque:frontend
+    #build:
+    #  context: ./front-end # Para rodar localmente
+    image: jponchiroli/raffi_estoque:frontend # Para rodar a partir do Docker Hub
     ports:
       - "3000:3000"
     networks:

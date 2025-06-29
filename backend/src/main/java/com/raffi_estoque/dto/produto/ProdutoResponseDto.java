@@ -3,27 +3,21 @@ package com.raffi_estoque.dto.produto;
 public class ProdutoResponseDto {
 
     private Integer codProduto;
-
+    private Long codigoBarras;
     private String nomeProduto;
-
     private String unidadeMedida;
-
     private Double valorCusto;
-
     private Double valorVenda;
-
     private Integer estoqueAtual;
-
     private Integer estoqueMinimo;
-
     private Integer codFornecedor;
-
 
     public ProdutoResponseDto() {
     }
 
-    public ProdutoResponseDto(Integer codProduto, String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
+    public ProdutoResponseDto(Integer codProduto, Long codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
         this.codProduto = codProduto;
+        this.codigoBarras = codigoBarras;
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
         this.valorCusto = valorCusto;
@@ -39,6 +33,14 @@ public class ProdutoResponseDto {
 
     public void setCodProduto(Integer codProduto) {
         this.codProduto = codProduto;
+    }
+
+    public Long getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(Long codigoBarras) {
+        this.codigoBarras = codigoBarras;
     }
 
     public String getNomeProduto() {

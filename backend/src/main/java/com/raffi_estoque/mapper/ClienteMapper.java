@@ -1,12 +1,13 @@
 package com.raffi_estoque.mapper;
 
 import com.raffi_estoque.dto.cliente.ClienteCreateDto;
-
 import com.raffi_estoque.dto.cliente.ClienteResponseDto;
 import com.raffi_estoque.dto.cliente.ClienteUpdateDto;
 import com.raffi_estoque.entities.Cliente;
-import org.mapstruct.Mapping;
+
 import org.springframework.stereotype.Component;
+
+import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 import org.mapstruct.Mapper;
 
@@ -26,5 +27,6 @@ public interface ClienteMapper {
 
     Cliente toCliente(ClienteUpdateDto updateDto);
 
+    @Mapping(source = "numeroRua", target = "numeroRua")
     ClienteUpdateDto toUpdate(Cliente cliente);
 }

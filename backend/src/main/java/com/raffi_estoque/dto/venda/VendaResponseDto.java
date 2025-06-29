@@ -7,8 +7,8 @@ import java.util.List;
 
 public class VendaResponseDto {
 
-    private int codVenda;
-    private int codCliente;
+    private Integer codVenda;
+    private Integer codCliente;
     private Double valorTotal;
     @JsonFormat(pattern = "HH'h'mm dd/MM/yyyy")
     private LocalDateTime dataVenda;
@@ -16,7 +16,7 @@ public class VendaResponseDto {
 
     public VendaResponseDto(){}
 
-    public VendaResponseDto(int codVenda, int codCliente, Double valorTotal, LocalDateTime dataVenda, List<ItemVendaResponseDto> itens) {
+    public VendaResponseDto(Integer codVenda, Integer codCliente, Double valorTotal, LocalDateTime dataVenda, List<ItemVendaResponseDto> itens) {
         this.codVenda = codVenda;
         this.codCliente = codCliente;
         this.valorTotal = valorTotal;
@@ -24,19 +24,19 @@ public class VendaResponseDto {
         this.itens = itens;
     }
 
-    public int getCodVenda() {
+    public Integer getCodVenda() {
         return codVenda;
     }
 
-    public void setCodVenda(int codVenda) {
+    public void setCodVenda(Integer codVenda) {
         this.codVenda = codVenda;
     }
 
-    public int getCodCliente() {
+    public Integer getCodCliente() {
         return codCliente;
     }
 
-    public void setCodCliente(int codCliente) {
+    public void setCodCliente(Integer codCliente) {
         this.codCliente = codCliente;
     }
 

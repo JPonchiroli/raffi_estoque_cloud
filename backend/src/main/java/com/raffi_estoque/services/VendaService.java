@@ -1,16 +1,23 @@
 package com.raffi_estoque.services;
 
+import com.raffi_estoque.dto.venda.ItemVendaCreateDto;
+import com.raffi_estoque.dto.venda.VendaCreateDto;
 import com.raffi_estoque.entities.Cliente;
 import com.raffi_estoque.entities.ItemVenda;
+import com.raffi_estoque.entities.Produto;
 import com.raffi_estoque.entities.Venda;
 import com.raffi_estoque.repositories.ClienteRepository;
 import com.raffi_estoque.repositories.ItemVendaRepository;
+import com.raffi_estoque.repositories.ProdutoRepository;
 import com.raffi_estoque.repositories.VendaRepository;
-import com.raffi_estoque.services.exception.ObjectNotFoundException;
+import com.raffi_estoque.services.exception.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,10 +31,51 @@ public class VendaService {
     private ClienteRepository clienteRepository;
 
     @Autowired
+    private ProdutoRepository produtoRepository;
+
+    @Autowired
     private ItemVendaRepository itemVendaRepository;
 
+    @Autowired
+    private ProdutoService produtoService;
+
     @Transactional
-    public Venda save(Venda venda){
+    public Venda salvarVenda(VendaCreateDto dto) {
+        Venda venda = new Venda();
+
+        Cliente cliente = clienteRepository.findById(dto.getCodCliente())
+                .orElseThrow(() -> new ProdutoNaoEncontradoException("Cliente com código " + dto.getCodCliente() + " não encontrado"));
+
+        venda.setCodCliente(cliente.getCodCliente());
+        venda.setDataVenda(LocalDateTime.now());
+
+        double totalVenda = 0.0;
+        List<ItemVenda> itens = new ArrayList<>();
+
+        for (ItemVendaCreateDto itemDto : dto.getItens()) {
+            Produto produto = produtoRepository.findById(itemDto.getCodProduto())
+                    .orElseThrow(() -> new ProdutoNaoEncontradoException("Produto com código " + itemDto.getCodProduto() + " não encontrado"));
+
+            int novaQuantidade = produto.getEstoqueAtual() - itemDto.getQuantidade();
+            if (novaQuantidade < produto.getEstoqueMinimo()) {
+                throw new EstoqueInsuficienteException("Estoque do produto " + produto.getNomeProduto() + " atingirá o mínimo permitido.");
+            }
+
+            produto.setEstoqueAtual(novaQuantidade);
+            produtoService.update(produto.getCodProduto(), produto);
+
+            ItemVenda item = new ItemVenda();
+            item.setProduto(produto);
+            item.setQuantidade(itemDto.getQuantidade());
+            item.setVenda(venda);
+
+            totalVenda += produto.getValorVenda() * itemDto.getQuantidade();
+            itens.add(item);
+        }
+
+        venda.setItens(itens);
+        venda.setValorTotal(totalVenda);
+
         return vendaRepository.save(venda);
     }
 
@@ -47,8 +95,23 @@ public class VendaService {
 
     @Transactional
     public void deleteById(Integer id) {
-        Optional<Venda> venda = Optional.ofNullable(vendaRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("Venda Não Encontrada")));
+        Optional<Venda> venda = vendaRepository.findById(id);
+
+        if (venda.isEmpty()) {
+            throw new  VendaNaoEncontradaException("Venda Não Encontrada");
+        }
+
+        List<ItemVenda> itens = venda.get().getItens();
+
+        for (ItemVenda item: itens) {
+            int codProduto = item.getProduto().getCodProduto();
+
+            Produto produto = produtoService.findById(codProduto);
+
+            produto.setEstoqueAtual(produto.getEstoqueAtual() + item.getQuantidade());
+
+            produtoService.update(codProduto, produto);
+        }
 
         vendaRepository.deleteById(id);
     }

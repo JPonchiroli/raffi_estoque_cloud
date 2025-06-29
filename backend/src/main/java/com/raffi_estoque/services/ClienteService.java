@@ -5,6 +5,7 @@ import com.raffi_estoque.entities.Cliente;
 import com.raffi_estoque.feign.ViaCepClient;
 import com.raffi_estoque.repositories.ClienteRepository;
 import com.raffi_estoque.services.exception.ObjectNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,10 +20,26 @@ public class ClienteService {
     private ClienteRepository clienteRepository;
 
     @Autowired
+    private AddressService addressService;
+
+    @Autowired
     private ViaCepClient viaCepclient;
 
     @Transactional
     public Cliente save(Cliente cliente){
+        String cep = cliente.getCep();
+        String cepFormatado = addressService.zerarCep(cep);
+
+        cliente.setCep(cepFormatado);
+
+        if (!addressService.isCepZerado(cepFormatado)) {
+            ViaCepResponse address = getAddress(cepFormatado);
+            cliente.setRua(address.getLogradouro());
+            cliente.setBairro(address.getBairro());
+            cliente.setCidade(address.getLocalidade());
+            cliente.setUf(address.getUf());
+        }
+
         return clienteRepository.save(cliente);
     }
 
@@ -41,6 +58,20 @@ public class ClienteService {
     public Cliente update(Integer id, Cliente cliente){
         Cliente clienteUpd = findById(id);
         clienteUpd.setNomeCliente(cliente.getNomeCliente());
+        clienteUpd.setCep(cliente.getCep());
+
+        String cepFormatado = addressService.zerarCep(cliente.getCep());
+        cliente.setCep(cepFormatado);
+
+        if (!addressService.isCepZerado(cepFormatado)) {
+            ViaCepResponse address = getAddress(cepFormatado);
+            clienteUpd.setRua(address.getLogradouro());
+            clienteUpd.setBairro(address.getBairro());
+            clienteUpd.setCidade(address.getLocalidade());
+            clienteUpd.setUf(address.getUf());
+        }
+
+        clienteUpd.setNumeroRua(cliente.getNumeroRua());
         clienteUpd.setComplemento(cliente.getComplemento());
         return clienteRepository.save(clienteUpd);
     }

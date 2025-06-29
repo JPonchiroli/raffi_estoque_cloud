@@ -17,17 +17,22 @@ router.post('/cadastrar-cliente-backend', async (req, res) => {
     );
 
     res.json(response.data);
-
+    
   } catch (error) {
-    console.error('Erro ao cadastrar cliente no backend Java:', error.message);
+    console.error('Erro ao cadastrar cliente no backend Java:', error);
+
     if (error.response) {
       res.status(error.response.status).json({
-        erro: error.response.data.message || 'Erro ao cadastrar cliente no backend Java'
+        erro: error.response.data.message || 'Erro ao cadastrar cliente no backend Java (resposta com erro)'
       });
     } else if (error.request) {
-      res.status(500).json({ erro: 'Nenhuma resposta recebida do backend Java' });
+      res.status(500).json({
+        erro: 'Nenhuma resposta recebida do backend Java. Verifique se ele está online.'
+      });
     } else {
-      res.status(500).json({ erro: 'Erro ao configurar a requisição para o backend Java' });
+      res.status(500).json({
+        erro: 'Erro interno ao configurar a requisição para o backend Java.'
+      });
     }
   }
 });
@@ -77,11 +82,13 @@ router.get('/busca-clientes-nome-backend/:nomeCliente', async (req, res) => {
 
 router.put('/atualizar-cliente-backend/:id', async (req, res) => {
   const codCliente = req.params.id;
-  const { nomeCliente, complemento } = req.body;
+  const { nomeCliente, cep, numeroRua, complemento } = req.body;
 
   try {
     const response = await axios.put(`http://backend:8080/api/clientes/update-cliente/${codCliente}`, {
       nomeCliente,
+      cep,
+      numeroRua,
       complemento
     });
 

@@ -10,12 +10,12 @@ public class Fornecedor {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codFornecedor;
+    private Integer codFornecedor;
     private String nomeFornecedor;
     private String cnpj;
     private String email;
     private String telefone;
-    private int cep;
+    private String cep;
     private String rua;
     private int numeroRua;
     private String bairro;
@@ -28,7 +28,7 @@ public class Fornecedor {
 
     public Fornecedor() {}
 
-    public Fornecedor(int codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, int cep, String rua, int numeroRua, String bairro, String cidade, String uf, String complemento) {
+    public Fornecedor(Integer codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, String cep, String rua, int numeroRua, String bairro, String cidade, String uf, String complemento, List<Produto> produtos) {
         this.codFornecedor = codFornecedor;
         this.nomeFornecedor = nomeFornecedor;
         this.cnpj = cnpj;
@@ -41,13 +41,14 @@ public class Fornecedor {
         this.cidade = cidade;
         this.uf = uf;
         this.complemento = complemento;
+        this.produtos = produtos;
     }
 
-    public int getCodFornecedor() {
+    public Integer getCodFornecedor() {
         return codFornecedor;
     }
 
-    public void setCodFornecedor(int codFornecedor) {
+    public void setCodFornecedor(Integer codFornecedor) {
         this.codFornecedor = codFornecedor;
     }
 
@@ -83,11 +84,11 @@ public class Fornecedor {
         this.telefone = telefone;
     }
 
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

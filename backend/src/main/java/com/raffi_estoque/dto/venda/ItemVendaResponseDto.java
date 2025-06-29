@@ -2,15 +2,15 @@ package com.raffi_estoque.dto.venda;
 
 public class ItemVendaResponseDto {
 
-    private int codProduto;
+    private Integer codProduto;
     private String nomeProduto;
-    private double valorUnitario;
-    private int quantidade;
-    private double subTotal;
+    private Double valorUnitario;
+    private Integer quantidade;
+    private Double subTotal;
 
     public ItemVendaResponseDto(){}
 
-    public ItemVendaResponseDto(int codProduto, String nomeProduto, double valorUnitario, int quantidade, double subTotal) {
+    public ItemVendaResponseDto(Integer codProduto, String nomeProduto, Double valorUnitario, Integer quantidade, Double subTotal) {
         this.codProduto = codProduto;
         this.nomeProduto = nomeProduto;
         this.valorUnitario = valorUnitario;
@@ -18,11 +18,11 @@ public class ItemVendaResponseDto {
         this.subTotal = subTotal;
     }
 
-    public int getCodProduto() {
+    public Integer getCodProduto() {
         return codProduto;
     }
 
-    public void setCodProduto(int codProduto) {
+    public void setCodProduto(Integer codProduto) {
         this.codProduto = codProduto;
     }
 
@@ -34,27 +34,27 @@ public class ItemVendaResponseDto {
         this.nomeProduto = nomeProduto;
     }
 
-    public double getValorUnitario() {
+    public Double getValorUnitario() {
         return valorUnitario;
     }
 
-    public void setValorUnitario(double valorUnitario) {
+    public void setValorUnitario(Double valorUnitario) {
         this.valorUnitario = valorUnitario;
     }
 
-    public int getQuantidade() {
+    public Integer getQuantidade() {
         return quantidade;
     }
 
-    public void setQuantidade(int quantidade) {
+    public void setQuantidade(Integer quantidade) {
         this.quantidade = quantidade;
     }
 
-    public double getSubTotal() {
+    public Double getSubTotal() {
         return subTotal;
     }
 
-    public void setSubTotal(double subTotal) {
+    public void setSubTotal(Double subTotal) {
         this.subTotal = subTotal;
     }
 

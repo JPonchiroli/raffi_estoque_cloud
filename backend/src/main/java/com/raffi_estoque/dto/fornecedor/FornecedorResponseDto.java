@@ -7,9 +7,9 @@ public class FornecedorResponseDto {
     private String cnpj;
     private String email;
     private String telefone;
-    private int cep;
+    private Integer cep;
     private String rua;
-    private int numeroRua;
+    private Integer numeroRua;
     private String bairro;
     private String cidade;
     private String uf;
@@ -17,7 +17,7 @@ public class FornecedorResponseDto {
 
     public FornecedorResponseDto() {}
 
-    public FornecedorResponseDto(int codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, int cep, String rua, int numeroRua, String bairro, String cidade, String uf, String complemento) {
+    public FornecedorResponseDto(int codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, Integer cep, String rua, Integer numeroRua, String bairro, String cidade, String uf, String complemento) {
         this.codFornecedor = codFornecedor;
         this.nomeFornecedor = nomeFornecedor;
         this.cnpj = cnpj;
@@ -72,11 +72,11 @@ public class FornecedorResponseDto {
         this.telefone = telefone;
     }
 
-    public int getCep() {
+    public Integer getCep() {
         return cep;
     }
 
-    public void setCep(int cep) {
+    public void setCep(Integer cep) {
         this.cep = cep;
     }
 
@@ -88,11 +88,11 @@ public class FornecedorResponseDto {
         this.rua = rua;
     }
 
-    public int getNumeroRua() {
+    public Integer getNumeroRua() {
         return numeroRua;
     }
 
-    public void setNumeroRua(int numeroRua) {
+    public void setNumeroRua(Integer numeroRua) {
         this.numeroRua = numeroRua;
     }
 

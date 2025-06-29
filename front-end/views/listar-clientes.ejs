@@ -82,13 +82,13 @@
                         const row = [
                             cliente.codCliente || '',
                             cliente.nomeCliente || '',
-                            cliente.cep || '',
-                            cliente.cidade || '',
-                            cliente.bairro || '',
-                            cliente.rua || '',
-                            cliente.numeroRua || '',
-                            cliente.complemento || '',
-                            cliente.uf || '',
+                            cliente.cep || 'Não informado',
+                            cliente.cidade || 'Não informado',
+                            cliente.bairro || 'Não informado',
+                            cliente.rua || 'Não informado',
+                            cliente.numeroRua || 'Não informado',
+                            cliente.complemento || 'Não informado',
+                            cliente.uf || 'Não informado',
                             `<button class="btn-excluir" data-id="${cliente.codCliente}">Excluir</button> <button class="btn-editar" data-id="${cliente.codCliente}">Editar</button>`
                         ];
 
@@ -140,12 +140,18 @@
 
         if ($btn.text() === 'Editar') {
             const nomeTd = $row.find('td').eq(1);
+            const cepTd = $row.find('td').eq(2);
+            const numeroRuaTd = $row.find('td').eq(6);
             const complementoTd = $row.find('td').eq(7);
-
+            
             const nomeVal = nomeTd.text();
+            const cepVal = cepTd.text();
+            const numeroRuaVal = numeroRuaTd.text();
             const complementoVal = complementoTd.text();
 
             nomeTd.html(`<input type="text" value="${nomeVal}" />`);
+            cepTd.html(`<input type="text" value="${cepVal}" />`);
+            numeroRuaTd.html(`<input type="text" value="${numeroRuaVal}" />`);
             complementoTd.html(`<input type="text" value="${complementoVal}" />`);
 
             $btn.text('Confirmar');
@@ -155,9 +161,11 @@
             const $row = $btn.closest('tr');
 
             const nomeCliente = $row.find('td').eq(1).find('input').val();
+            const cep = $row.find('td').eq(2).find('input').val();
+            const numeroRua = $row.find('td').eq(6).find('input').val();
             const complemento = $row.find('td').eq(7).find('input').val();
 
-            const dadosAtualizados = { nomeCliente, complemento };
+            const dadosAtualizados = { nomeCliente, cep, complemento, numeroRua };
         
             fetch(`/clientes/atualizar-cliente-backend/${id}`, {
                 method: 'PUT',
@@ -170,10 +178,14 @@
                 })
                 .then(() => {
                     $row.find('td').eq(1).text(nomeCliente);
+                    $row.find('td').eq(2).text(cep);
+                    $row.find('td').eq(6).text(numeroRua);
                     $row.find('td').eq(7).text(complemento);
+
 
                     $btn.text('Editar');
                     $row.find('.btn-cancelar').remove();
+                    window.location.reload();
                 })
                 .catch(err => {
                     console.error(err);
@@ -187,9 +199,13 @@
         const $editarBtn = $row.find('.btn-editar');
 
         const nomeOriginal = $row.find('td').eq(1).find('input').attr('value');
+        const cepOriginal = $row.find('td').eq(2).find('input').attr('value');
+        const numeroRuaOriginal = $row.find('td').eq(6).find('input').attr('value');
         const complementoOriginal = $row.find('td').eq(7).find('input').attr('value');
 
         $row.find('td').eq(1).text(nomeOriginal);
+        $row.find('td').eq(2).text(cepOriginal);
+        $row.find('td').eq(6).text(numeroRuaOriginal);
         $row.find('td').eq(7).text(complementoOriginal);
 
         $editarBtn.text('Editar');

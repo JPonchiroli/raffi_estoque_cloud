@@ -1,22 +1,20 @@
 package com.raffi_estoque.controllers;
 
-import com.raffi_estoque.dto.cliente.ClienteNomeDto;
 import com.raffi_estoque.dto.produto.ProdutoCreateDto;
 import com.raffi_estoque.dto.produto.ProdutoNomeDto;
 import com.raffi_estoque.dto.produto.ProdutoResponseDto;
 import com.raffi_estoque.dto.produto.ProdutoUpdateDto;
-import com.raffi_estoque.entities.Cliente;
 import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.entities.Produto;
 import com.raffi_estoque.mapper.ProdutoMapper;
-import com.raffi_estoque.repositories.FornecedorRepository;
 import com.raffi_estoque.services.ProdutoService;
+import com.raffi_estoque.services.exception.FornecedorNuloException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,18 +26,19 @@ public class ProdutoController {
     private ProdutoService produtoService;
 
     @Autowired
-    private FornecedorRepository fornecedorRepository;
-
-    @Autowired
     private ProdutoMapper mapper;
 
     @PostMapping("/create-produto")
     public ResponseEntity<ProdutoResponseDto> createEvent(@RequestBody ProdutoCreateDto produto) {
         Produto produtoCreated = mapper.toProduto(produto);
 
-        Optional<Fornecedor> fornecedor = fornecedorRepository.findById(produto.getCodFornecedor());
-
-        fornecedor.ifPresent(produtoCreated::setFornecedor);
+        if (produto.getCodFornecedor() != null) {
+            Fornecedor fornecedor = new Fornecedor();
+            fornecedor.setCodFornecedor(produto.getCodFornecedor());
+            produtoCreated.setFornecedor(fornecedor);
+        } else {
+            throw new FornecedorNuloException("O cadastro de um fornecedor é obrigatório.");
+        }
 
         produtoService.save(produtoCreated);
         return ResponseEntity.status(201).body(mapper.toProdutoResponseDto(produtoCreated));
@@ -59,8 +58,8 @@ public class ProdutoController {
 
     @PutMapping("/update-produto/{id}")
     public ResponseEntity<ProdutoUpdateDto> updateEvent(@PathVariable Integer id, @RequestBody ProdutoUpdateDto updateDto){
-        Produto produtos = produtoService.update(id, mapper.toProduto(updateDto));
-        return ResponseEntity.ok(mapper.toUpdate(produtos));
+        Produto produto = produtoService.update(id, mapper.toProduto(updateDto));
+        return ResponseEntity.ok(mapper.toUpdate(produto));
     }
 
     @DeleteMapping("/deletar-produto/{id}")

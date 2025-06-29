@@ -8,7 +8,7 @@ public class ItemVenda {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int codItemVenda;
+    private Integer codItemVenda;
 
     @ManyToOne
     private Venda venda;
@@ -20,18 +20,18 @@ public class ItemVenda {
 
     public ItemVenda(){}
 
-    public ItemVenda(int codItemVenda, Venda venda, Produto produto, Integer quantidade) {
+    public ItemVenda(Integer codItemVenda, Venda venda, Produto produto, Integer quantidade) {
         this.codItemVenda = codItemVenda;
         this.venda = venda;
         this.produto = produto;
         this.quantidade = quantidade;
     }
 
-    public int getCodItemVenda() {
+    public Integer getCodItemVenda() {
         return codItemVenda;
     }
 
-    public void setCodItemVenda(int codItemVenda) {
+    public void setCodItemVenda(Integer codItemVenda) {
         this.codItemVenda = codItemVenda;
     }
 

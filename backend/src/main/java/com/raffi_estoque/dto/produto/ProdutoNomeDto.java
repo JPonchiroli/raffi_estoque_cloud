@@ -3,21 +3,21 @@ package com.raffi_estoque.dto.produto;
 import com.raffi_estoque.entities.Produto;
 
 public class ProdutoNomeDto {
-    private int codProduto;
+    private Integer codProduto;
     private String nomeProduto;
 
     public ProdutoNomeDto(){}
 
-    public ProdutoNomeDto(int codProduto, String nomeProduto) {
+    public ProdutoNomeDto(Integer codProduto, String nomeProduto) {
         this.codProduto = codProduto;
         this.nomeProduto = nomeProduto;
     }
 
-    public int getCodProduto() {
+    public Integer getCodProduto() {
         return codProduto;
     }
 
-    public void setCodProduto(int codProduto) {
+    public void setCodProduto(Integer codProduto) {
         this.codProduto = codProduto;
     }
 

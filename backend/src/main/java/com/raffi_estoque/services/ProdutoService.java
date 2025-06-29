@@ -4,7 +4,8 @@ import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.entities.Produto;
 import com.raffi_estoque.repositories.FornecedorRepository;
 import com.raffi_estoque.repositories.ProdutoRepository;
-import com.raffi_estoque.services.exception.ObjectNotFoundException;
+import com.raffi_estoque.services.exception.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,17 +24,15 @@ public class ProdutoService {
 
     @Transactional
     public Produto save(Produto produto){
+        Integer codFornecedor = produto.getFornecedor().getCodFornecedor();
 
-        if (produto.getFornecedor() == null) {
-            throw new RuntimeException("Fornecedor não pode ser nulo.");
-        }
+        Fornecedor fornecedor = fornecedorRepository.findById(codFornecedor)
+                .orElseThrow(() -> new FornecedorNaoEncontradoException("Fornecedor com código " + codFornecedor + " não encontrado."));
 
-        int codFornecedor = produto.getFornecedor().getCodFornecedor();
+        produto.setFornecedor(fornecedor);
 
-        Optional<Fornecedor> fornecedorOptional = fornecedorRepository.findById(codFornecedor);
-
-        if (fornecedorOptional.isEmpty()) {
-            throw new ObjectNotFoundException("Fornecedor com código " + codFornecedor + " não encontrado.");
+        if (produto.getEstoqueAtual() < produto.getEstoqueMinimo()) {
+            throw new EstoqueInsuficienteException("O estoque atual não pode ser menor do que o estoque mínimo");
         }
 
         return produtoRepository.save(produto);

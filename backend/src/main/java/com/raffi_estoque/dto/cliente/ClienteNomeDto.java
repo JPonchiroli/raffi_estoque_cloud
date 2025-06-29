@@ -1,21 +1,21 @@
 package com.raffi_estoque.dto.cliente;
 
 public class ClienteNomeDto {
-    private int codCliente;
+    private Integer codCliente;
     private String nomeCliente;
 
     public ClienteNomeDto(){}
 
-    public ClienteNomeDto(int codCliente, String nomeCliente) {
-        this.codCliente = codCliente;
+    public ClienteNomeDto(String nomeCliente, Integer codCliente) {
         this.nomeCliente = nomeCliente;
+        this.codCliente = codCliente;
     }
 
-    public int getCodCliente() {
+    public Integer getCodCliente() {
         return codCliente;
     }
 
-    public void setCodCliente(int codCliente) {
+    public void setCodCliente(Integer codCliente) {
         this.codCliente = codCliente;
     }
 

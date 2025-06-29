@@ -7,23 +7,23 @@ import java.util.List;
 public class VendaCreateDto {
 
     @NotBlank
-    private int codCliente;
+    private Integer codCliente;
 
     @NotBlank
     private List<ItemVendaCreateDto> itens;
 
     public VendaCreateDto(){}
 
-    public VendaCreateDto(int codCliente, List<ItemVendaCreateDto> itens) {
+    public VendaCreateDto(Integer codCliente, List<ItemVendaCreateDto> itens) {
         this.codCliente = codCliente;
         this.itens = itens;
     }
 
-    public int getCodCliente() {
+    public Integer getCodCliente() {
         return codCliente;
     }
 
-    public void setCodCliente(int codCliente) {
+    public void setCodCliente(Integer codCliente) {
         this.codCliente = codCliente;
     }
 

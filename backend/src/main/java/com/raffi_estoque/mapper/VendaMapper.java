@@ -8,10 +8,12 @@ import com.raffi_estoque.dto.venda.VendaCreateDto;
 import com.raffi_estoque.dto.venda.VendaResponseDto;
 import com.raffi_estoque.entities.ItemVenda;
 import com.raffi_estoque.entities.Venda;
+
+import org.springframework.stereotype.Component;
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
