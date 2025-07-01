@@ -22,8 +22,8 @@
             <label for="nomeProduto">Nome do Produto:</label>
             <input type="text" id="nomeProduto" name="nomeProduto" required />
 
-            <label for="codigoBarra">Escaneie um código de barras:</label>
-            <input type="text" id="codigoBarra" name="codigoBarra" />
+            <label for="codigoBarras">Escaneie um código de barras:</label>
+            <input type="text" id="codigoBarras" name="codigoBarras" />
 
             <label for="unidadeMedida">Unidade de Medida:</label>
             <select id="unidadeMedida" name="unidadeMedida" required>
@@ -114,7 +114,7 @@
             try {
                 const formData = {
                     nomeProduto: document.getElementById('nomeProduto').value,
-                    codigoBarra: document.getElementById('codigoBarra').value,
+                    codigoBarras: document.getElementById('codigoBarras').value,
                     unidadeMedida: document.getElementById('unidadeMedida').value,
                     valorCusto: document.getElementById('valorCusto').value,
                     valorVenda: document.getElementById('valorVenda').value,
@@ -122,6 +122,8 @@
                     estoqueMinimo: document.getElementById('estoqueMinimo').value,
                     codFornecedor: document.getElementById('fornecedorId').value
                 };
+
+                console.log('Dados do formulário:', formData);
 
                 const response = await fetch('/produtos/cadastrar-produto-backend', {
                     method: 'POST',
@@ -170,7 +172,7 @@
         percentualLucroInput.addEventListener('input', atualizarValorVenda);
         valorCustoInput.addEventListener('input', atualizarValorVenda);
 
-        const campo = document.getElementById("codigoBarra");
+        const campo = document.getElementById("codigoBarras");
 
         campo.addEventListener("keydown", function (event) {
             const codigo = campo.value.trim();
