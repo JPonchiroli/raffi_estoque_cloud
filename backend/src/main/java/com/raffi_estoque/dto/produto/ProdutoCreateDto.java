@@ -19,6 +19,10 @@ public class ProdutoCreateDto {
 
     @NotBlank
     @Positive
+    private Integer porcentagemLucro;
+
+    @NotBlank
+    @Positive
     private Double valorVenda;
 
     @NotBlank
@@ -34,11 +38,12 @@ public class ProdutoCreateDto {
     public ProdutoCreateDto() {
     }
 
-    public ProdutoCreateDto(String nomeProduto, Long codigoBarras, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
+    public ProdutoCreateDto(String nomeProduto, Long codigoBarras, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
         this.nomeProduto = nomeProduto;
         this.codigoBarras = codigoBarras;
         this.unidadeMedida = unidadeMedida;
         this.valorCusto = valorCusto;
+        this.porcentagemLucro = porcentagemLucro;
         this.valorVenda = valorVenda;
         this.estoqueAtual = estoqueAtual;
         this.estoqueMinimo = estoqueMinimo;
@@ -75,6 +80,14 @@ public class ProdutoCreateDto {
 
     public void setValorCusto(Double valorCusto) {
         this.valorCusto = valorCusto;
+    }
+
+    public Integer getPorcentagemLucro() {
+        return porcentagemLucro;
+    }
+
+    public void setPorcentagemLucro(Integer porcentagemLucro) {
+        this.porcentagemLucro = porcentagemLucro;
     }
 
     public Double getValorVenda() {

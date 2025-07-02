@@ -7,6 +7,7 @@ public class ProdutoResponseDto {
     private String nomeProduto;
     private String unidadeMedida;
     private Double valorCusto;
+    private Integer porcentagemLucro;
     private Double valorVenda;
     private Integer estoqueAtual;
     private Integer estoqueMinimo;
@@ -15,12 +16,13 @@ public class ProdutoResponseDto {
     public ProdutoResponseDto() {
     }
 
-    public ProdutoResponseDto(Integer codProduto, Long codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
+    public ProdutoResponseDto(Integer codProduto, Long codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
         this.codProduto = codProduto;
         this.codigoBarras = codigoBarras;
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
         this.valorCusto = valorCusto;
+        this.porcentagemLucro = porcentagemLucro;
         this.valorVenda = valorVenda;
         this.estoqueAtual = estoqueAtual;
         this.estoqueMinimo = estoqueMinimo;
@@ -65,6 +67,14 @@ public class ProdutoResponseDto {
 
     public void setValorCusto(Double valorCusto) {
         this.valorCusto = valorCusto;
+    }
+
+    public Integer getPorcentagemLucro() {
+        return porcentagemLucro;
+    }
+
+    public void setPorcentagemLucro(Integer porcentagemLucro) {
+        this.porcentagemLucro = porcentagemLucro;
     }
 
     public Double getValorVenda() {

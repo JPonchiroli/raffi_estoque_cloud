@@ -13,6 +13,7 @@ public class Produto {
     private String nomeProduto;
     private String unidadeMedida;
     private Double valorCusto;
+    private Integer porcentagemLucro;
     private Double valorVenda;
     private Integer estoqueAtual;
     private Integer estoqueMinimo;
@@ -23,12 +24,13 @@ public class Produto {
 
     public Produto(){}
 
-    public Produto(Integer codProduto, Long codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Fornecedor fornecedor) {
+    public Produto(Integer codProduto, Long codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Fornecedor fornecedor) {
         this.codProduto = codProduto;
         this.codigoBarras = codigoBarras;
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
         this.valorCusto = valorCusto;
+        this.porcentagemLucro = porcentagemLucro;
         this.valorVenda = valorVenda;
         this.estoqueAtual = estoqueAtual;
         this.estoqueMinimo = estoqueMinimo;
@@ -73,6 +75,14 @@ public class Produto {
 
     public void setValorCusto(Double valorCusto) {
         this.valorCusto = valorCusto;
+    }
+
+    public Integer getPorcentagemLucro() {
+        return porcentagemLucro;
+    }
+
+    public void setPorcentagemLucro(Integer porcentagemLucro) {
+        this.porcentagemLucro = porcentagemLucro;
     }
 
     public Double getValorVenda() {

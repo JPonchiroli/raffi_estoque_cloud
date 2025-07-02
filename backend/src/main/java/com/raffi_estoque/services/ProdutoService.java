@@ -52,9 +52,11 @@ public class ProdutoService {
     @Transactional
     public Produto update(Integer id, Produto produto){
         Produto produtoUpd = findById(id);
+        produtoUpd.setCodigoBarras(produto.getCodigoBarras());
         produtoUpd.setNomeProduto(produto.getNomeProduto());
         produtoUpd.setUnidadeMedida(produto.getUnidadeMedida());
         produtoUpd.setValorCusto(produto.getValorCusto());
+        produtoUpd.setPorcentagemLucro(produto.getPorcentagemLucro());
         produtoUpd.setValorVenda(produto.getValorVenda());
         produtoUpd.setEstoqueAtual(produto.getEstoqueAtual());
         produtoUpd.setEstoqueMinimo(produto.getEstoqueMinimo());

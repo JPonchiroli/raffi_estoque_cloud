@@ -5,36 +5,42 @@ import jakarta.validation.constraints.Positive;
 
 public class ProdutoUpdateDto {
 
-    @NotBlank
+    private Integer codigoBarras;
     private String nomeProduto;
-
-    @NotBlank
     private String unidadeMedida;
 
-    @NotBlank
     @Positive(message = "O valor de custo deve ser maior que zero")
     private Double valorCusto;
 
-    @NotBlank
+    @Positive(message = "A porcentagem de lucro deve ser maior que zero")
+    private Integer porcentagemLucro;
+
     @Positive(message = "O valor de venda deve ser maior que zero")
     private Double valorVenda;
 
-    @NotBlank
     private Integer estoqueAtual;
-
-    @NotBlank
     private Integer estoqueMinimo;
 
     public ProdutoUpdateDto() {
     }
 
-    public ProdutoUpdateDto(String nomeProduto, String unidadeMedida, Double valorCusto, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo) {
+    public ProdutoUpdateDto(Integer codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo) {
+        this.codigoBarras = codigoBarras;
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
         this.valorCusto = valorCusto;
+        this.porcentagemLucro = porcentagemLucro;
         this.valorVenda = valorVenda;
         this.estoqueAtual = estoqueAtual;
         this.estoqueMinimo = estoqueMinimo;
+    }
+
+    public Integer getCodigoBarras() {
+        return codigoBarras;
+    }
+
+    public void setCodigoBarras(Integer codigoBarras) {
+        this.codigoBarras = codigoBarras;
     }
 
     public String getNomeProduto() {
@@ -59,6 +65,14 @@ public class ProdutoUpdateDto {
 
     public void setValorCusto(Double valorCusto) {
         this.valorCusto = valorCusto;
+    }
+
+    public Integer getPorcentagemLucro() {
+        return porcentagemLucro;
+    }
+
+    public void setPorcentagemLucro(Integer porcentagemLucro) {
+        this.porcentagemLucro = porcentagemLucro;
     }
 
     public Double getValorVenda() {
