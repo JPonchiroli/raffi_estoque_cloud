@@ -36,8 +36,8 @@
             <label for="valorCusto">Valor de Custo:</label>
             <input type="number" step="0.01" id="valorCusto" name="valorCusto" required />
 
-            <label for="percentualLucro">Lucro (%)</label>
-            <input type="number" step="0.01" value="30" id="percentualLucro" name="percentualLucro" />
+            <label for="porcentagemLucro">Lucro (%)</label>
+            <input type="number" step="0.01" value="30" id="porcentagemLucro" name="porcentagemLucro" />
 
             <label for="valorVenda">Valor de Venda:</label>
             <input type="number" step="0.01" id="valorVenda" name="valorVenda" required />
@@ -117,6 +117,7 @@
                     codigoBarras: document.getElementById('codigoBarras').value,
                     unidadeMedida: document.getElementById('unidadeMedida').value,
                     valorCusto: document.getElementById('valorCusto').value,
+                    porcentagemLucro: document.getElementById('porcentagemLucro').value,
                     valorVenda: document.getElementById('valorVenda').value,
                     estoqueAtual: document.getElementById('estoqueAtual').value,
                     estoqueMinimo: document.getElementById('estoqueMinimo').value,
@@ -150,26 +151,26 @@
         });
 
         const valorCustoInput = document.getElementById('valorCusto');
-        const percentualLucroInput = document.getElementById('percentualLucro');
+        const porcentagemLucroInput = document.getElementById('porcentagemLucro');
         const valorVendaInput = document.getElementById('valorVenda');
 
         function atualizarValorVenda() {
             const valorCusto = parseFloat(valorCustoInput.value);
-            const percentualLucro = parseFloat(percentualLucroInput.value);
+            const porcentagemLucro = parseFloat(porcentagemLucroInput.value);
 
             if (valorCustoInput.value === '') {
                 valorVendaInput.value = '';
                 return;
             }
 
-            if (!isNaN(valorCusto) && !isNaN(percentualLucro)) {
-                const resto = ((100 - percentualLucro) / 100);
+            if (!isNaN(valorCusto) && !isNaN(porcentagemLucro)) {
+                const resto = ((100 - porcentagemLucro) / 100);
                 const valorVenda = valorCusto / resto;
                 valorVendaInput.value = valorVenda.toFixed(2);
             }
         }
 
-        percentualLucroInput.addEventListener('input', atualizarValorVenda);
+        porcentagemLucroInput.addEventListener('input', atualizarValorVenda);
         valorCustoInput.addEventListener('input', atualizarValorVenda);
 
         const campo = document.getElementById("codigoBarras");

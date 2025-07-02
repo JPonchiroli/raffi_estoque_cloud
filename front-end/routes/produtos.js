@@ -10,6 +10,7 @@ router.post('/cadastrar-produto-backend', async (req, res) => {
       nomeProduto: req.body.nomeProduto,
       unidadeMedida: req.body.unidadeMedida,
       valorCusto: req.body.valorCusto,
+      porcentagemLucro: req.body.porcentagemLucro,
       valorVenda: req.body.valorVenda,
       estoqueAtual: req.body.estoqueAtual,
       estoqueMinimo: req.body.estoqueMinimo,
@@ -72,13 +73,15 @@ router.get('/busca-produtos-nome-backend/:nomeProduto', async (req, res) => {
 
 router.put('/atualizar-produto-backend/:id', async (req, res) => {
   const codProduto = req.params.id;
-  const { nomeProduto, unidadeMedida, valorCusto, valorVenda, estoqueAtual, estoqueMinimo } = req.body;
+  const { codigoBarras, nomeProduto, unidadeMedida, valorCusto, porcentagemLucro, valorVenda, estoqueAtual, estoqueMinimo } = req.body;
 
   try {
     const response = await axios.put(`http://localhost:8080/api/produtos/update-produto/${codProduto}`, {
+      codigoBarras,
       nomeProduto,
       unidadeMedida,
       valorCusto,
+      porcentagemLucro,
       valorVenda,
       estoqueAtual,
       estoqueMinimo
