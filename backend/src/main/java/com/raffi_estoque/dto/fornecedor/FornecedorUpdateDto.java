@@ -9,12 +9,12 @@ public class FornecedorUpdateDto {
     private String email;
     private String telefone;
     private String cep;
-    private int numeroRua;
+    private Integer numeroRua;
     private String complemento;
 
     public FornecedorUpdateDto() {}
 
-    public FornecedorUpdateDto(String nomeFornecedor, String cnpj, String email, String telefone, String cep, int numeroRua, String complemento) {
+    public FornecedorUpdateDto(String nomeFornecedor, String cnpj, String email, String telefone, String cep, Integer numeroRua, String complemento) {
         this.nomeFornecedor = nomeFornecedor;
         this.cnpj = cnpj;
         this.email = email;
@@ -64,11 +64,11 @@ public class FornecedorUpdateDto {
         this.cep = cep;
     }
 
-    public int getNumeroRua() {
+    public Integer getNumeroRua() {
         return numeroRua;
     }
 
-    public void setNumeroRua(int numeroRua) {
+    public void setNumeroRua(Integer numeroRua) {
         this.numeroRua = numeroRua;
     }
 

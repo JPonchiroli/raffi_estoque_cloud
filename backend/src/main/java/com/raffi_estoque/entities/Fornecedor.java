@@ -17,7 +17,7 @@ public class Fornecedor {
     private String telefone;
     private String cep;
     private String rua;
-    private int numeroRua;
+    private Integer numeroRua;
     private String bairro;
     private String cidade;
     private String uf;
@@ -28,7 +28,7 @@ public class Fornecedor {
 
     public Fornecedor() {}
 
-    public Fornecedor(Integer codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, String cep, String rua, int numeroRua, String bairro, String cidade, String uf, String complemento, List<Produto> produtos) {
+    public Fornecedor(Integer codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, String cep, String rua, Integer numeroRua, String bairro, String cidade, String uf, String complemento, List<Produto> produtos) {
         this.codFornecedor = codFornecedor;
         this.nomeFornecedor = nomeFornecedor;
         this.cnpj = cnpj;
@@ -100,11 +100,11 @@ public class Fornecedor {
         this.rua = rua;
     }
 
-    public int getNumeroRua() {
+    public Integer getNumeroRua() {
         return numeroRua;
     }
 
-    public void setNumeroRua(int numeroRua) {
+    public void setNumeroRua(Integer numeroRua) {
         this.numeroRua = numeroRua;
     }
 
