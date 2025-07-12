@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
   db:
-    #image: mysql:latest
     image: jponchiroli/raffi_estoque:mysql
     ports:
       - "3307:3306"
@@ -13,9 +12,7 @@ services:
       - my-network
 
   backend:
-    #build:
-    #  context: ./backend # Para rodar localmente
-    image: jponchiroli/raffi_estoque:backend # Para rodar a partir do Docker Hub
+    image: jponchiroli/raffi_estoque:backend 
     ports:
       - "8080:8080"
     environment:
@@ -23,15 +20,14 @@ services:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_PROFILES_ACTIVE: docker
     depends_on:
       - db
     networks:
       - my-network
 
   frontend:
-    #build:
-    #  context: ./front-end # Para rodar localmente
-    image: jponchiroli/raffi_estoque:frontend # Para rodar a partir do Docker Hub
+    image: jponchiroli/raffi_estoque:frontend 
     ports:
       - "3000:3000"
     networks:

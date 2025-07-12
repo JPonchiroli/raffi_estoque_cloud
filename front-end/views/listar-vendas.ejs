@@ -78,7 +78,7 @@
                             venda.codVenda || '',
                             nomeCliente,
                             venda.dataVenda || '',
-                            venda.valorTotal != null ? `R$ ${venda.valorTotal}` : '',
+                            venda.valorTotal != null ? `R$ ${venda.valorTotal.toFixed(2)}` : '',
                             `<button class="btn-detalhes" data-id="${venda.codVenda}">Ver Detalhes</button> <button class="btn-excluir" data-id="${venda.codVenda}">Excluir</button>`
                         ];
 
