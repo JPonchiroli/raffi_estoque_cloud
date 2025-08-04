@@ -74,4 +74,8 @@ public class ProdutoService {
     public List<Produto> findFornecedorPorNome(String nomeProduto) {
         return produtoRepository.findByNomeProdutoContainingIgnoreCase(nomeProduto);
     }
+
+    public List<Produto> findFornecedorPorCodigoBarra(Long codigoBarras) {
+        return produtoRepository.findByCodigoBarras(codigoBarras);
+    }
 }

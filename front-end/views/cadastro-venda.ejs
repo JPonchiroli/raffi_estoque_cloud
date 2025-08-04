@@ -26,9 +26,9 @@
             </div>
             <input type="hidden" name="clienteId" id="clienteId" required/>
 
-            <label for="produtoNome">Produto:</label>
+            <label for="produtoCodigoBarras">Produto:</label>
             <div class="autocomplete-container">
-                <input type="text" id="produtoNome" placeholder="Digite o nome do produto" autocomplete="off" />
+                <input type="text" id="produtoCodigoBarras" placeholder="Digite o código de barras do produto" autocomplete="off" />
                 <ul id="sugestoesProduto" class="autocomplete-list"></ul>
             </div>
 
@@ -91,31 +91,31 @@
         }
     });
 
-    const inputProduto = document.getElementById('produtoNome');
+    const inputProduto = document.getElementById('produtoCodigoBarras');
     const listaSugestoesProduto = document.getElementById('sugestoesProduto');
     const listaProdutos = document.getElementById('listaProdutos');
 
     const carrinho = [];
 
     inputProduto.addEventListener('input', async () => {
-        const nomeProduto = inputProduto.value;
+        const codigoBarrasProduto = inputProduto.value;
 
-        if (nomeProduto.length < 2) {
+        if (codigoBarrasProduto.length < 2) {
             listaSugestoesProduto.innerHTML = '';
             return;
         }
 
         try {
-            const res = await fetch(`/produtos/busca-produtos-nome-backend/${encodeURIComponent(nomeProduto)}`);
+            const res = await fetch(`/produtos/busca-produtos-codigo-barras-backend/${encodeURIComponent(codigoBarrasProduto)}`);
             const data = await res.json();
 
             listaSugestoesProduto.innerHTML = '';
 
             data.forEach(p => {
                 const li = document.createElement('li');
-                li.textContent = p.nomeProduto;
+                li.textContent = p.codigoBarrasProduto;
                 li.addEventListener('click', () => {
-                    adicionarProdutoCarrinho(p.codProduto, p.nomeProduto);
+                    adicionarProdutoCarrinho(p.codProduto, p.codigoBarrasProduto);
                     inputProduto.value = '';
                     listaSugestoesProduto.innerHTML = '';
                 });
@@ -127,10 +127,10 @@
         }
     });
 
-    function adicionarProdutoCarrinho(codProduto, nomeProduto) {
+    function adicionarProdutoCarrinho(codProduto, codigoBarrasProduto) {
         if (carrinho.find(p => p.codProduto === codProduto)) return;
 
-        const produto = { codProduto, nomeProduto, quantidade: 1 };
+        const produto = { codProduto, codigoBarrasProduto, quantidade: 1 };
         carrinho.push(produto);
 
         renderCarrinho();
@@ -143,7 +143,7 @@
             const div = document.createElement('div');
             div.className = 'produto-card';
             div.innerHTML = `
-                <strong>${p.nomeProduto}</strong><br>
+                <strong>${p.codigoBarrasProduto}</strong><br>
                 Quantidade: <input type="number" value="${p.quantidade}" min="1" onchange="atualizarQuantidade(${index}, this.value)">
                 <button class="botaoCarrinho" onclick="removerProduto(${index})">Remover</button>
             `;

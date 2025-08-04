@@ -53,14 +53,14 @@ router.get('/listar-produtos-backend', async (req, res) => {
   }
 });
 
-router.get('/busca-produtos-nome-backend/:nomeProduto', async (req, res) => {
-  const { nomeProduto } = req.params;
-  if (!nomeProduto) {
+router.get('/busca-produtos-codigo-barras-backend/:codigoBarras', async (req, res) => {
+  const { codigoBarras } = req.params;
+  if (!codigoBarras) {
     return res.status(400).json({ erro: 'Nome do produto é obrigatório' });
   }
 
   try {
-    const response = await axios.get(`http://backend:8080/api/produtos/get-produto-nome/${nomeProduto}`);
+    const response = await axios.get(`http://backend:8080/api/produtos/get-produto-cod-barras/${codigoBarras}`);
 
     console.log('Resposta do Spring:', response.data);
 

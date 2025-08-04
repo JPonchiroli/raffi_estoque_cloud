@@ -1,9 +1,6 @@
 package com.raffi_estoque.controllers;
 
-import com.raffi_estoque.dto.produto.ProdutoCreateDto;
-import com.raffi_estoque.dto.produto.ProdutoNomeDto;
-import com.raffi_estoque.dto.produto.ProdutoResponseDto;
-import com.raffi_estoque.dto.produto.ProdutoUpdateDto;
+import com.raffi_estoque.dto.produto.*;
 import com.raffi_estoque.entities.Fornecedor;
 import com.raffi_estoque.entities.Produto;
 import com.raffi_estoque.mapper.ProdutoMapper;
@@ -74,6 +71,14 @@ public class ProdutoController {
         List<Produto> produtos = produtoService.findFornecedorPorNome(nomeProduto);
         return produtos.stream()
                 .map(f -> new ProdutoNomeDto(f.getCodProduto(), f.getNomeProduto()))
+                .collect(Collectors.toList());
+    }
+
+    @GetMapping("/get-produto-cod-barras/{codigoBarras}")
+    public List<ProdutoCodigoBarraDto> getProdutoPorCodigoBarras(@PathVariable Long codigoBarras) {
+        List<Produto> produtos = produtoService.findFornecedorPorCodigoBarra(codigoBarras);
+        return produtos.stream()
+                .map(f -> new ProdutoCodigoBarraDto(f.getCodProduto(), f.getCodigoBarras()))
                 .collect(Collectors.toList());
     }
 }
