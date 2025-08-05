@@ -78,7 +78,7 @@ public class ProdutoController {
     public List<ProdutoCodigoBarraDto> getProdutoPorCodigoBarras(@PathVariable Long codigoBarras) {
         List<Produto> produtos = produtoService.findFornecedorPorCodigoBarra(codigoBarras);
         return produtos.stream()
-                .map(f -> new ProdutoCodigoBarraDto(f.getCodProduto(), f.getCodigoBarras()))
+                .map(f -> new ProdutoCodigoBarraDto(f.getCodProduto(), f.getCodigoBarras(), f.getNomeProduto()))
                 .collect(Collectors.toList());
     }
 }
