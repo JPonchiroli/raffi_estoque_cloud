@@ -9,7 +9,7 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer codProduto;
-    private Long codigoBarras;
+    private String codigoBarras;
     private String nomeProduto;
     private String unidadeMedida;
     private Double valorCusto;
@@ -24,7 +24,7 @@ public class Produto {
 
     public Produto(){}
 
-    public Produto(Integer codProduto, Long codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Fornecedor fornecedor) {
+    public Produto(Integer codProduto, String codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Fornecedor fornecedor) {
         this.codProduto = codProduto;
         this.codigoBarras = codigoBarras;
         this.nomeProduto = nomeProduto;
@@ -45,11 +45,11 @@ public class Produto {
         this.codProduto = codProduto;
     }
 
-    public Long getCodigoBarras() {
+    public String getCodigoBarras() {
         return codigoBarras;
     }
 
-    public void setCodigoBarras(Long codigoBarras) {
+    public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
 

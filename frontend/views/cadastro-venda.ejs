@@ -10,7 +10,7 @@
 
 <body>
     <header>
-        <h1>Vendas</h1>
+        <h1>Vendas  </h1>
         <h2>Cadastre novas Vendas!</h2>
     </header>
 
@@ -98,24 +98,25 @@
     const carrinho = [];
 
     inputProduto.addEventListener('input', async () => {
-        const codigoBarrasProduto = inputProduto.value;
+        const codigoBarras = inputProduto.value;
 
-        if (codigoBarrasProduto.length < 2) {
+        if (codigoBarras.length < 2) {
             listaSugestoesProduto.innerHTML = '';
             return;
         }
 
+
         try {
-            const res = await fetch(`/produtos/busca-produtos-codigo-barras-backend/${encodeURIComponent(codigoBarrasProduto)}`);
+            const res = await fetch(`/produtos/busca-produtos-codigo-barras-backend/${encodeURIComponent(codigoBarras)}`);
             const data = await res.json();
 
             listaSugestoesProduto.innerHTML = '';
 
             data.forEach(p => {
                 const li = document.createElement('li');
-                li.textContent = p.codigoBarrasProduto;
+                li.textContent = p.codigoBarras + ' - ' + p.nomeProduto;
                 li.addEventListener('click', () => {
-                    adicionarProdutoCarrinho(p.codProduto, p.codigoBarrasProduto);
+                    adicionarProdutoCarrinho(p.codProduto, p.codigoBarras, p.nomeProduto);
                     inputProduto.value = '';
                     listaSugestoesProduto.innerHTML = '';
                 });
@@ -127,10 +128,10 @@
         }
     });
 
-    function adicionarProdutoCarrinho(codProduto, codigoBarrasProduto) {
+    function adicionarProdutoCarrinho(codProduto, codigoBarras, nomeProduto) {
         if (carrinho.find(p => p.codProduto === codProduto)) return;
 
-        const produto = { codProduto, codigoBarrasProduto, quantidade: 1 };
+        const produto = { codProduto, codigoBarras, nomeProduto, quantidade: 1 };
         carrinho.push(produto);
 
         renderCarrinho();
@@ -143,7 +144,7 @@
             const div = document.createElement('div');
             div.className = 'produto-card';
             div.innerHTML = `
-                <strong>${p.codigoBarrasProduto}</strong><br>
+                <strong>${p.nomeProduto} (${p.codigoBarras})</strong><br>
                 Quantidade: <input type="number" value="${p.quantidade}" min="1" onchange="atualizarQuantidade(${index}, this.value)">
                 <button class="botaoCarrinho" onclick="removerProduto(${index})">Remover</button>
             `;

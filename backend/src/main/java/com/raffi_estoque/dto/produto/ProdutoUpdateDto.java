@@ -5,7 +5,7 @@ import jakarta.validation.constraints.Positive;
 
 public class ProdutoUpdateDto {
 
-    private Integer codigoBarras;
+    private String codigoBarras;
     private String nomeProduto;
     private String unidadeMedida;
 
@@ -24,7 +24,7 @@ public class ProdutoUpdateDto {
     public ProdutoUpdateDto() {
     }
 
-    public ProdutoUpdateDto(Integer codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo) {
+    public ProdutoUpdateDto(String codigoBarras, String nomeProduto, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo) {
         this.codigoBarras = codigoBarras;
         this.nomeProduto = nomeProduto;
         this.unidadeMedida = unidadeMedida;
@@ -35,11 +35,11 @@ public class ProdutoUpdateDto {
         this.estoqueMinimo = estoqueMinimo;
     }
 
-    public Integer getCodigoBarras() {
+    public String getCodigoBarras() {
         return codigoBarras;
     }
 
-    public void setCodigoBarras(Integer codigoBarras) {
+    public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
 

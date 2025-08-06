@@ -64,7 +64,7 @@ router.get('/busca-produtos-codigo-barras-backend/:codigoBarras', async (req, re
 
     console.log('Resposta do Spring:', response.data);
 
-    res.json(response.data);
+    res.json(Array.isArray(response.data) ? response.data : [response.data]);
   } catch (error) {
     console.error(error.message);
     res.status(500).json({ erro: 'Erro ao encontrar produtos' });

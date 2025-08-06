@@ -75,7 +75,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/get-produto-cod-barras/{codigoBarras}")
-    public List<ProdutoCodigoBarraDto> getProdutoPorCodigoBarras(@PathVariable Long codigoBarras) {
+    public List<ProdutoCodigoBarraDto> getProdutoPorCodigoBarras(@PathVariable String codigoBarras) {
         List<Produto> produtos = produtoService.findFornecedorPorCodigoBarra(codigoBarras);
         return produtos.stream()
                 .map(f -> new ProdutoCodigoBarraDto(f.getCodProduto(), f.getCodigoBarras(), f.getNomeProduto()))

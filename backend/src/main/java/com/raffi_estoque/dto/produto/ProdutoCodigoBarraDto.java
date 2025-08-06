@@ -3,12 +3,12 @@ package com.raffi_estoque.dto.produto;
 public class ProdutoCodigoBarraDto {
 
     private Integer codProduto;
-    private Long codigoBarras;
+    private String codigoBarras;
     private String nomeProduto;
 
     public ProdutoCodigoBarraDto(){}
 
-    public ProdutoCodigoBarraDto(Integer codProduto, Long codigoBarras, String nomeProduto) {
+    public ProdutoCodigoBarraDto(Integer codProduto, String codigoBarras, String nomeProduto) {
         this.codProduto = codProduto;
         this.codigoBarras = codigoBarras;
         this.nomeProduto = nomeProduto;
@@ -22,11 +22,11 @@ public class ProdutoCodigoBarraDto {
         this.codProduto = codProduto;
     }
 
-    public Long getCodigoBarras() {
+    public String getCodigoBarras() {
         return codigoBarras;
     }
 
-    public void setCodigoBarras(Long codigoBarras) {
+    public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
 

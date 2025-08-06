@@ -8,7 +8,7 @@ public class ProdutoCreateDto {
     @NotBlank
     private String nomeProduto;
 
-    private Long codigoBarras;
+    private String codigoBarras;
 
     @NotBlank
     private String unidadeMedida;
@@ -38,7 +38,7 @@ public class ProdutoCreateDto {
     public ProdutoCreateDto() {
     }
 
-    public ProdutoCreateDto(String nomeProduto, Long codigoBarras, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
+    public ProdutoCreateDto(String nomeProduto, String codigoBarras, String unidadeMedida, Double valorCusto, Integer porcentagemLucro, Double valorVenda, Integer estoqueAtual, Integer estoqueMinimo, Integer codFornecedor) {
         this.nomeProduto = nomeProduto;
         this.codigoBarras = codigoBarras;
         this.unidadeMedida = unidadeMedida;
@@ -58,11 +58,11 @@ public class ProdutoCreateDto {
         this.nomeProduto = nomeProduto;
     }
 
-    public Long getCodigoBarras() {
+    public String getCodigoBarras() {
         return codigoBarras;
     }
 
-    public void setCodigoBarras(Long codigoBarras) {
+    public void setCodigoBarras(String codigoBarras) {
         this.codigoBarras = codigoBarras;
     }
 
