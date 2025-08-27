@@ -36,7 +36,6 @@
             </table>
         </section>
 
-
         <div class="button-group">
             <button onclick="window.location.href='/'">Voltar</button>
         </div>
@@ -46,7 +45,6 @@
         <p>&copy; 2025 Raffi Estoque</p>
     </footer>
 </body>
-
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="http://cdn.datatables.net/2.3.1/js/dataTables.min.js"></script>
@@ -114,6 +112,7 @@
 
     $('#tabela').on('click', '.btn-excluir', function () {
         const id = $(this).data('id');
+        const row = $(this).parents('tr');
 
         if (confirm('Deseja realmente excluir este cliente?')) {
             fetch(`/clientes/deletar-cliente-backend/${id}`, {
@@ -123,9 +122,9 @@
                     if (!res.ok) throw new Error('Erro ao excluir');
                     return res.json();
                 })
-                .then(result => {
+                .then(() => {
                     alert('Cliente excluído com sucesso!');
-                    $('#tabela').DataTable().row($(this).parents('tr')).remove().draw();
+                    $('#tabela').DataTable().row(row).remove().draw();
                 })
                 .catch(err => {
                     console.error('Erro:', err);
@@ -137,17 +136,29 @@
     $('#tabela').on('click', '.btn-editar', function () {
         const $btn = $(this);
         const $row = $btn.closest('tr');
+        const table = $('#tabela').DataTable();
+
+        const normalizar = (valor) => {
+            if (!valor || valor === "Não informado") return null;
+            return valor.trim();
+        };
 
         if ($btn.text() === 'Editar') {
             const nomeTd = $row.find('td').eq(1);
             const cepTd = $row.find('td').eq(2);
             const numeroRuaTd = $row.find('td').eq(6);
             const complementoTd = $row.find('td').eq(7);
-            
+
             const nomeVal = nomeTd.text();
             const cepVal = cepTd.text();
             const numeroRuaVal = numeroRuaTd.text();
             const complementoVal = complementoTd.text();
+
+            // Salvar valores originais em data-attributes
+            nomeTd.data('original', nomeVal);
+            cepTd.data('original', cepVal);
+            numeroRuaTd.data('original', numeroRuaVal);
+            complementoTd.data('original', complementoVal);
 
             nomeTd.html(`<input type="text" value="${nomeVal}" />`);
             cepTd.html(`<input type="text" value="${cepVal}" />`);
@@ -158,15 +169,19 @@
             $btn.after(`<button class="btn-cancelar" data-id="${$btn.data('id')}">Cancelar</button>`);
         } else {
             const id = $btn.data('id');
-            const $row = $btn.closest('tr');
 
             const nomeCliente = $row.find('td').eq(1).find('input').val();
             const cep = $row.find('td').eq(2).find('input').val();
             const numeroRua = $row.find('td').eq(6).find('input').val();
             const complemento = $row.find('td').eq(7).find('input').val();
 
-            const dadosAtualizados = { nomeCliente, cep, complemento, numeroRua };
-        
+            const dadosAtualizados = { 
+                nomeCliente: normalizar(nomeCliente), 
+                cep: normalizar(cep), 
+                numeroRua: normalizar(numeroRua), 
+                complemento: normalizar(complemento) 
+            };
+
             fetch(`/clientes/atualizar-cliente-backend/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -177,15 +192,15 @@
                     return res.json();
                 })
                 .then(() => {
-                    $row.find('td').eq(1).text(nomeCliente);
-                    $row.find('td').eq(2).text(cep);
-                    $row.find('td').eq(6).text(numeroRua);
-                    $row.find('td').eq(7).text(complemento);
-
+                    // Atualizar via API do DataTables
+                    table.cell($row.find('td').eq(1)).data(nomeCliente);
+                    table.cell($row.find('td').eq(2)).data(cep);
+                    table.cell($row.find('td').eq(6)).data(numeroRua);
+                    table.cell($row.find('td').eq(7)).data(complemento);
 
                     $btn.text('Editar');
                     $row.find('.btn-cancelar').remove();
-                    window.location.reload();
+                    window.location.reload();   
                 })
                 .catch(err => {
                     console.error(err);
@@ -198,20 +213,15 @@
         const $row = $(this).closest('tr');
         const $editarBtn = $row.find('.btn-editar');
 
-        const nomeOriginal = $row.find('td').eq(1).find('input').attr('value');
-        const cepOriginal = $row.find('td').eq(2).find('input').attr('value');
-        const numeroRuaOriginal = $row.find('td').eq(6).find('input').attr('value');
-        const complementoOriginal = $row.find('td').eq(7).find('input').attr('value');
-
-        $row.find('td').eq(1).text(nomeOriginal);
-        $row.find('td').eq(2).text(cepOriginal);
-        $row.find('td').eq(6).text(numeroRuaOriginal);
-        $row.find('td').eq(7).text(complementoOriginal);
+        // Restaurar valores originais dos data-attributes
+        $row.find('td').eq(1).text($row.find('td').eq(1).data('original'));
+        $row.find('td').eq(2).text($row.find('td').eq(2).data('original'));
+        $row.find('td').eq(6).text($row.find('td').eq(6).data('original'));
+        $row.find('td').eq(7).text($row.find('td').eq(7).data('original'));
 
         $editarBtn.text('Editar');
         $(this).remove();
     });
-
 </script>
 
 </html>

@@ -60,7 +60,7 @@
             thousands: ".",
             search: "Buscar:",
             lengthMenu: "Mostrar _MENU_ registros por página",
-            zeroRecords: "Nenhum cliente encontrado",
+            zeroRecords: "Nenhum fornecedor encontrado",
             info: "Mostrando _START_ a _END_ de _TOTAL_ registros",
             infoEmpty: "Nenhum registro disponível",
             infoFiltered: "(filtrado de _MAX_ registros no total)",
@@ -95,14 +95,15 @@
                             fornecedor.numeroRua || 'Não informado',
                             fornecedor.complemento || 'Não informado',
                             fornecedor.uf || 'Não informado',
-                            `<button class="btn-excluir" data-id="${fornecedor.codFornecedor}">Excluir</button> <button class="btn-editar" data-id="${fornecedor.codFornecedor}">Editar</button>`
+                            `<button class="btn-excluir" data-id="${fornecedor.codFornecedor}">Excluir</button> 
+                            <button class="btn-editar" data-id="${fornecedor.codFornecedor}">Editar</button>`
                         ];
 
                         const newRow = table.row.add(row).draw().node();
 
                         const headers = [
-                            'Código Fornecedor', 'Nome Fornecedor', 'Cnpj', 'Email', 'Telefone', 'CEP', 'Cidade', 'Bairro',
-                            'Rua', 'Número Rua', 'Complemento', 'UF', 'Ações'
+                            'Código Fornecedor', 'Nome Fornecedor', 'CNPJ', 'Email', 'Telefone', 'CEP', 'Cidade',
+                            'Bairro', 'Rua', 'Número Rua', 'Complemento', 'UF', 'Ações'
                         ];
 
                         $(newRow).find('td').each(function (index) {
@@ -118,18 +119,17 @@
             });
     };
 
+    // Excluir fornecedor
     $('#tabela').on('click', '.btn-excluir', function () {
         const id = $(this).data('id');
 
         if (confirm('Deseja realmente excluir este fornecedor?')) {
-            fetch(`/fornecedores/deletar-fornecedor-backend/${id}`, {
-                method: 'DELETE'
-            })
+            fetch(`/fornecedores/deletar-fornecedor-backend/${id}`, { method: 'DELETE' })
                 .then(res => {
                     if (!res.ok) throw new Error('Erro ao excluir');
                     return res.json();
                 })
-                .then(result => {
+                .then(() => {
                     alert('Fornecedor excluído com sucesso!');
                     $('#tabela').DataTable().row($(this).parents('tr')).remove().draw();
                 })
@@ -140,51 +140,50 @@
         }
     });
 
+    // Editar / Confirmar atualização
     $('#tabela').on('click', '.btn-editar', function () {
         const $btn = $(this);
         const $row = $btn.closest('tr');
+        const rowIdx = table.row($row).index();
+
+        
+        const normalizar = (valor) => {
+            if (!valor || valor === "Não informado") return null;
+            return valor.trim();
+        };
 
         if ($btn.text() === 'Editar') {
-            const nomeTd = $row.find('td').eq(1);
-            const cnpjTd = $row.find('td').eq(2);
-            const emailTd = $row.find('td').eq(3);
-            const telefoneTd = $row.find('td').eq(4);
-            const cepTd = $row.find('td').eq(5);
-            const numeroRuaTd = $row.find('td').eq(9);
-            const complementoTd = $row.find('td').eq(10);
-
-            const nomeVal = nomeTd.text();
-            const cnpjVal = cnpjTd.text();
-            const emailVal = emailTd.text();
-            const telefoneVal = telefoneTd.text();
-            const cepVal = cepTd.text();
-            const numeroRuaVal = numeroRuaTd.text();
-            const complementoVal = complementoTd.text();
-
-            nomeTd.html(`<input type="text" value="${nomeVal}" />`);
-            cnpjTd.html(`<input type="text" value="${cnpjVal}" />`);
-            emailTd.html(`<input type="text" value="${emailVal}" />`);
-            telefoneTd.html(`<input type="text" value="${telefoneVal}" />`);
-            cepTd.html(`<input type="text" value="${cepVal}" />`);
-            numeroRuaTd.html(`<input type="text" value="${numeroRuaVal}" />`);
-            complementoTd.html(`<input type="text" value="${complementoVal}" />`);
+            const editableIndexes = [1, 2, 3, 4, 5, 9, 10]; // colunas editáveis
+            editableIndexes.forEach(i => {
+                const td = $row.find('td').eq(i);
+                const val = td.text();
+                td.html(`<input type="text" value="${val}" />`);
+            });
 
             $btn.text('Confirmar');
             $btn.after(`<button class="btn-cancelar" data-id="${$btn.data('id')}">Cancelar</button>`);
         } else {
             const id = $btn.data('id');
-            const $row = $btn.closest('tr');
 
-            const nomeFornecedor = $row.find('td').eq(1).find('input').val();
-            const cnpj = $row.find('td').eq(2).find('input').val();
-            const email = $row.find('td').eq(3).find('input').val();
-            const telefone = $row.find('td').eq(4).find('input').val();
-            const cep = $row.find('td').eq(5).find('input').val();
-            const numeroRua = $row.find('td').eq(9).find('input').val();
-            const complemento = $row.find('td').eq(10).find('input').val();
+                const nomeFornecedor = $row.find('td').eq(1).find('input').val();
+                const cnpj = $row.find('td').eq(2).find('input').val();
+                const email = $row.find('td').eq(3).find('input').val();
+                const telefone = $row.find('td').eq(4).find('input').val();
+                const cep = $row.find('td').eq(5).find('input').val();
+                const numeroRua = $row.find('td').eq(9).find('input').val();
+                const complemento = $row.find('td').eq(10).find('input').val();
 
-            const dadosAtualizados = { nomeFornecedor, cnpj, email, telefone, cep, numeroRua, complemento };
-            
+            const dadosAtualizados = {
+                nomeFornecedor: normalizar(nomeFornecedor),
+                cnpj: normalizar(cnpj),
+                email: normalizar(email),
+                telefone: normalizar(telefone),
+                cep: normalizar(cep),
+                numeroRua: normalizar(numeroRua),
+                complemento: normalizar(complemento)
+            }
+
+
             fetch(`/fornecedores/atualizar-fornecedor-backend/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
@@ -195,13 +194,14 @@
                     return res.json();
                 })
                 .then(() => {
-                    $row.find('td').eq(1).text(nomeFornecedor);
-                    $row.find('td').eq(2).text(cnpj);
-                    $row.find('td').eq(3).text(email);
-                    $row.find('td').eq(4).text(telefone);
-                    $row.find('td').eq(5).text(cep);
-                    $row.find('td').eq(9).text(numeroRua);
-                    $row.find('td').eq(10).text(complemento);
+                    // Atualizar células no DataTables
+                    table.cell(rowIdx, 1).data(dadosAtualizados.nomeFornecedor || "Não informado");
+                    table.cell(rowIdx, 2).data(dadosAtualizados.cnpj || "Não informado");
+                    table.cell(rowIdx, 3).data(dadosAtualizados.email || "Não informado");
+                    table.cell(rowIdx, 4).data(dadosAtualizados.telefone || "Não informado");
+                    table.cell(rowIdx, 5).data(dadosAtualizados.cep || "Não informado");
+                    table.cell(rowIdx, 9).data(dadosAtualizados.numeroRua || "Não informado");
+                    table.cell(rowIdx, 10).data(dadosAtualizados.complemento || "Não informado");
 
                     $btn.text('Editar');
                     $row.find('.btn-cancelar').remove();
@@ -214,31 +214,23 @@
         }
     });
 
+    // Cancelar edição
     $('#tabela').on('click', '.btn-cancelar', function () {
         const $row = $(this).closest('tr');
         const $editarBtn = $row.find('.btn-editar');
+        const rowIdx = table.row($row).index();
 
-        const nomeOriginal = $row.find('td').eq(1).find('input').attr('value');
-        const cnpjOriginal = $row.find('td').eq(2).find('input').attr('value');
-        const emailOriginal = $row.find('td').eq(3).find('input').attr('value');
-        const telefoneOriginal = $row.find('td').eq(4).find('input').attr('value');
-        const cepOriginal = $row.find('td').eq(5).find('input').attr('value');
-        const numeroRuaOriginal = $row.find('td').eq(9).find('input').attr('value');
-        const complementoOriginal = $row.find('td').eq(10).find('input').attr('value');
+        const editableIndexes = [1, 2, 3, 4, 5, 9, 10];
+        editableIndexes.forEach(i => {
+            const originalVal = $row.find('td').eq(i).find('input').attr('value');
+            table.cell(rowIdx, i).data(originalVal || "Não informado");
+        });
 
-        $row.find('td').eq(1).text(nomeOriginal);
-        $row.find('td').eq(2).text(cnpjOriginal);
-        $row.find('td').eq(3).text(emailOriginal);
-        $row.find('td').eq(4).text(telefoneOriginal);
-        $row.find('td').eq(5).text(cepOriginal);
-        $row.find('td').eq(9).text(numeroRuaOriginal);
-        $row.find('td').eq(10).text(complementoOriginal);
+        table.row(rowIdx).invalidate().draw(false);
 
         $editarBtn.text('Editar');
         $(this).remove();
     });
-
-
 </script>
 
 </html>

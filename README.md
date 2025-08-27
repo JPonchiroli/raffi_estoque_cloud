@@ -65,8 +65,8 @@ Aplicação web para gerenciamento de estoque, com interface amigável, backend 
    docker pull jponchiroli/raffi_estoque:mysql 
    docker pull jponchiroli/raffi_estoque:frontend 
    docker pull jponchiroli/raffi_estoque:backend # Baixa imagens do repositório
-   docker compose --profile prod up -d   # Para subir as imagens diretamente do repositório
-   docker compose --profile local up -d   # Para subir as imagens localmente
+   docker-compose -f docker-compose.prod.yml up -d   # Para subir as imagens diretamente do repositório
+   docker-compose -f docker-compose.local.yml up -d   # Para subir as imagens localmente
    ```
 
 3. **Acesse o sistema:**

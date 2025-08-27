@@ -7,7 +7,7 @@ public class FornecedorResponseDto {
     private String cnpj;
     private String email;
     private String telefone;
-    private Integer cep;
+    private String cep;
     private String rua;
     private Integer numeroRua;
     private String bairro;
@@ -17,7 +17,7 @@ public class FornecedorResponseDto {
 
     public FornecedorResponseDto() {}
 
-    public FornecedorResponseDto(int codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, Integer cep, String rua, Integer numeroRua, String bairro, String cidade, String uf, String complemento) {
+    public FornecedorResponseDto(int codFornecedor, String nomeFornecedor, String cnpj, String email, String telefone, String cep, String rua, Integer numeroRua, String bairro, String cidade, String uf, String complemento) {
         this.codFornecedor = codFornecedor;
         this.nomeFornecedor = nomeFornecedor;
         this.cnpj = cnpj;
@@ -72,11 +72,11 @@ public class FornecedorResponseDto {
         this.telefone = telefone;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 

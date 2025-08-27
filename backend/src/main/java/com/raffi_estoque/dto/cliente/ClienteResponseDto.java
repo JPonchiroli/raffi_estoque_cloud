@@ -2,9 +2,9 @@ package com.raffi_estoque.dto.cliente;
 
 public class ClienteResponseDto {
 
-    private Integer codCliente; // Primary Key
+    private Integer codCliente;
     private String nomeCliente;
-    private Integer cep;
+    private String cep;
     private String rua;
     private Integer numeroRua;
     private String bairro;
@@ -14,7 +14,7 @@ public class ClienteResponseDto {
 
     public ClienteResponseDto() {}
 
-    public ClienteResponseDto(Integer codCliente, String nomeCliente, Integer cep, String rua, Integer numeroRua, String bairro, String cidade, String uf, String complemento) {
+    public ClienteResponseDto(Integer codCliente, String nomeCliente, String cep, String rua, Integer numeroRua, String bairro, String cidade, String uf, String complemento) {
         this.codCliente = codCliente;
         this.nomeCliente = nomeCliente;
         this.cep = cep;
@@ -42,11 +42,11 @@ public class ClienteResponseDto {
         this.nomeCliente = nomeCliente;
     }
 
-    public Integer getCep() {
+    public String getCep() {
         return cep;
     }
 
-    public void setCep(Integer cep) {
+    public void setCep(String cep) {
         this.cep = cep;
     }
 
