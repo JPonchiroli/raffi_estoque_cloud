@@ -12,7 +12,7 @@ router.post('/cadastrar-cliente-backend', async (req, res) => {
     };
 
     const response = await axios.post(
-      'http://backend:8080/api/clientes/create-cliente',
+      'http://localhost:8080/api/clientes/create-cliente',
       clienteData
     );
 
@@ -39,7 +39,7 @@ router.post('/cadastrar-cliente-backend', async (req, res) => {
 
 router.get('/listar-clientes-backend', async (req, res) => {
   try {
-    const response = await axios.get('http://backend:8080/api/clientes/get-all-clientes');
+    const response = await axios.get('http://localhost:8080/api/clientes/get-all-clientes');
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ erro: 'Erro ao listar clientes do backend Java' });
@@ -54,7 +54,7 @@ router.get('/lista-cliente-id-backend/:id', async (req, res) => {
   }
 
   try {
-    const response = await axios.get(`http://backend:8080/api/clientes/get-cliente/${id}`);
+    const response = await axios.get(`http://localhost:8080/api/clientes/get-cliente/${id}`);
     res.json(response.data);
   } catch (error) {
     res.status(500).json({ erro: 'Erro ao listar clientes do backend Java' });
@@ -69,7 +69,7 @@ router.get('/busca-clientes-nome-backend/:nomeCliente', async (req, res) => {
   }
 
   try {
-    const response = await axios.get(`http://backend:8080/api/clientes/get-cliente-nome/${nomeCliente}`);
+    const response = await axios.get(`http://localhost:8080/api/clientes/get-cliente-nome/${nomeCliente}`);
 
     console.log('Resposta do Spring:', response.data);
 
@@ -85,7 +85,7 @@ router.put('/atualizar-cliente-backend/:id', async (req, res) => {
   const { nomeCliente, cep, numeroRua, complemento } = req.body;
 
   try {
-    const response = await axios.put(`http://backend:8080/api/clientes/update-cliente/${codCliente}`, {
+    const response = await axios.put(`http://localhost:8080/api/clientes/update-cliente/${codCliente}`, {
       nomeCliente,
       cep,
       numeroRua,
@@ -106,7 +106,7 @@ router.delete('/deletar-cliente-backend/:id', async (req, res) => {
   }
 
   try {
-    const response = await axios.delete(`http://backend:8080/api/clientes/deletar-cliente/${id}`);
+    const response = await axios.delete(`http://localhost:8080/api/clientes/deletar-cliente/${id}`);
     res.json({ mensagem: 'Cliente deletado com sucesso', dados: response.data });
   } catch (error) {
     console.error(error.message);

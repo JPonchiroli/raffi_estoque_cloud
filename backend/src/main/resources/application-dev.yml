@@ -4,9 +4,9 @@ spring:
   application:
     name: raffi-estoque
   datasource:
-    url: jdbc:mysql://localhost:3306/raffi_estoque?allowPublicKeyRetrieval=true&useSSL=false&serverTimezone=UTC
-    username: root
-    password:
+    url: jdbc:mysql://raffi-estoque.c5g2y2soaoyz.us-east-2.rds.amazonaws.com:3306/raffi_estoque
+    username: admin
+    password: ponchiroli27
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database-platform: org.hibernate.dialect.MySQL8Dialect
