@@ -95,3 +95,13 @@ aws ecs update-service \
   --service raffi-app-service-ne9zzrwt \
   --desired-count 1 \
   --region us-east-2
+```
+
+### ▶️ Para encerrar o serviço na AWS (ECS Fargate)
+
+```bash
+aws ecs update-service \
+  --cluster raffi-estoque \
+  --service raffi-app-service-ne9zzrwt \
+  --desired-count 0 \
+  --region us-east-2
